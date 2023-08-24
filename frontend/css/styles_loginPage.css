@@ -1,0 +1,157 @@
+body 
+{
+    background-color: #100b36;
+}
+
+#title 
+{
+    font-size: 40px;
+    width: 100%;
+    margin: 2% 5%;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ffffff;
+}
+
+#loginDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #100b36;
+}
+
+#loggedInDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
+#accessUIDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
+.links
+{
+    font-size: 30px;
+    display: block;
+    text-align: center;
+    color: #d5e5e8;
+    background-color: #100b36;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.buttons
+{
+    font-size: 30px;
+    border-radius: 25px;
+    width: 50%;
+    margin-left: 25%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.buttons:hover{
+    background-color: #797979;
+    color: #edf3ff;
+    opacity: 75%;
+}
+
+.links:hover{
+    background-color: #4244a4;
+    color: #FFFFFF;
+    opacity: 100%;
+}
+
+#loginName
+{
+	font-size: 30px;
+}
+#loginPassword
+{
+	font-size: 30px;
+}
+#searchText
+{
+	font-size: 30px;
+}
+#colorText
+{
+	font-size: 30px;
+}
+
+input[type="text"],input[type="password"]{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#inner-title{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ffffff;
+}
+
+#loginResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #be070d;
+}
+
+#userName{
+    display: inline-block;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+#logoutButton{
+    width: 20%;
+    margin-left: 40%;
+}
+
+select{
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 2%;
+    font-size: 0.75em;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#colorSearchResult{
+    display: none;
+}
+
+#colorAddResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #be070d;
+}

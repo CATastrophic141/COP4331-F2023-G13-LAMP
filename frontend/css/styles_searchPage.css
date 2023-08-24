@@ -1,6 +1,6 @@
 body 
 {
-    background-color: #3f9000;
+    background-color: #100b36;
 }
 
 #title 
@@ -19,16 +19,16 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: #100b36;
 }
 
 #loggedInDiv
 {
-    font-size: 30px;
+    font-size: 20px;
     width: 70%;
     margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+    padding: 10px;
+    background-color: #100b36;
 }
 
 #accessUIDiv
@@ -37,7 +37,7 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: #100b36;
 }
 
 .links
@@ -45,8 +45,8 @@ body
     font-size: 30px;
     display: block;
     text-align: center;
-    color: #95060a;
-    background-color: #ffffff;
+    color: #d5e5e8;
+    background-color: #100b36;
     margin-left: 25%;
     margin-right: 25%;
 }
@@ -61,13 +61,13 @@ body
 }
 
 .buttons:hover{
-    background-color: #10da0129;
-    color: #FFFFFF;
-    opacity: 50%;
+    background-color: #797979;
+    color: #edf3ff;
+    opacity: 75%;
 }
 
 .links:hover{
-    background-color: #95060a;
+    background-color: #4244a4;
     color: #FFFFFF;
     opacity: 100%;
 }
@@ -96,6 +96,7 @@ input[type="text"],input[type="password"]{
     margin-left: 10%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
 }
 
 #inner-title{
@@ -106,7 +107,7 @@ input[type="text"],input[type="password"]{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #ffffff;
 }
 
 #loginResult{
