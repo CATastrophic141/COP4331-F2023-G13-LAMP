@@ -64,8 +64,8 @@ function doLoginTest()
 	firstName = "";
 	lastName = "";
 
-	testUserName = "testUser123";
-	testPassword = "Admin123";
+	var testUserName = "testUser123";
+	var testPassword = "Admin123";
 	
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
