@@ -40,6 +40,18 @@ body
     background-color: #b2b2b2;
 }
 
+.links
+{
+    font-size: 30px;
+    display: block;
+    text-align: center;
+    align
+    color: #95060a;
+    background-color: #ffffff;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
 .buttons
 {
     font-size: 30px;
@@ -50,9 +62,15 @@ body
 }
 
 .buttons:hover{
-    background-color: #00d5124f;
+    background-color: #10da0129;
     color: #FFFFFF;
     opacity: 50%;
+}
+
+.links:hover{
+    background-color: #95060a;
+    color: #FFFFFF;
+    opacity: 100%;
 }
 
 #loginName
