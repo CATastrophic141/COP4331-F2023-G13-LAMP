@@ -89,7 +89,7 @@ body
 	font-size: 30px;
 }
 
-input[type="text"],input[type="password"]{
+input[type="text"],input[type="password"],input[type="search"]{
     border-radius: 25px;
     text-align: center;
     width: 80%;
@@ -140,20 +140,50 @@ select{
     font-family: 'Ubuntu', sans-serif;
 }
 
-#colorSearchResult{
-    display: none;
+#contactNameText{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
+#contactPhoneNumberText{
+    border-radius: 25px;
     text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: black;
+}
+
+#contactEmailText{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#editContact{
+    border-radius: 10px;
+    background-color: #cafff8;
+    color: darkblue;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+#deleteContact{
+    border-radius: 10px;
+    background-color: #cafff8;
+    color: darkblue;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
 }
 
 table {
