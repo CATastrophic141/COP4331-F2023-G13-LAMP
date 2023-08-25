@@ -30,11 +30,45 @@
 		 not the colors. Other than that though, this should be good to go for testing. I'll try to work on 
 		 making it look nicer or at least a little bit more unique from what Dr. Leinecker showed in class. -->
 	<button type="button" id="searchNameButton" class="buttons" onclick="searchContact();"> Search Name </button><br />
-	<span id="contactSearchResult"></span>
-	<p id="contactList">
-	</p><br /><br />
+	<span id="contactSearchResult">
+		<table id="contactTable">
+			<tr>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+			  </tr>
 
-	<input type="text" id="contactText" placeholder="Contact To Add">
+			  <tr>
+				<td>Row 1, Column 1</td>
+				<td>Row 1, Column 2</td>
+				<td>Row 1, Column 3</td>
+			  </tr>
+			  <tr>
+				<td>Row 2, Column 1</td>
+				<td>Row 2, Column 2</td>
+				<td>Row 2, Column 3</td>
+			  </tr>
+			  <tr>
+				<td>Row 3, Column 1</td>
+				<td>Row 3, Column 2</td>
+				<td>Row 3, Column 3</td>
+			  </tr>
+			  <tr>
+				<td>Row 4, Column 1</td>
+				<td>Row 4, Column 2</td>
+				<td>Row 4, Column 3</td>
+			  </tr>
+			  <tr>
+				<td>Row 5, Column 1</td>
+				<td>Row 5, Column 2</td>
+				<td>Row 5, Column 3</td>
+			  </tr>
+		  </table>
+	</span>
+
+	<input type="text" id="contactNameText" placeholder="Contact Name">
+	<input type="text" id="contactNumberText" placeholder="Contact Number">
+	<input type="text" id="contactEmailText" placeholder="Contact Email">
 	<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
 	<span id="contactAddResult"></span>
 </div>

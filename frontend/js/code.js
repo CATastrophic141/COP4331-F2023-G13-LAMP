@@ -96,7 +96,7 @@ function saveCookie()
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
-function readCookie()
+/*function readCookie()
 {
 	userId = -1;
 	let data = document.cookie;
@@ -127,7 +127,7 @@ function readCookie()
 	{
 		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
-}
+}*/
 
 function doLogout()
 {
@@ -138,13 +138,17 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addContact()
 {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+	let newName = document.getElementById("contactNameText").value;
+	let newPhone = document.getElementById("contactPhoneText").value;
+	let newEmail = document.getElementById("contactEmailText").value;
+	document.getElementById("contactAddResult").innerHTML = "";
 
-	let tmp = {color:newColor,userId,userId};
-	let jsonPayload = JSON.stringify( tmp );
+	var table = document.getElementById("contactTable");
+
+	let newContactJSON = {userId,userId,name:newName,phone:newPhone,email:newEmail};
+	let jsonPayload = JSON.stringify( newContactJSON );
 
 	let url = urlBase + '/AddColor.' + extension;
 	
@@ -167,6 +171,44 @@ function addColor()
 		document.getElementById("colorAddResult").innerHTML = err.message;
 	}
 	
+}
+
+function addContactTest()
+{
+	let newName = document.getElementById("contactNameText").value;
+	let newPhone = document.getElementById("contactPhoneText").value;
+	let newEmail = document.getElementById("contactEmailText").value;
+	document.getElementById("contactAddResult").innerHTML = "";
+
+	var table = document.getElementById("contactTable");
+
+	let newContactJSON = {userId,userId,name:newName,phone:newPhone,email:newEmail};
+	let jsonPayload = JSON.stringify( newContactJSON );
+
+	/* --- ADD CODE FOR ADDING JSON OBJ TO TABLE --- */
+ 
+	/*
+	let url = urlBase + '/AddColor.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("colorAddResult").innerHTML = err.message;
+	}
+	*/
 }
 
 function searchColor()

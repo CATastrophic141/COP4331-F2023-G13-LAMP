@@ -5,7 +5,7 @@ body
 
 #title 
 {
-    font-size: 50px;
+    font-size: 40px;
     width: 100%;
     margin: 2% 5%;
     text-align: center;
@@ -27,7 +27,7 @@ body
     font-size: 20px;
     width: 70%;
     margin-left: 15%;
-    padding: 10px;
+    padding: 25px;
     background-color: #100b36;
 }
 
@@ -96,7 +96,6 @@ input[type="text"],input[type="password"]{
     margin-left: 10%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    font-size: 20px;
 }
 
 #inner-title{
@@ -155,4 +154,24 @@ select{
     margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
+}
+
+table {
+    border: 2px solid;
+    width: 100%;
+    table-layout: fixed;
+    color: #cafff8;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+td {
+    border: 1px solid;
 }
