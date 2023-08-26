@@ -32,13 +32,13 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"error":"' . $err . '"}';
+		$retValue = '{"contactId":0,"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $id )
+	function returnWithInfo( $contactId )
 	{
-		$retValue = '{"id":' . $id . ',"error":""}';
+		$retValue = '{"contactId":' . $contactId . ',"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 
