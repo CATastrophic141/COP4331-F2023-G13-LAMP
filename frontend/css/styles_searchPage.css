@@ -40,6 +40,20 @@ body
     background-color: #100b36;
 }
 
+p{
+    color:#FFFFFF;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+a{
+    color:#cafff8;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
 .links
 {
     font-size: 30px;
@@ -184,6 +198,62 @@ select{
     text-align: center;
     font-size: 14px;
     font-family: Arial, sans-serif;
+}
+
+#editWindowTitle{
+    font-family: Arial, sans-serif;
+    color: #cafff8;
+    text-align: center;
+    font-weight: 5px;
+    font-size: 34px;
+}
+
+#editName{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#editPhone{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#editEmail{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#submitEdit{
+    font-size: 30px;
+    border-radius: 25px;
+    width: 50%;
+    margin-left: 25%;
+    font-family: 'Ubuntu', sans-serif;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    border-radius: 25px;
+    color:#100b36;
+    background-color: #cafff8;
+}
+
+#newContactBody{
+    background-color: #100b36;
+    width: 600px;
+    height: 600px;
+    align-items: center;
 }
 
 table {

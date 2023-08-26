@@ -41,8 +41,8 @@
 				<td>Row 1, Column 1</td>
 				<td>Row 1, Column 2</td>
 				<td>Row 1, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
+				<td><button id="editContact" onclick="editContact(document.getElementById('contactTable'))">Edit</button></td>
+				<td><button id="deleteContact" onclick="deleteContact(document.getElementById('contactTable'))">Delete</button></td>
 				<!-- Somehow, in the Javascript for these editContact() and deleteContact() functions, we need to find what 
 					 row in the table the button is being pressed for. Maybe, when the user clicks the button in the row, we 
 					 could somehow keep track of which row they clicked the button in (maybe give the button a unique identifier 
@@ -56,42 +56,44 @@
 				<td>Row 2, Column 1</td>
 				<td>Row 2, Column 2</td>
 				<td>Row 2, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
+				<td><button id="editContact" onclick="editContact(document.getElementById('contactTable'))">Edit</button></td>
+				<td><button id="deleteContact" onclick="deleteContact(document.getElementById('contactTable'))">Delete</button></td>
 			  </tr>
 			  <tr>
 				<td>Row 3, Column 1</td>
 				<td>Row 3, Column 2</td>
 				<td>Row 3, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
+				<td><button id="editContact" onclick="editContact(document.getElementById('contactTable'))">Edit</button></td>
+				<td><button id="deleteContact" onclick="deleteContact(document.getElementById('contactTable'))">Delete</button></td>
 			  </tr>
 			  <tr>
 				<td>Row 4, Column 1</td>
 				<td>Row 4, Column 2</td>
 				<td>Row 4, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
+				<td><button id="editContact" onclick="editContact(document.getElementById('contactTable'))">Edit</button></td>
+				<td><button id="deleteContact" onclick="deleteContact(document.getElementById('contactTable'))">Delete</button></td>
 			  </tr>
 			  <tr>
 				<td>Row 5, Column 1</td>
 				<td>Row 5, Column 2</td>
 				<td>Row 5, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
+				<!-- <td><button id="editContact" onclick="editContact(document.getElementById('contactTable'))">Edit</button></td> -->
+				<td><a id="editContact" href="./edit_contact_window.html" target="_blank" class="editLink">Edit (Test using link)</button></td>
+				<td><button id="deleteContact" onclick="deleteContact(document.getElementById('contactTable'))">Delete</button></td>
 			  </tr>
 		  </table>
-		<caption>Search results</caption>
 	</span>
 
 	<input type="text" id="contactNameText" placeholder="Contact Name">
 	<input type="text" id="contactNumberText" placeholder="Contact Number">
 	<input type="text" id="contactEmailText" placeholder="Contact Email">
 	<button type="button" id="addContactButton" class="buttons" onclick="addContactTest();"> Add Contact </button><br />
+
 <!-- <input type="tel" id="contactPhoneNumberText" placeholder="Contact Phone Number (e.g. 1234567890)" 
 	 pattern="(([0-9]{10})|(+[1-249][(][0-9]{3}[)][ ]?[0-9]{3}[- ]?[0-9]{4}))$">
 	 <input type="email" id="contactEmailText" placeholder="Contact Email">
 	 <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br /> -->
+
 	<span id="contactAddResult"></span>
 </div>
 
