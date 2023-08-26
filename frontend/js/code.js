@@ -196,14 +196,14 @@ function addContactTest()
 	 for (var prop in newContactJSON) {
 		if (isFirstProperty){
 			isFirstProperty = false;
-			contactId = newContactJSON[prop];
+			contactId = newContactJSON[prop];	// NOT SURE IF THIS IS THE CONTACT ID; if not, change to be in "else if" block.
 		} else {
 		if (newContactJSON.hasOwnProperty(prop)) {
 			var newCell = document.createElement("td");
 			newCell.textContent = newContactJSON[prop];
 			newRow.appendChild(newCell);
-			var editCell = document.createElement("td");
-			var editForm = document.createElement("form");
+			var editCell = document.createElement("td");	// Create the cell containing the edit field
+			var editForm = document.createElement("form");	// Create the overall edit form
 			var editedContactId = document.createElement("input");
 			editedContactId.type = "hidden";
 			editedContactId.value = contactId;
