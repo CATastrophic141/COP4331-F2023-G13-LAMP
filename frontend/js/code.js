@@ -200,8 +200,17 @@ function addContactTest()
 			var newCell = document.createElement("td");
 			newCell.textContent = newContactJSON[prop];
 			newRow.appendChild(newCell);
+			var editField = document.createElement("input");
+			editField.
 		}}
 	}
+
+	nameEditField = document.createElement("input");
+	nameEditField.id = "editName" + table.lastElementChild.ariaRowCount;
+	nameEditField.value = newContactJSON[newName];
+	phoneEditField = document.createElement("input");
+	phoneEditField.id = "editPhone" + table.lastElementChild.ariaRowCount;
+	phoneEditField.value = 
 
 	// Append the new row to the table body
 	table.appendChild(newRow);
