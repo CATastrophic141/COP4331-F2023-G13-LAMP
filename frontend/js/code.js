@@ -190,27 +190,32 @@ function addContactTest()
 	var newRow = document.createElement("tr");
 
 	let isFirstProperty = true;
+	var contactId;
 
 	 // Loop through the properties of the JSON object
 	 for (var prop in newContactJSON) {
 		if (isFirstProperty){
 			isFirstProperty = false;
+			contactId = newContactJSON[prop];
 		} else {
 		if (newContactJSON.hasOwnProperty(prop)) {
 			var newCell = document.createElement("td");
 			newCell.textContent = newContactJSON[prop];
 			newRow.appendChild(newCell);
+			var editForm = document.createElement("form");
+			var editedContactId = document.createElement("input");
+			editedContactId.type = "hidden";
+			editedContactId.value = contactId;
 			var editField = document.createElement("input");
-			editField.
+			editField.id = "edit".concat(prop, table.lastElementChild.ariaRowCount);
+			editField.value = newContactJSON[prop];
+			var submitEditButton = document.createElement("button");
+			submitEditButton.type = "submit";
+			editForm.appendChild(editedContactId);
+			editForm.appendChild(editField);
+			editForm.appendChild(submitEditButton);
 		}}
 	}
-
-	nameEditField = document.createElement("input");
-	nameEditField.id = "editName" + table.lastElementChild.ariaRowCount;
-	nameEditField.value = newContactJSON[newName];
-	phoneEditField = document.createElement("input");
-	phoneEditField.id = "editPhone" + table.lastElementChild.ariaRowCount;
-	phoneEditField.value = 
 
 	// Append the new row to the table body
 	table.appendChild(newRow);
