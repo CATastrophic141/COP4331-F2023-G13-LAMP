@@ -22,6 +22,31 @@ body
     background-color: #100b36;
 }
 
+#registerDiv
+{
+    font-size: 20px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 16px;
+    background-color: #24197a;
+}
+
+#registerText
+{
+    text-align: center;
+    color:aliceblue;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#registerInstruction
+{
+    color: #d5e5e8;
+    text-decoration: double;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
 #loggedInDiv
 {
     font-size: 30px;
