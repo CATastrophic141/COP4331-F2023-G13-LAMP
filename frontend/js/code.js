@@ -202,6 +202,7 @@ function addContactTest()
 			var newCell = document.createElement("td");
 			newCell.textContent = newContactJSON[prop];
 			newRow.appendChild(newCell);
+			var editCell = document.createElement("td");
 			var editForm = document.createElement("form");
 			var editedContactId = document.createElement("input");
 			editedContactId.type = "hidden";
@@ -214,6 +215,8 @@ function addContactTest()
 			editForm.appendChild(editedContactId);
 			editForm.appendChild(editField);
 			editForm.appendChild(submitEditButton);
+			editCell.appendChild(editForm);
+			newRow.appendChild(editCell);
 		}}
 	}
 
