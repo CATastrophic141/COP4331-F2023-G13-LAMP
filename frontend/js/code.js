@@ -88,13 +88,13 @@ function doLoginTest()
 	}
 }
 
-function saveCookie()
+/*function saveCookie()
 {
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-}
+}*/
 
 /*function readCookie()
 {
@@ -134,7 +134,7 @@ function doLogout()
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	//document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
 
@@ -176,7 +176,7 @@ function addContact()
 function addContactTest()
 {
 	let newName = document.getElementById("contactNameText").value;
-	let newPhone = document.getElementById("contactPhoneText").value;
+	let newPhone = document.getElementById("contactNumberText").value;
 	let newEmail = document.getElementById("contactEmailText").value;
 	document.getElementById("contactAddResult").innerHTML = "";
 
@@ -184,6 +184,30 @@ function addContactTest()
 
 	let newContactJSON = {userId,userId,name:newName,phone:newPhone,email:newEmail};
 	let jsonPayload = JSON.stringify( newContactJSON );
+
+	console.log(newContactJSON);
+
+	var newRow = document.createElement("tr");
+
+	let isFirstProperty = true;
+
+	 // Loop through the properties of the JSON object
+	 for (var prop in newContactJSON) {
+		if (isFirstProperty){
+			isFirstProperty = false;
+		} else {
+		if (newContactJSON.hasOwnProperty(prop)) {
+			var newCell = document.createElement("td");
+			newCell.textContent = newContactJSON[prop];
+			newRow.appendChild(newCell);
+		}}
+	}
+
+	// Append the new row to the table body
+	table.appendChild(newRow);
+
+	addEditButtonToRow(newRow);
+	addDeleteButtonToRow(newRow, table);
 
 	/* --- ADD CODE FOR ADDING JSON OBJ TO TABLE --- */
  
@@ -210,6 +234,39 @@ function addContactTest()
 	}
 	*/
 }
+
+function addDeleteButtonToRow(row, table) {
+    const button = document.createElement("button");
+    button.textContent = "Delete";
+    
+    // Get the row number
+    const rowNumber = row.rowIndex;
+
+	button.addEventListener("click", function() {
+		table.removeChild(row);
+		//DELETE DATA VIA API ////
+	});
+
+    const cell = row.insertCell();
+    cell.appendChild(button);
+}
+
+function addEditButtonToRow(row) {
+    const button = document.createElement("button");
+    button.textContent = "Edit";
+    
+    // Get the row number
+    const rowNumber = row.rowIndex;
+
+	// Assign the function to the button's onclick event
+    /*button.onclick = function () {
+      // myButtonFunction(rowNumber); EDIT 
+    };*/
+
+    const cell = row.insertCell();
+    cell.appendChild(button);
+}
+
 
 function searchColor()
 {
