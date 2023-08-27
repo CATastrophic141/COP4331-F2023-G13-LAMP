@@ -293,7 +293,7 @@ function addEditButtonToRow(row, userId, name) {
 		var editForm = editContactWindow.document.createElement("form");
 		editForm.id = "editForm";
 
-		let tmp = {userId:userId,contactName:name};
+		let tmp = {userId:userId,search:name};
 		let jsonPayload = JSON.stringify( tmp );
 
 		let url = urlBase + '/SearchContacts.' + extension;
