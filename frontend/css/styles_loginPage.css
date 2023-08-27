@@ -24,11 +24,12 @@ body
 
 #registerDiv
 {
+    text-align: center;
     font-size: 20px;
     width: 70%;
     margin-left: 15%;
     padding: 16px;
-    background-color: #24197a;
+    background-color: #100b36;
 }
 
 #registerText
@@ -45,6 +46,10 @@ body
     font-family: 'Ubuntu', sans-serif;
     font-size: 18px;
     text-align: center;
+}
+
+#registerButton{
+    margin-left: 3%;
 }
 
 #loggedInDiv
@@ -163,20 +168,4 @@ select{
     margin-top: 2%;
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
-}
-
-#colorSearchResult{
-    display: none;
-}
-
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #be070d;
 }
