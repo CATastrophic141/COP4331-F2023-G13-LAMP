@@ -355,9 +355,13 @@ function addEditButtonToRow(row, userId, name) {
 
 					var contIdField = editContactWindow.document.createElement("input");
 					var editName = editContactWindow.document.createElement("input");
+					editContactWindow.document.createElement("br");
 					var editPhone = editContactWindow.document.createElement("input");
+					editContactWindow.document.createElement("br");
 					var editEmail = editContactWindow.document.createElement("input");
+					editContactWindow.document.createElement("br");
 					var editSubmit = editContactWindow.document.createElement("button");
+					editContactWindow.document.createElement("br");
 
 					contIdField.id = "contIdField";
 					contIdField.type = "hidden";
@@ -418,6 +422,15 @@ function addEditButtonToRow(row, userId, name) {
 		{
 			document.getElementById("contactSearchResult").innerHTML = err.message;
 		}
+
+		editContactWindow.document.createElement("br");
+		var returnToSearchPage = editContactWindow.document.createElement("button");
+		returnToSearchPage.id = "returnToSearchPage";
+		returnToSearchPage.type = "button";
+		returnToSearchPage.textContent = "Return to Search Page";
+		returnToSearchPage.addEventListener("click", function() {
+			window.location = "./search.html";
+		})
 
 		/*
 		fetch("SearchContacts.php")
