@@ -163,7 +163,7 @@ function addContact()   //////Update or replace test with new implementaitons
 	let newContactJSON = {userId,userId,name:newName,phone:newPhone,email:newEmail};
 	let jsonPayload = JSON.stringify( newContactJSON );
 
-	let url = urlBase + '/AddColor.' + extension;
+	let url = urlBase + '/AddContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -174,14 +174,14 @@ function addContact()   //////Update or replace test with new implementaitons
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
 	
 }
@@ -195,7 +195,7 @@ function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN A
 
 	var table = document.getElementById("contactTable");
 
-	let newContactJSON = {userId,userId,name:newName,phone:newPhone,email:newEmail};
+	let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
 	let jsonPayload = JSON.stringify( newContactJSON );
 
 	console.log(newContactJSON);
@@ -219,7 +219,7 @@ function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN A
 	// Append the new row to the table body
 	table.appendChild(newRow);
 
-	addEditButtonToRow(newRow);
+	addEditButtonToRow(newRow, userId, newContactJSON["name"]);
 	addDeleteButtonToRow(newRow, table);
 
 	///////////////////////////* --- ADD CODE FOR ADDING JSON OBJ TO TABLE --- */
@@ -267,7 +267,7 @@ function addDeleteButtonToRow(row, table) {
     cell.appendChild(button);
 }
 
-function addEditButtonToRow(row) {
+function addEditButtonToRow(row, userId, name) {
     const button = document.createElement("button");
     button.textContent = "Edit";
     
@@ -275,19 +275,250 @@ function addEditButtonToRow(row) {
     const rowNumber = row.rowIndex;
 
 	// Assign the function to the button's onclick event
-    /*button.onclick = function () {
-      // myButtonFunction(rowNumber); EDIT 
-    };*/
+    button.onclick = function () {
+		var editContactWindow = window.open("./edit_contact_window.html");
+
+		var contactSearchResult = editContactWindow.document.createElement("span");
+		contactSearchResult.id = "contactSearchResult";
+		contactSearchResult.innerHTML = "";
+
+		var contactAddResult = editContactWindow.document.createElement("span");
+		contactAddResult.id = "contactAddResult";
+		contactAddResult.innerHTML = "";
+
+		var contactDeleteResult = editContactWindow.document.createElement("span");
+		contactDeleteResult.id = "contactDeleteResult";
+		contactDeleteResult.innerHTML = "";
+
+		var editForm = editContactWindow.document.createElement("form");
+		editForm.id = "editForm";
+
+		let tmp = {userId:userId,contactName:name};
+		let jsonPayload = JSON.stringify( tmp );
+
+		let url = urlBase + '/SearchContacts.' + extension;
+		
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					editContactWindow.document.getElementById("contactSearchResult").innerHTML = "Contact has been retrieved";
+					let jsonObject = JSON.parse( xhr.responseText );
+					
+					let contactId = jsonObject.results[0];
+					let currName = jsonObject.results[1];
+					let currPhone = jsonObject.results[2];
+					let currEmail = jsonObject.results[3];
+
+					var contIdField = editContactWindow.document.createElement("input");
+					var editName = editContactWindow.document.createElement("input");
+					var editPhone = editContactWindow.document.createElement("input");
+					var editEmail = editContactWindow.document.createElement("input");
+					var editSubmit = editContactWindow.document.createElement("button");
+
+					contIdField.id = "contIdField";
+					contIdField.type = "hidden";
+					contIdField.value = contactId;
+
+					editName.id = "editName";
+					editName.type = "text";
+					editName.value = currName;
+					editName.placeholder = currName;
+
+					editPhone.id = "editPhone";
+					editPhone.type = "text";
+					editPhone.value = currPhone;
+					editPhone.placeholder = currPhone;
+
+					editEmail.id = "editEmail";
+					editEmail.type = "text";
+					editEmail.value = currEmail;
+					editEmail.placeholder = currEmail;
+
+					editSubmit.id = "editSubmit";
+					editSubmit.type = "submit";
+					editSubmit.textContent = "Submit Edits";
+					editSubmit.addEventListener( "click", submitEdits( 
+						contactId, userId, editName.value, editPhone.value, editEmail.value 
+						) 
+					);
+
+					editForm.appendChild(contIdField);
+					editForm.appendChild(editName);
+					editForm.appendChild(editPhone);
+					editForm.appendChild(editEmail);
+					editForm.appendChild(editSubmit);
+
+					contactSearchResult.appendChild(editForm);
+
+					editContactWindow.document.getElementById("editContactBody").appendChild(contactSearchResult);
+					editContactWindow.document.getElementById("editContactBody").appendChild(contactAddResult);
+					editContactWindow.document.getElementById("editContactBody").appendChild(contactDeleteResult);
+
+					/*
+					for( let i=0; i<jsonObject.results.length; i++ )
+					{
+						colorList += jsonObject.results[i];
+						if( i < jsonObject.results.length - 1 )
+						{
+							colorList += "<br />\r\n";
+						}
+					}
+					
+					document.getElementsByTagName("p")[0].innerHTML = colorList;
+					*/
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactSearchResult").innerHTML = err.message;
+		}
+
+		/*
+		fetch("SearchContacts.php")
+        .then((response) => {
+            if(!response.ok){ // Before parsing (i.e. decoding) the JSON data,
+                              // check for any errors.
+                // In case of an error, throw.
+                throw new Error("Something went wrong! No contacts found.");
+            }
+
+            return response.json(); // Parse the JSON data.
+        })
+        .then((userId, name) => {
+             // This is where you handle what to do with the response.
+			var editName = editContactWindow.document.createElement("input");
+			var editPhone = editContactWindow.document.createElement("input");
+			var editEmail = editContactWindow.document.createElement("input");
+			editName.id = "editName";
+			editPhone.id = "editPhone";
+			editEmail.id = "editEmail";
+			editName.placeholder
+        })
+        .catch((error) => {
+             // This is where you handle errors.
+			throw new Error("Something went wrong! " + error + " error occured.\n");
+        });
+		*/
+    };
 
     const cell = row.insertCell();
     cell.appendChild(button);
+}
+
+
+function submitEdits(contId, userId, editName, editPhone, editEmail) {
+	let newContactJSON = {userId:userId,name:editName,phone:editPhone,email:editEmail};
+	let jsonPayload = JSON.stringify( newContactJSON );
+
+	let urlAdd = urlBase + '/AddContact.' + extension;
+	let urlDel = urlBase + '/DeletContact.' + extension;
+	
+	let xhrAdd = new XMLHttpRequest();
+	xhrAdd.open("POST", urlAdd, true);
+	xhrAdd.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhrAdd.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+			}
+		};
+		xhrAdd.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
+
+
+	let oldContactJSON = {contId:contId};
+	let jsonDelPayload = JSON.stringify( oldContactJSON );
+
+	let xhrDel = new XMLHttpRequest();
+	xhrDel.open("POST", urlDel, true);
+	xhrDel.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhrDel.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
+			}
+		};
+		xhrDel.send(jsonDelPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactDeleteResult").innerHTML = err.message;
+	}
+}
+
+function submitEdits(contId, userId, editName, editPhone, editEmail) {
+	let newContactJSON = {userId:userId,name:editName,phone:editPhone,email:editEmail};
+	let jsonPayload = JSON.stringify( newContactJSON );
+
+	let urlAdd = urlBase + '/AddContact.' + extension;
+	let urlDel = urlBase + '/DeletContact.' + extension;
+	
+	let xhrAdd = new XMLHttpRequest();
+	xhrAdd.open("POST", urlAdd, true);
+	xhrAdd.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhrAdd.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+			}
+		};
+		xhrAdd.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
+
+
+	let oldContactJSON = {contId:contId};
+	let jsonDelPayload = JSON.stringify( oldContactJSON );
+
+	let xhrDel = new XMLHttpRequest();
+	xhrDel.open("POST", urlDel, true);
+	xhrDel.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhrDel.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
+			}
+		};
+		xhrDel.send(jsonDelPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactDeleteResult").innerHTML = err.message;
+	}
 }
 
 function deleteContactDBEntry() {
 	/*API CALL HERE*/
 }
 
-function searchColor() ///////////////////////*REPLPACE OR REMOVE*/
+function searchColor() ///REPLACE OR REMOVE
 {
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
