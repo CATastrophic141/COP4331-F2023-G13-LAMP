@@ -55,7 +55,20 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
+}
 
+function register(){
+	let newLogin = document.getElementById("loginName").value;
+	let newPassword = document.getElementById("loginPassword").value;
+	if (newLogin != "" && newPassword != ""){ //Basic check
+	/////////////CALL REGISTER PHP
+	window.location.href = "search.html";
+	}
+	else {
+		var msg = document.getElementById("registerInstruction");
+		msg.textContent = "Please enter a valid username and password in the login text fields"
+		msg.style.color = "red";
+	}
 }
 
 function doLoginTest()
@@ -138,7 +151,7 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addContact()
+function addContact()   //////Update or replace test with new implementaitons
 {
 	let newName = document.getElementById("contactNameText").value;
 	let newPhone = document.getElementById("contactPhoneText").value;
@@ -173,7 +186,7 @@ function addContact()
 	
 }
 
-function addContactTest()
+function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN API CALL IS READY
 {
 	let newName = document.getElementById("contactNameText").value;
 	let newPhone = document.getElementById("contactNumberText").value;
@@ -190,64 +203,16 @@ function addContactTest()
 	var newRow = document.createElement("tr");
 
 	let isFirstProperty = true;
-	var contactId;
 
 	 // Loop through the properties of the JSON object
 	 for (var prop in newContactJSON) {
 		if (isFirstProperty){
 			isFirstProperty = false;
-			contactId = toString(newContactJSON[prop]);	// NOT SURE IF THIS IS THE CONTACT ID; if not, change to be in "else if" block.
 		} else {
 		if (newContactJSON.hasOwnProperty(prop)) {
 			var newCell = document.createElement("td");
 			newCell.textContent = newContactJSON[prop];
 			newRow.appendChild(newCell);
-			var editCell = document.createElement("td");	// Create the cell containing the edit field
-			var editForm = document.createElement("form");	// Create the overall edit form
-			var editedContactId = document.createElement("input");	// Use the contactId from the contact-adding process
-			editedContactId.type = "hidden";	// Hide it, but use it to find the correct database entry
-			editedContactId.value = contactId.concat();
-			var editField = document.createElement("input");
-			editField.id = "edit".concat(prop, table.lastElementChild.ariaRowCount);
-			editField.value = newContactJSON[prop];
-			var submitEditButton = document.createElement("button");
-			submitEditButton.type = "submit";
-			submitEditButton.id = "submitEdit".concat(prop, table.lastElementChild.ariaRowCount);
-			$('#'.concat(submitEditButton.id)).on("click", function() {
-				$.ajax({
-				   url: "UpdateContact.php",
-				   method: "POST",
-				   data: {prop: $('#'.concat(editField.id)).value, id: $('#'.concat(contactId)).value}
-				}).done( function(res) {
-				   console.log(res);
-				  //"Updated data successfully\n";
-				});
-			  });
-			  // Todo: figure out if the above 10 lines of code (incl'ing the comment) work
-			/* submitEditButton.addEventListener("click", function() {
-				TODO: Update contact data via API (UpdateContact.php ???)
-				var newData = editField.value,
-				xhr = new XMLHttpRequest();
-
-				let url = urlBase + '/AddColor.' + extension;	// TODO: Update to be valid URL and extension
-
-				xhr.open('POST', url);
-				xhr.setRequestHeader('Content-Type', "application/json; charset=UTF-8");
-				xhr.onload = function() {
-					if (xhr.status === 200 && xhr.responseText !== newData) {
-						alert('Something went wrong.  Data is now ' + xhr.responseText);
-					}
-					else if (xhr.status !== 200) {
-						alert('Request failed.  Returned status of ' + xhr.status);
-					}
-				};
-				xhr.send(encodeURI(prop + "=" + newData));
-			}) */
-			editForm.appendChild(editedContactId);
-			editForm.appendChild(editField);
-			editForm.appendChild(submitEditButton);
-			editCell.appendChild(editForm);
-			newRow.appendChild(editCell);
 		}}
 	}
 
@@ -257,8 +222,10 @@ function addContactTest()
 	addEditButtonToRow(newRow);
 	addDeleteButtonToRow(newRow, table);
 
-	/* --- ADD CODE FOR ADDING JSON OBJ TO TABLE --- */
+	///////////////////////////* --- ADD CODE FOR ADDING JSON OBJ TO TABLE --- */
  
+	///RESUSE AS SAMPLE OR REMOVE
+
 	/*
 	let url = urlBase + '/AddColor.' + extension;
 	
@@ -283,6 +250,7 @@ function addContactTest()
 	*/
 }
 
+
 function addDeleteButtonToRow(row, table) {
     const button = document.createElement("button");
     button.textContent = "Delete";
@@ -292,7 +260,7 @@ function addDeleteButtonToRow(row, table) {
 
 	button.addEventListener("click", function() {
 		table.removeChild(row);
-		//DELETE DATA VIA API ////
+		deleteContactDBEntry();///////////////////DELETE DATA VIA API ////
 	});
 
     const cell = row.insertCell();
@@ -315,8 +283,11 @@ function addEditButtonToRow(row) {
     cell.appendChild(button);
 }
 
+function deleteContactDBEntry() {
+	/*API CALL HERE*/
+}
 
-function searchColor()
+function searchColor() ///////////////////////*REPLPACE OR REMOVE*/
 {
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
