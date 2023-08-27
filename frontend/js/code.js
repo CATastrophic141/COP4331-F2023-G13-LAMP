@@ -196,7 +196,7 @@ function addContactTest()
 	 for (var prop in newContactJSON) {
 		if (isFirstProperty){
 			isFirstProperty = false;
-			contactId = newContactJSON[prop];	// NOT SURE IF THIS IS THE CONTACT ID; if not, change to be in "else if" block.
+			contactId = toString(newContactJSON[prop]);	// NOT SURE IF THIS IS THE CONTACT ID; if not, change to be in "else if" block.
 		} else {
 		if (newContactJSON.hasOwnProperty(prop)) {
 			var newCell = document.createElement("td");
@@ -204,14 +204,45 @@ function addContactTest()
 			newRow.appendChild(newCell);
 			var editCell = document.createElement("td");	// Create the cell containing the edit field
 			var editForm = document.createElement("form");	// Create the overall edit form
-			var editedContactId = document.createElement("input");
-			editedContactId.type = "hidden";
-			editedContactId.value = contactId;
+			var editedContactId = document.createElement("input");	// Use the contactId from the contact-adding process
+			editedContactId.type = "hidden";	// Hide it, but use it to find the correct database entry
+			editedContactId.value = contactId.concat();
 			var editField = document.createElement("input");
 			editField.id = "edit".concat(prop, table.lastElementChild.ariaRowCount);
 			editField.value = newContactJSON[prop];
 			var submitEditButton = document.createElement("button");
 			submitEditButton.type = "submit";
+			submitEditButton.id = "submitEdit".concat(prop, table.lastElementChild.ariaRowCount);
+			$('#'.concat(submitEditButton.id)).on("click", function() {
+				$.ajax({
+				   url: "UpdateContact.php",
+				   method: "POST",
+				   data: {prop: $('#'.concat(editField.id)).value, id: $('#'.concat(contactId)).value}
+				}).done( function(res) {
+				   console.log(res);
+				  //"Updated data successfully\n";
+				});
+			  });
+			  // Todo: figure out if the above 10 lines of code (incl'ing the comment) work
+			/* submitEditButton.addEventListener("click", function() {
+				TODO: Update contact data via API (UpdateContact.php ???)
+				var newData = editField.value,
+				xhr = new XMLHttpRequest();
+
+				let url = urlBase + '/AddColor.' + extension;	// TODO: Update to be valid URL and extension
+
+				xhr.open('POST', url);
+				xhr.setRequestHeader('Content-Type', "application/json; charset=UTF-8");
+				xhr.onload = function() {
+					if (xhr.status === 200 && xhr.responseText !== newData) {
+						alert('Something went wrong.  Data is now ' + xhr.responseText);
+					}
+					else if (xhr.status !== 200) {
+						alert('Request failed.  Returned status of ' + xhr.status);
+					}
+				};
+				xhr.send(encodeURI(prop + "=" + newData));
+			}) */
 			editForm.appendChild(editedContactId);
 			editForm.appendChild(editField);
 			editForm.appendChild(submitEditButton);
