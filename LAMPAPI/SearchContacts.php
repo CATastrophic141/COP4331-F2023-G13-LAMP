@@ -10,7 +10,7 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT Name FROM Contacts WHERE Name LIKE ? AND UserID=?");
+		$stmt = $conn->prepare("SELECT ID,Name,Phone,Email FROM Contacts WHERE Name LIKE ? AND UserID=?");
 		$contactName = "%" . $inData["search"] . "%";
 		$stmt->bind_param("ss", $contactName, $inData["userId"]);
 		$stmt->execute();
@@ -27,7 +27,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["Name"] . '"';
+			$searchResults .= '{"contactId":' . $row["ID"] . ',"name":"' . $row["Name"] . '","phone":"' . $row["Phone"] . '","email":"' . $row["Email"] . '"}';
 		}
 
 		if( $searchCount == 0 )
