@@ -531,8 +531,45 @@ function deleteContactDBEntry() {
 	/*API CALL HERE*/
 }
 
-function searchColor() ///REPLACE OR REMOVE
-{
+function searchContacts() {
+	let nameSearch = document.getElementById("nameSearch").value;
+	let numberSearch = document.getElementById("numberSearch").value;
+	let emailSearch = document.getElementById("emailSearch").value;
+
+	//Create search result storage object
+
+	if (nameSearch != ""){
+		//Query by names
+		//Add to storage
+	}
+	if (numberSearch != ""){
+		//Query by phone number
+		//Add to storage
+	}
+	if (emailSearch != ""){
+		//Query by email
+		//Add to storage
+	}
+	if (nameSearch == "" && numberSearch == "" && emailSearch == ""){
+		//Fetch all info from database
+	}
+
+	//Create array of already displayed contacts (by contact ID)
+
+	/* Passing through if statement with empty field allows for user to fetch all info or to *not* search by a field
+	/*loop for all entries in storage*/ {
+		//If contact's info matches name or if name field was empty
+			//If contact's info matches name or if phone field was empty
+				//if contact's info matches email or if email field was empty
+					//Add contact ID to array of added elements
+					//Add contact info to table
+	}
+
+	//Continue here as necessary
+
+	//////////////////////
+
+	/*
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
 	
@@ -573,5 +610,6 @@ function searchColor() ///REPLACE OR REMOVE
 	{
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
-	
+}*/
+
 }
