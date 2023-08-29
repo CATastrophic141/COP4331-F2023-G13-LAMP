@@ -7,6 +7,7 @@ let lastName = "";
 
 function doLogin()
 {
+	console.log(urlBase);
 	userId = 0;
 	firstName = "";
 	lastName = "";
@@ -235,6 +236,64 @@ function addContactTest()
 	*/
 }
 
+function deleteContactTest(element)
+{
+	const currRow = element.parentNode.parentNode.rowIndex;
+	const contactTable = document.getElementByID("contactTable");
+
+	const rowData = contactTable.rows(currRow).cells;
+
+	/*
+	This could probably be simplified by using a global map that binds
+	each loaded contact to its database ID, that way we could execute the
+	DELETE query with only the contact ID and UserID
+	*/
+	let delName = rowData[0].innerHTML;
+	let delPhone = rowData[1].innerHTML;
+	let delEmail = rowData[2].innerHTML;
+
+	let deleteContactJSON = {contactName:delName,contactPhone:delPhone,contactEmail:delEmail,userId:userId};
+	let jsonPayload = JSON.stringify( deleteContactJSON );
+
+	console.log(deleteContactJSON);
+
+	let url = urlBase + '/DeleteContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function ()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				console.log("Contact successfully deleted.");
+				// Now we can delete the HTML row from the table
+				contactTable.deleteRow(currRow);
+			}
+		};
+		xhr.send(jsonPayload);
+
+	}
+	catch(err)
+	{
+		// possibly add something to display error to user
+		console.log(err.message);
+	}
+}
+
+function editContactTest() {
+	const currRow = element.parentNode.parentNode.rowIndex;
+	const contactTable = document.getElementByID("contactTable");
+
+	const rowData = contactTable.rows(currRow).cells;
+
+	let delName = rowData[0].innerHTML;
+	let delPhone = rowData[1].innerHTML;
+	let delEmail = rowData[2].innerHTML;
+}
+
 function addDeleteButtonToRow(row, table) {
     const button = document.createElement("button");
     button.textContent = "Delete";
@@ -311,4 +370,71 @@ function searchColor()
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
 	
+}
+
+function searchContactTest()
+{
+	let searchStr = document.getElementById("searchText").value;
+	document.getElementById("contactSearchResult").innerHTML = "";
+
+	let contactList = "";
+
+	let searchContactJSON = {search:searchStr,userId:userId};
+	let jsonPayload = JSON.stringify( searchContactJSON );
+
+	let url = urlBase + '/SearchContacts.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("contactSearchResult").innerHTML = "Contact (s) has been retrieved";
+				let jsonObject = JSON.parse( xhr.responseText );
+
+
+				if (!jsonObject.error)
+				{
+					console.log(jsonObject.error)
+					// TODO ADD HTML for displaying no records found error
+				}
+				else
+				{
+					let results = jsonObject.results;
+					let tableRows = [];
+
+					// loop through results
+					for (let i = 0; i < results.length; i++)
+					{
+						let newRow = document.createElement("tr");
+
+						// add each contact property to table row
+						for (var prop in results[i])
+						{
+							if (prop !== "id" &&  results[i].hasOwnProperty(prop))
+							{
+								let newCell = document.createElement("td");
+								newCell.textContent = results[i][prop];
+								newRow.appendChild(newCell);
+							}
+						}
+						// add new row to array
+						tableRows.push(newRow);
+					}
+
+					// add rows to table
+					for (let i = 0; i < tableRows.length; i++)
+					{
+
+					}
+				}
+			}
+		};
+	} catch (err) {
+
+	}
 }
