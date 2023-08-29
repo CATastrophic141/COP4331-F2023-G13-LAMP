@@ -2,8 +2,8 @@
 	require_once("Config.php");
 
 	$inData = getRequestInfo();
-	
-	$conn = new mysqli(DB_HOSTNAME, DB_USER, DB_PASSWORD, DB_NAME); 	
+
+	$conn = new mysqli(DB_HOSTNAME, DB_USER, DB_PASSWORD, DB_NAME);
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
@@ -31,7 +31,7 @@
 		$stmt->close();
 		$conn->close();
 	}
-	
+
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents("php://input"), true);
@@ -42,17 +42,17 @@
 		header("Content-type: application/json");
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"userId":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
-	function returnWithInfo( $firstName, $lastName, $id )
+
+	function returnWithInfo( $firstName, $lastName, $userId )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"userId":' . $userId . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>

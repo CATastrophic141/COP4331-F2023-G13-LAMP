@@ -2,21 +2,21 @@
 	require_once("Config.php");
 
 	$inData = getRequestInfo();
-	
+
 	$conn = new mysqli(DB_HOSTNAME, DB_USER, DB_PASSWORD, DB_NAME);
-	if ($conn->connect_error) 
+	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}
 	else
 	{
 		$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
 		$stmt->bind_param("ssss", $inData["firstName"], $inData["lastName"], $inData["login"], $inData["password"]);
-		
+
 		if ($stmt->execute()) {
 			$newUserId = $insertStmt->insert_id;
 
-			returnWithInfo( $firstName, $lastName, $newUserId );
+			returnWithInfo( $inData["firstName"], $inData["lastName"], $newUserId );
 		} else {
 			returnWithError("That login is already in use.");
 		}
@@ -35,17 +35,17 @@
 		header("Content-type: application/json");
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"userId":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo( $firstName, $lastName, $userId )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"userId":' . $userId . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>
