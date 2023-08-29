@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Squire Contact Repository</title>
@@ -23,75 +24,33 @@
 </div>
 
 <div id="accessUIDiv">
-	<br />
-
-	<input type="search" id="searchText" placeholder="Name To Search For"/>
-	<button type="button" id="searchNameButton" class="buttons" onclick="searchContact();"> Search Name </button><br />
+	<p id="searchMsg"> </p>
+	<input type="search" id="searchText" placeholder="Contact Name"/>
+	<input type="search" id="searchText" placeholder="Contact Number"/>
+	<input type="search" id="searchText" placeholder="Contact Email"/>
+	<button type="button" id="searchNameButton" class="buttons" onclick="searchContact();"> Search </button><br />
 	<span id="contactSearchResult">
 		<table id="contactTable">
 			<tr>
 				<th>Name</th>
 				<th>Phone</th>
 				<th>Email</th>
-				<th>Edit</th>
-				<th>Delete</th>
 			  </tr>
 
-			  <tr>
-				<td>Row 1, Column 1</td>
-				<td>Row 1, Column 2</td>
-				<td>Row 1, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
-				<!-- Somehow, in the Javascript for these editContact() and deleteContact() functions, we need to find what 
-					 row in the table the button is being pressed for. Maybe, when the user clicks the button in the row, we 
-					 could somehow keep track of which row they clicked the button in (maybe give the button a unique identifier 
-					 number?) delete the element in the "CONTACTS" table of the database (at least for that user in the "USERS"
-					 table, sever their connection to that contact in "CONTACTS"), then delete the table in the row where they clicked 
-					 the delete button using the document.getElementById(contactTable).deleteRow(<insert row number here, 0-base-indexed>)
-					 function. Or, it doesn't necessarily have to be in that order, but we do need to somehow keep track of which row 
-					 is which as we add the rows into the table after the search function is carried out. -->
-			  </tr>
-			  <tr>
-				<td>Row 2, Column 1</td>
-				<td>Row 2, Column 2</td>
-				<td>Row 2, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
-			  </tr>
-			  <tr>
-				<td>Row 3, Column 1</td>
-				<td>Row 3, Column 2</td>
-				<td>Row 3, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
-			  </tr>
-			  <tr>
-				<td>Row 4, Column 1</td>
-				<td>Row 4, Column 2</td>
-				<td>Row 4, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
-			  </tr>
-			  <tr>
-				<td>Row 5, Column 1</td>
-				<td>Row 5, Column 2</td>
-				<td>Row 5, Column 3</td>
-				<td><button id="editContact" onclick="editContact(document.getElementById().contactTable)">Edit</button></td>
-				<td><button id="deleteContact" onclick="deleteContact(document.getElementById().contactTable)">Delete</button></td>
-			  </tr>
 		  </table>
-		<caption>Search results</caption>
 	</span>
-
+	<p id="addMsg"> </p>
 	<input type="text" id="contactNameText" placeholder="Contact Name">
-	<input type="text" id="contactNumberText" placeholder="Contact Number">
+	<input type="text" id="contactNumberText" placeholder="Contact Number (XXX-XXX-XXXX)">
 	<input type="text" id="contactEmailText" placeholder="Contact Email">
 	<button type="button" id="addContactButton" class="buttons" onclick="addContactTest();"> Add Contact </button><br />
+	<span id="contactAddResult"></span>
+
 <!-- <input type="tel" id="contactPhoneNumberText" placeholder="Contact Phone Number (e.g. 1234567890)" 
 	 pattern="(([0-9]{10})|(+[1-249][(][0-9]{3}[)][ ]?[0-9]{3}[- ]?[0-9]{4}))$">
 	 <input type="email" id="contactEmailText" placeholder="Contact Email">
 	 <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br /> -->
+
 	<span id="contactAddResult"></span>
 </div>
 
