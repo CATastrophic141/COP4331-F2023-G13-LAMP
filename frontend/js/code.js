@@ -274,8 +274,11 @@ function addEditButtonToRow(row, userId, name) {
     // Get the row number
     const rowNumber = row.rowIndex;
 
+	console.log("userId is " + toString(userId) +", name is " + name + ".\n");
+
 	// Assign the function to the button's onclick event
     button.onclick = function () {
+		location.href = './edit_contact.html';	
 		addEditButtonFunctionality(userId, name);
     };
 
@@ -284,29 +287,74 @@ function addEditButtonToRow(row, userId, name) {
 }
 
 function addEditButtonFunctionality(userId, name) {
-	var editContactWindow = window.open("./edit_contact_window.html");
+	// var editContactWindow = window.location.href('./edit_contact.html');
+	// window.location.href = './edit_contact.html';
+	var editContactWindow = window.self;
+	if (editContactWindow.document !== null || editContactWindow.document.getElementsByTagName('head') !== null) {
+		editContactWindow.document.documentElement.remove();	// Remove everything in the HTML document
+		/* NOTE: this may remove too much; I may have to replace it with document.querySelector.remove() 
+		   (which might have a similar effect) or document.head.innerHTML = null */
+	}
+	var editWindowHTMLString = "";
 
-	var contactSearchResult = editContactWindow.document.createElement("span");
+	console.log("Created editContactWindow. It is " + editContactWindow.nodeName + "\n");
+
+	/* var contactSearchResult = editContactWindow.createElement("span");
 	contactSearchResult.id = "contactSearchResult";
-	contactSearchResult.innerHTML = "";
+	contactSearchResult.innerHTML = ""; */
 
-	var contactAddResult = editContactWindow.document.createElement("span");
+	editWindowHTMLString += "<head>\n" +
+							"<title>Squire Contact Repository</title>\n" +
+							"<script type='text/javascript' src='../js/code.js'></script>\n" +
+							"<link href='../css/styles_searchPage.css' rel='stylesheet'>\n" +	
+							"<link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>\n" +
+							"\n" +
+							"<script type='text/javascript'>\n" +
+							"document.addEventListener('DOMContentLoaded', function() \n" +
+							"{\n"+
+								"//readCookie();\n"+
+							"}, false);\n" +
+							"</script>\n" +
+							"</head>\n"+
+							"<body id='editContactBody'>\n"+
+							"<h1 id='editWindowTitle'>Edit Contact</h1><br/>\n"+
+							"<p id='contactSearchResult'>Contact Search Result: N/a</p>\n"+
+							"<p id='contactAddResult'>Contact Add Result: N/a</p>\n"+
+							"<p id='contactDeleteResult'>Contact Delete Result: N/a</p>\n"+
+							"\n";
+
+	let userIdField = "<input id='userIdField' type='hidden' value='defaultUserId'><br/>\n";
+	let contIdField = "<input id='contIdField' type='hidden' value='defaultContactId'><br/>\n";
+	let editName = "<input id='editName' type='text' value='defaultName'><br/>\n";
+	let editPhone = "<input id='editPhone' type='text' value='defaultPhone'><br/>\n";
+	let editEmail = "<input id='editEmail' type='text' value='defaultEmail'><br/>\n";
+	let editSubmit = "<button id='editSubmit' type='submit'" +
+						"onclick='submitEdits();'>Submit Edits</button></br>\n";
+
+	editWindowHTMLString += userIdField + contIdField + editName + editPhone + editEmail + editSubmit;
+
+	/* var contactAddResult = editContactWindow.createElement("span");
 	contactAddResult.id = "contactAddResult";
 	contactAddResult.innerHTML = "";
 
-	var contactDeleteResult = editContactWindow.document.createElement("span");
+	var contactDeleteResult = editContactWindow.createElement("span");
 	contactDeleteResult.id = "contactDeleteResult";
 	contactDeleteResult.innerHTML = "";
 
-	var editForm = editContactWindow.document.createElement("form");
+	var editForm = editContactWindow.createElement("form");
 	editForm.id = "editForm";
 
-	let tmp = {userId:userId,search:name};
-	let jsonPayload = JSON.stringify( tmp );
+	var testText = editContactWindow.createElement("p");
+	testText.textContent = "Testing, this is a paragraph";
 
-	let url = urlBase + '/SearchContacts.' + extension;
+	editContactWindow.getElementById("editContactBody").appendChild(testText); */
+
+	let tmp = {userId:userId,search:name};
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/SearchContacts.' + extension;
 	
-	let xhr = new XMLHttpRequest();
+	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
@@ -315,23 +363,32 @@ function addEditButtonFunctionality(userId, name) {
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				editContactWindow.document.getElementById("contactSearchResult").innerHTML = "Contact has been retrieved";
+				editWindowHTMLString.replace("<p id='contactSearchResult'>Contact Search Result: N/a</p>",
+												"<p id='contactSearchResult'>Contact has been retrieved</p>");
+				// editContactWindow.getElementById("contactSearchResult").innerHTML = "Contact has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
 				
-				let contactId = jsonObject.results[0][0];
-				let currName = jsonObject.results[0][1];
-				let currPhone = jsonObject.results[0][2];
-				let currEmail = jsonObject.results[0][3];
+				let contactId = jsonObject["contactId"];
+				console.log("contactId = " + contactId +"\n");
+				let currName = jsonObject["name"];
+				console.log("currName = " + currName +"\n");
+				let currPhone = jsonObject["phone"];
+				console.log("currPhone = " + currPhone +"\n");
+				let currEmail = jsonObject["email"];
+				console.log("contactId = " + currEmail +"\n");
 
-				var contIdField = editContactWindow.document.createElement("input");
-				var editName = editContactWindow.document.createElement("input");
-				editContactWindow.document.createElement("br");
-				var editPhone = editContactWindow.document.createElement("input");
-				editContactWindow.document.createElement("br");
-				var editEmail = editContactWindow.document.createElement("input");
-				editContactWindow.document.createElement("br");
-				var editSubmit = editContactWindow.document.createElement("button");
-				editContactWindow.document.createElement("br");
+				let userIdField = "<input id='userIdField' type='hidden' value='" + toString(userId) + "'><br/>\n";
+				let contIdField = "<input id='contIdField' type='hidden' value='" + toString(contId) + "'><br/>\n";
+				let editName = "<input id='editName' type='text' value='" + currName + "'><br/>\n";
+				let editPhone = "<input id='editPhone' type='text' value='" + currPhone + "'><br/>\n";
+				let editEmail = "<input id='editEmail' type='text' value='" + currEmail + "'><br/>\n";
+				let editSubmit = "<button id='editSubmit' type='submit'" +
+									"onclick='submitEdits();'>Submit Edits</button></br>\n";
+
+				editWindowHTMLString += userIdField + contIdField + editName + editPhone + editEmail + editSubmit;
+				
+				/* editContactWindow.document.createElement("button");
+				editContactWindow.createElement("br");
 
 				contIdField.id = "contIdField";
 				contIdField.type = "hidden";
@@ -368,29 +425,57 @@ function addEditButtonFunctionality(userId, name) {
 
 				contactSearchResult.appendChild(editForm);
 
-				editContactWindow.document.getElementById("editContactBody").appendChild(contactSearchResult);
-				editContactWindow.document.getElementById("editContactBody").appendChild(contactAddResult);
-				editContactWindow.document.getElementById("editContactBody").appendChild(contactDeleteResult);
+				editContactWindow.getElementById("editContactBody").appendChild(contactSearchResult);
+				editContactWindow.getElementById("editContactBody").appendChild(contactAddResult);
+				editContactWindow.getElementById("editContactBody").appendChild(contactDeleteResult); */
 			}
 		};
 		xhr.send(jsonPayload);
+		console.log("JSON Payload sent");
 	}
 	catch(err)
 	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
+		editWindowHTMLString.replace("<p id='contactSearchResult'>Contact Search Result: N/a</p>",
+												toString(err.message));
 	}
 
-	editContactWindow.document.createElement("br");
-	var returnToSearchPage = editContactWindow.document.createElement("button");
+	editWindowHTMLString += "<br/>";
+
+	let returnToSearchPage = "<button id='returnToSearchPage' type='button'" +
+								" onclick='goToSearchPage()'>Return to Search Page</button>\n";
+	editWindowHTMLString += returnToSearchPage;
+	editWindowHTMLString += "\n\n"
+	
+	let endOfHTMLPage = "</body>\n</html>\n";
+	
+	editWindowHTMLString += endOfHTMLPage;
+	
+	/* var returnToSearchPage = editContactWindow.createElement("button");
 	returnToSearchPage.id = "returnToSearchPage";
 	returnToSearchPage.type = "button";
 	returnToSearchPage.textContent = "Return to Search Page";
 	returnToSearchPage.addEventListener("click", function() {
 		window.location.href = "./search.html";
-	})
+	}) */
+
+	// editContactWindow.getElementById("editContactBody").append(returnToSearchPage);
+
+	// var editContactWindow = window.open("./edit_contact.html");
+	editContactWindow.document.write(editWindowHTMLString);
+	editContactWindow.document.close();
 }
 
-function submitEdits(contId, userId, editName, editPhone, editEmail) {
+function goToSearchPage() {
+	location.href = "./search.html";
+}
+
+function submitEdits() {
+	var contId = document.getElementById('contIdField');
+	var userId = document.getElementById('userIdField');
+	var editName = document.getElementById('editName');
+	var editPhone = document.getElementById('editPhone');
+	var editEmail = document.getElementById('editEmail');
+
 	let newContactJSON = {userId:userId,name:editName,phone:editPhone,email:editEmail};
 	let jsonPayload = JSON.stringify( newContactJSON );
 
