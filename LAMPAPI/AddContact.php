@@ -12,10 +12,15 @@
 	{
 		$stmt = $conn->prepare("INSERT into Contacts (UserId,Name,Phone,Email) VALUES(?,?,?,?)");
 		$stmt->bind_param("ssss", $inData["userId"], $inData["contactName"], $inData["contactPhone"], $inData["contactEmail"]);
-		$stmt->execute();
+		if( $stmt->execute() )
+		{
+
+		};
+
+        $last_insert_id = $stmt->insert_id;
 		$stmt->close();
 		$conn->close();
-		returnWithError("");
+		returnWithInfo("");
 	}
 
 	function getRequestInfo()
@@ -29,10 +34,12 @@
 		echo $obj;
 	}
 	
-	function returnWithError( $err )
+	function returnWithInfo( $id )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"id":' . $id . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
+
+
 	
 ?>
