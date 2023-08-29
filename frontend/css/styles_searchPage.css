@@ -7,7 +7,7 @@ body
 {
     font-size: 40px;
     width: 100%;
-    margin: 2% 5%;
+    margin: 3%;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
     color: #ffffff;
@@ -257,9 +257,9 @@ select{
 }
 
 table {
+    table-layout: auto;
     border: 2px solid;
     width: 100%;
-    table-layout: fixed;
     color: #cafff8;
     font-family: Arial, sans-serif;
     font-size: 15px;
@@ -274,4 +274,9 @@ table {
 
 td {
     border: 1px solid;
+}
+
+#addMsg {
+    color: red;
+    text-align: center;
 }

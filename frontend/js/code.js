@@ -186,6 +186,28 @@ function addContact()   //////Update or replace test with new implementaitons
 	
 }
 
+function makeTableRow(table, contactJSON){
+	var newRow = document.createElement("tr");
+	var isFirstProperty = true
+	// Loop through the properties of the JSON object
+	for (var prop in contactJSON) {
+		if (isFirstProperty){
+			isFirstProperty = false;
+		} else {
+		if (contactJSON.hasOwnProperty(prop)) {
+			var newCell = document.createElement("td");
+			newCell.textContent = contactJSON[prop];
+			newRow.appendChild(newCell);
+		}}
+		}
+	
+	// Append the new row to the table body
+	table.appendChild(newRow);
+	
+	addEditButtonToRow(newRow, userId, contactJSON["name"]);
+	addDeleteButtonToRow(newRow, table);
+}
+
 function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN API CALL IS READY
 {
 	let newName = document.getElementById("contactNameText").value;
@@ -194,33 +216,48 @@ function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN A
 	document.getElementById("contactAddResult").innerHTML = "";
 
 	var table = document.getElementById("contactTable");
+	const whiteSpace = new RegExp(/^\s*$/);
+	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
+	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+	var errMsg = ""; //Err message builder
+	var nameErr = false
+	var phoneErr = false;
+	var emailErr = false;
 
-	let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
-	let jsonPayload = JSON.stringify( newContactJSON );
-
-	console.log(newContactJSON);
-
-	var newRow = document.createElement("tr");
-
-	let isFirstProperty = true;
-
-	 // Loop through the properties of the JSON object
-	 for (var prop in newContactJSON) {
-		if (isFirstProperty){
-			isFirstProperty = false;
-		} else {
-		if (newContactJSON.hasOwnProperty(prop)) {
-			var newCell = document.createElement("td");
-			newCell.textContent = newContactJSON[prop];
-			newRow.appendChild(newCell);
-		}}
+	if (whiteSpace.test(newName) || newName == ""){
+		nameErr = true;
+		errMsg = "Contact entry must have a name<br>"
+	}
+	if (!(phoneRegex.test(newPhone) || newPhone == "")) {
+		phoneErr = true;
+		errMsg = errMsg + " Phone number must match the following format: XXX-XXX-XXXX<br>";
+	}
+	if (!(emailRegex.test(newEmail) || newEmail == "")) {
+		emailErr = true;
+		errMsg = errMsg + " Email must match the following format: NAME@DOMAIN.XYZ<br>";
 	}
 
-	// Append the new row to the table body
-	table.appendChild(newRow);
-
-	addEditButtonToRow(newRow, userId, newContactJSON["name"]);
-	addDeleteButtonToRow(newRow, table);
+	if (!nameErr && !phoneErr && !emailErr){
+	let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
+	let jsonPayload = JSON.stringify( newContactJSON );
+	//console.log(newContactJSON); //Debug
+	makeTableRow(table, newContactJSON);
+	}
+	else {
+		document.getElementById("addMsg").innerHTML = errMsg;
+		if (nameErr){ 
+			let Ename = document.getElementById("contactNameText");
+			Ename.value = "";
+		}
+		if (phoneErr){
+			let Ephone = document.getElementById("contactNumberText");
+			Ephone.value = "";
+		}
+		if (emailErr) {
+			let Eemail = document.getElementById("contactEmailText");
+			Eemail.value = "";
+		}
+	}
 
 	///////////////////////////* --- ADD CODE FOR ADDING JSON OBJ TO TABLE --- */
  
@@ -249,7 +286,6 @@ function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN A
 	}
 	*/
 }
-
 
 function addDeleteButtonToRow(row, table) {
     const button = document.createElement("button");
@@ -580,8 +616,45 @@ function deleteContactDBEntry() {
 	/*API CALL HERE*/
 }
 
-function searchColor() ///REPLACE OR REMOVE
-{
+function searchContacts() {
+	let nameSearch = document.getElementById("nameSearch").value;
+	let numberSearch = document.getElementById("numberSearch").value;
+	let emailSearch = document.getElementById("emailSearch").value;
+
+	//Create search result storage object
+
+	if (nameSearch != ""){
+		//Query by names
+		//Add to storage
+	}
+	if (numberSearch != ""){
+		//Query by phone number
+		//Add to storage
+	}
+	if (emailSearch != ""){
+		//Query by email
+		//Add to storage
+	}
+	if (nameSearch == "" && numberSearch == "" && emailSearch == ""){
+		//Fetch all info from database
+	}
+
+	//Create array of already displayed contacts (by contact ID)
+
+	/* Passing through if statement with empty field allows for user to fetch all info or to *not* search by a field
+	/*loop for all entries in storage*/ {
+		//If contact's info matches name or if name field was empty
+			//If contact's info matches name or if phone field was empty
+				//if contact's info matches email or if email field was empty
+					//Add contact ID to array of added elements
+					//Add contact info to table
+	}
+
+	//Continue here as necessary
+
+	//////////////////////
+
+	/*
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
 	
@@ -622,5 +695,6 @@ function searchColor() ///REPLACE OR REMOVE
 	{
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
-	
+}*/
+
 }
