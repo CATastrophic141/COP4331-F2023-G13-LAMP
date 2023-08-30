@@ -637,12 +637,13 @@ function searchColor() ///REPLACE OR REMOVE
 
 function searchContactTest()
 {
-	let searchStr = document.getElementById("searchText").value;
+	let nameSearch = document.getElementById("nameSearch").value;
+	let numberSearch = document.getElementById("numberSearch").value;
+	let emailSearch = document.getElementById("emailSearch").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
 
-	let contactList = "";
 
-	let searchContactJSON = {search:searchStr,userId:userId};
+	let searchContactJSON = {searchName:nameSearch,searchPhone:numberSearch,searchEmail:emailSearch,userId:userId};
 	let jsonPayload = JSON.stringify( searchContactJSON );
 
 	let url = urlBase + '/SearchContacts.' + extension;
@@ -650,54 +651,37 @@ function searchContactTest()
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try {
-
+	try
+	{
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("contactSearchResult").innerHTML = "Contact (s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
 
-
-				if (!jsonObject.error)
+				if (jsonObject.error === "")
 				{
-					console.log(jsonObject.error)
-					// TODO ADD HTML for displaying no records found error
-				}
-				else
-				{
+					document.getElementById("contactSearchResult").innerHTML = "Contact (s) has been retrieved";
 					let results = jsonObject.results;
-					let tableRows = [];
+					var table = document.getElementById("contactTable");
 
 					// loop through results
 					for (let i = 0; i < results.length; i++)
 					{
-						let newRow = document.createElement("tr");
-
-						// add each contact property to table row
-						for (var prop in results[i])
-						{
-							if (prop !== "id" &&  results[i].hasOwnProperty(prop))
-							{
-								let newCell = document.createElement("td");
-								newCell.textContent = results[i][prop];
-								newRow.appendChild(newCell);
-							}
-						}
-						// add new row to array
-						tableRows.push(newRow);
+						makeTableRow(table, results[i]);
 					}
 
-					// add rows to table
-					for (let i = 0; i < tableRows.length; i++)
-					{
-
-					}
+				}
+				else
+				{
+					console.log(jsonObject.error)
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 				}
 			}
 		};
-	} catch (err) {
-
+	}
+	catch (err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
