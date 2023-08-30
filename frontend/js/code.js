@@ -757,6 +757,7 @@ function searchContacts() {
 }*/
 
 }
+
 function searchContactTest()
 {
 	let nameSearch = document.getElementById("nameSearch").value;
