@@ -161,7 +161,7 @@ function addContact()   //////Update or replace test with new implementaitons
 
 	var table = document.getElementById("contactTable");
 
-	let newContactJSON = {userId,userId,name:newName,phone:newPhone,email:newEmail};
+	let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
 	let jsonPayload = JSON.stringify( newContactJSON );
 
 	let url = urlBase + '/AddContact.' + extension;
