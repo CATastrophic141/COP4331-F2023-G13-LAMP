@@ -17,7 +17,7 @@ body
 {
     font-size: 30px;
     width: 70%;
-    margin-left: 15%;
+    margin-left: 14.5%;
     padding: 25px;
     background-color: #100b36;
 }
@@ -62,7 +62,7 @@ body
 }
 
 #registerButton{
-    margin-left: 3%;
+    margin-left: 0%;
 }
 
 #loggedInDiv
