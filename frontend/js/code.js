@@ -61,13 +61,44 @@ function doLogin()
 function register(){
 	let newLogin = document.getElementById("loginName").value;
 	let newPassword = document.getElementById("loginPassword").value;
+	let newUserFirstName = document.getElementById("registerFirstName").value;
+	let newUserLastName = document.getElementById("registerLastName").value;
+	let newUserPhone = document.getElementById("registerPhone").value;
+	let newUserEmail = document.getElementById("registerEmail").value;
+
+	const nameRegex = newRegExp(/^[a-zA-z]+$/);
+	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
+	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+
 	if (newLogin != "" && newPassword != ""){ //Basic check
-	/////////////CALL REGISTER PHP
-	window.location.href = "./search.html";
+		if (nameRegex.test(newUserFirstName) === false) {
+			var firstNameErrMsg = document.getElementById("registerInstruction");
+			firstNameErrMsg.textContent = "Please enter a valid first name";
+			firstNameErrMsg.style.color = "red";
+		}
+		else if (nameRegex.test(newUserLastName) === false) {
+			var lastNameErrMsg = document.getElementById("registerInstruction");
+			lastNameErrMsg.textContent = "Please enter a valid last name";
+			lastNameErrMsg.style.color = "red";
+		}
+		else if (phoneRegex.test(newUserPhone) === false) {
+			var phoneErrMsg = document.getElementById("registerInstruction");
+			phoneErrMsg.textContent = "Please enter a valid phone number. It should be of the format XXX-XXX-XXXX where the X's are 1-digit numbers";
+			phoneErrMsg.style.color = "red";
+		}
+		else if (emailRegex.test(newUserEmail) === false) {
+			var emailErrMsg = document.getElementById("registerInstruction");
+			emailErrMsg.textContent = "Please enter a valid email. It should be of the format something@someEmail.com";
+			emailErrMsg.style.color = "red";
+		}
+	///CALL REGISTER PHP
+		else {
+			window.location.href = "./search.html";
+		}
 	}
 	else {
 		var msg = document.getElementById("registerInstruction");
-		msg.textContent = "Please enter a valid username and password in the login text fields"
+		msg.textContent = "Please enter a valid username and password in the login text fields";
 		msg.style.color = "red";
 	}
 }
