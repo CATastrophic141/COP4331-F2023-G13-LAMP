@@ -14,18 +14,18 @@
 	<span id="inner-title">LOG IN</span>
 	<input type="text" id="loginName" placeholder="Username" /><br />
 	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLoginTest();"> Log In </button>
+	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
 	<a href="./search.html" id="loginLink" class="links">Go to the search page</a>
 	<span id="loginResult"></span>
 </div>
 
 <div id="registerDiv">
 	<span id="registerText">Not registered yet?</span><br/>
-	<p id="registerInstruction">Fill out the fields below, then register using those and your current credentials in the login fields.</p>
+	<p id="registerInstruction">Fill out the fields below, then click "Create Account".</p>
+	<input id="registerUsername" type="text" placeholder="Username" class="registerFields"><br />
+	<input id="registerPassword" type="text" placeholder="Password" class="registerFields"><br />
 	<input id="registerFirstName" type="text" placeholder="First Name" class="registerFields"><br />
 	<input id="registerLastName" type="text" placeholder="Last Name" class="registerFields"><br />
-	<input id="registerPhone" type="text" placeholder="Phone Number (XXX-XXX-XXXX)" class="registerFields"><br />
-	<input id="registerEmail" type="text" placeholder="Email (something@myEmail.com)" class="registerFields"><br />
 	<button id="registerButton" type="button" class="buttons" onclick="register();">Create Account</button>
 </div>
 
