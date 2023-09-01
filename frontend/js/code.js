@@ -5,6 +5,7 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
+/* We can use the first and last name of the user to add a personalized greeting */
 function doLogin()
 {
 	console.log(urlBase);
@@ -59,19 +60,21 @@ function doLogin()
 }
 
 function register(){
-	let newLogin = document.getElementById("loginName").value;
-	let newPassword = document.getElementById("loginPassword").value;
 	let newUserFirstName = document.getElementById("registerFirstName").value;
 	let newUserLastName = document.getElementById("registerLastName").value;
-	let newUserPhone = document.getElementById("registerPhone").value;
-	let newUserEmail = document.getElementById("registerEmail").value;
+	let newPassword = document.getElementById("registerPassword").value;
+	let newUsername = document.getElementById("registerUsername").value;
+
+	firstName = newUserFirstName;
+	lastName = newUserLastName;
 
 	const nameRegex = newRegExp(/^[a-zA-z]+$/);
-	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
-	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
 
-	if (newLogin != "" && newPassword != ""){ //Basic check
-		if (nameRegex.test(newUserFirstName) === false) {
+	if (newLogin != "" && newPassword != "" && newUserFirstName != "" && newUserLastName != ""){ //Basic check
+		//I Don't think we need to go too deep into the entry errors right now. We just care about there being something in there.
+		//First and last name information is *not* used, so it doesn't matter
+
+		/*if (nameRegex.test(newUserFirstName) === false) {
 			var firstNameErrMsg = document.getElementById("registerInstruction");
 			firstNameErrMsg.textContent = "Please enter a valid first name";
 			firstNameErrMsg.style.color = "red";
@@ -81,7 +84,7 @@ function register(){
 			lastNameErrMsg.textContent = "Please enter a valid last name";
 			lastNameErrMsg.style.color = "red";
 		}
-		else if (phoneRegex.test(newUserPhone) === false) {
+		else if (phoneRegex.test(newUser) === false) {
 			var phoneErrMsg = document.getElementById("registerInstruction");
 			phoneErrMsg.textContent = "Please enter a valid phone number. It should be of the format XXX-XXX-XXXX where the X's are 1-digit numbers";
 			phoneErrMsg.style.color = "red";
@@ -90,15 +93,30 @@ function register(){
 			var emailErrMsg = document.getElementById("registerInstruction");
 			emailErrMsg.textContent = "Please enter a valid email. It should be of the format something@someEmail.com";
 			emailErrMsg.style.color = "red";
-		}
-	///CALL REGISTER PHP
-		else {
+		}*/
+
+		///CALL REGISTER PHP
+		let newUserJSON = {firstname:newUserFirstName,lastName:newUserLastName,login:newUsername,password:newPassword};
+		let jsonPayload = JSON.stringify( newUserJSON );
+		let url = urlBase + '/Register.' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			//No return necessary. Move on
+			xhr.send(jsonPayload);
 			window.location.href = "./search.html";
+		}
+		catch(err)
+		{
+			document.getElementById("registerInstruction").innerHTML = err.message;
 		}
 	}
 	else {
 		var msg = document.getElementById("registerInstruction");
-		msg.textContent = "Please enter a valid username and password in the login text fields";
+		msg.textContent = "Please enter a valid first name, last name, and username and password in the text fields";
 		msg.style.color = "red";
 	}
 }
