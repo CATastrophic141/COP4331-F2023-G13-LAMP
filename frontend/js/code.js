@@ -64,13 +64,17 @@ function register(){
 	let newUserLastName = document.getElementById("registerLastName").value;
 	let newPassword = document.getElementById("registerPassword").value;
 	let newUsername = document.getElementById("registerUsername").value;
+	let newUserPhone = document.getElementById("registerPhone").value;
+	let newUserEmail = document.getElementById("registerEmail").value;
 
 	firstName = newUserFirstName;
 	lastName = newUserLastName;
 
-	const nameRegex = newRegExp(/^[a-zA-z]+$/);
+	const nameRegex = new RegExp(/^[a-zA-z]+$/);
+	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
+	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
 
-	if (newLogin != "" && newPassword != "" && newUserFirstName != "" && newUserLastName != ""){ //Basic check
+	if (newLogin != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phone.test(newUserPhone) ){ //Basic check
 		//I Don't think we need to go too deep into the entry errors right now. We just care about there being something in there.
 		//First and last name information is *not* used, so it doesn't matter
 
@@ -96,7 +100,7 @@ function register(){
 		}*/
 
 		///CALL REGISTER PHP
-		let newUserJSON = {firstname:newUserFirstName,lastName:newUserLastName,login:newUsername,password:newPassword};
+		let newUserJSON = {firstName:newUserFirstName,lastName:newUserLastName,phone:newUserPhone,email:newUserEmail,login:newUsername,password:newPassword};
 		let jsonPayload = JSON.stringify( newUserJSON );
 		let url = urlBase + '/Register.' + extension;
 
@@ -116,7 +120,7 @@ function register(){
 	}
 	else {
 		var msg = document.getElementById("registerInstruction");
-		msg.textContent = "Please enter a valid first name, last name, and username and password in the text fields";
+		msg.textContent = "Please enter valid credentials";
 		msg.style.color = "red";
 	}
 }
