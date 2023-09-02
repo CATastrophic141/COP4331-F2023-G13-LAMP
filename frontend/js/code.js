@@ -243,11 +243,29 @@ function addContact()   //////Update or replace test with new implementaitons
 
 function makeTableRow(table, contactJSON){
 	var newRow = document.createElement("tr");
-	var isFirstProperty = true
+	var isFirstProperty = true;
 	// Loop through the properties of the JSON object
 	for (var prop in contactJSON) {
-		if (isFirstProperty){
+		// Add Contact ID as hidden field to table row, so it can be deleted via 'Delete.php' API call
+		if (isFirstProperty){	
 			isFirstProperty = false;
+			/** Caleb: I edited the below stuff out because I wasn't sure if somebody wanted to
+			 * update the DeleteContact.php function to delete based on the stuff in Joey's deleteContactTest()
+			 * function, or if we wanted to keep DeleteContact.php as is and instead add this hidden Contact ID
+			 * field as the first data item in each table row.
+			 * If we wanted to add that as a hidden value, then we would just need to change deleteContactTest()
+			 * a bit and probably also alter deleteContactDBEntry and addEditButtonToRow, since they
+			 * get their data based on where the data in each table row ('tr') is stored, and we'd also
+			 * want them to be able to get the contact ID from the hidden value field that it 
+			 * is stored in within the table row. ------------------------------------------------ **/
+			/// ---------------------------------------------------------------------------------------------------
+			/* ---------------------------------------------------------------------------------------
+			let contactIdField = document.createElement("input");
+			contactIdField.type = "hidden";
+			contactIdField.id = "contactIdRow" + toString(newRow.rowIndex);
+			contactIdField.value = contactJSON["contactId"];
+			newRow.appendChild(contactIdField);
+			--------------------------------------------------------------------------------------- */
 		} else {
 		if (contactJSON.hasOwnProperty(prop)) {
 			var newCell = document.createElement("td");
@@ -313,9 +331,6 @@ function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN A
 			Eemail.value = "";
 		}
 	}
-
-	///////////////////////////* --- ADD CODE FOR ADDING JSON OBJ TO TABLE --- */
- 
 	///RESUSE AS SAMPLE OR REMOVE
 
 	/*
@@ -363,6 +378,7 @@ function deleteContactTest(element)
 
 	console.log(deleteContactJSON);
 
+	// Todo: Update either DeleteContact.php or the JSON object passed to it, as right now DeleteContact.php deletes based on contact ID
 	let url = urlBase + '/DeleteContact.' + extension;
 
 	let xhr = new XMLHttpRequest();
@@ -408,27 +424,28 @@ function addDeleteButtonToRow(row, table) {
     const rowNumber = row.rowIndex;
 
 	button.addEventListener("click", function() {
-		table.removeChild(row);
-		deleteContactDBEntry();///////////////////DELETE DATA VIA API ////
+		deleteContactDBEntry(row, rowNumber);
+		table.removeChild(row);///////////////////DELETE DATA VIA API ////
 	});
 
     const cell = row.insertCell();
     cell.appendChild(button);
 }
 
-function addEditButtonToRow(row, userId, name) {
+function addEditButtonToRow(row, userId) {
     const button = document.createElement("button");
     button.textContent = "Edit";
-    
-    // Get the row number
-    const rowNumber = row.rowIndex;
+
+	let name = row.cells.rowData[0].innerHTML;
+	let phone = row.cells.rowData[1].innerHTML;
+	let email = row.cells.rowData[2].innerHTML;
 
 	console.log("userId is " + toString(userId) +", name is " + name + ".\n");
 
 	// Assign the function to the button's onclick event
     button.onclick = function () {
 		location.href = './edit_contact.html';	
-		addEditButtonFunctionality(userId, name);
+		addEditButtonFunctionality(userId, name, phone, email);
     };
 
     const cell = row.insertCell();
@@ -436,10 +453,11 @@ function addEditButtonToRow(row, userId, name) {
 }
 
 /* Caleb, would you mind adding documentation to this function? It is fairly obtuse and I am having trouble folowing some parts of it */
-function addEditButtonFunctionality(userId, name) { 
-	// var editContactWindow = window.location.href('./edit_contact.html');
-	// window.location.href = './edit_contact.html';
-	var editContactWindow = window.self;
+/* Sure thing! I'll try. */
+function addEditButtonFunctionality(userId, name, phone, email) {
+	var editContactWindow = window.self;	// Another way of referring to the current window
+
+	// Delete anything that is currently on the page so that it can be repopulated with the appropriate elements.
 	if (editContactWindow.document !== null || editContactWindow.document.getElementsByTagName('head') !== null) {
 		editContactWindow.document.documentElement.remove();	// Remove everything in the HTML document
 		/* NOTE: this may remove too much; I may have to replace it with document.querySelector.remove() 
@@ -447,12 +465,9 @@ function addEditButtonFunctionality(userId, name) {
 	}
 	var editWindowHTMLString = "";
 
-	console.log("Created editContactWindow. It is " + editContactWindow.nodeName + "\n");
+	//console.log("Created editContactWindow. It is " + editContactWindow.nodeName + "\n");	//Debug
 
-	/* var contactSearchResult = editContactWindow.createElement("span");
-	contactSearchResult.id = "contactSearchResult";
-	contactSearchResult.innerHTML = ""; */
-
+	// Create 'edit_contact.html' head section, and the start of its 'body' section.
 	editWindowHTMLString += "<head>\n" +
 							"<title>Squire Contact Repository</title>\n" +
 							"<script type='text/javascript' src='../js/code.js'></script>\n" +
@@ -472,35 +487,16 @@ function addEditButtonFunctionality(userId, name) {
 							"<p id='contactAddResult'>Contact Add Result: N/a</p>\n"+
 							"<p id='contactDeleteResult'>Contact Delete Result: N/a</p>\n"+
 							"\n";
+	/** This should now give us the start of the HTML document that we need to have a custom 'EDIT CONTACT' page. **/
 
-	let userIdField = "<input id='userIdField' type='hidden' value='defaultUserId'><br/>\n";
-	let contIdField = "<input id='contIdField' type='hidden' value='defaultContactId'><br/>\n";
-	let editName = "<input id='editName' type='text' value='defaultName'><br/>\n";
-	let editPhone = "<input id='editPhone' type='text' value='defaultPhone'><br/>\n";
-	let editEmail = "<input id='editEmail' type='text' value='defaultEmail'><br/>\n";
-	let editSubmit = "<button id='editSubmit' type='submit'" +
-						"onclick='submitEdits();'>Submit Edits</button></br>\n";
+	/** Add the hidden User ID field to the super-string that will be used to populate the custom 
+	 * 'EDIT CONTACTS' HTML document. **/
+	let userIdField = "<input id='userIdField' type='hidden' value='" + toString(userId) + "'><br/>\n";
 
-	editWindowHTMLString += userIdField + contIdField + editName + editPhone + editEmail + editSubmit;
-
-	/* var contactAddResult = editContactWindow.createElement("span");
-	contactAddResult.id = "contactAddResult";
-	contactAddResult.innerHTML = "";
-
-	var contactDeleteResult = editContactWindow.createElement("span");
-	contactDeleteResult.id = "contactDeleteResult";
-	contactDeleteResult.innerHTML = "";
-
-	var editForm = editContactWindow.createElement("form");
-	editForm.id = "editForm";
-
-	var testText = editContactWindow.createElement("p");
-	testText.textContent = "Testing, this is a paragraph";
-
-	editContactWindow.getElementById("editContactBody").appendChild(testText); */
-
-	let tmp = {userId:userId,search:name};
-	var jsonPayload = JSON.stringify( tmp );
+	/** Get the contact's Contact ID using a SearchContacts API call **/
+	// ------------------------------------------------------------------------------------------------
+	let contactToEdit = {searchName:name, searchNumber:phone, searchEmail:email, userId:userId};
+	var jsonPayload = JSON.stringify( contactToEdit );
 
 	var url = urlBase + '/SearchContacts.' + extension;
 	
@@ -515,69 +511,17 @@ function addEditButtonFunctionality(userId, name) {
 			{
 				editWindowHTMLString.replace("<p id='contactSearchResult'>Contact Search Result: N/a</p>",
 												"<p id='contactSearchResult'>Contact has been retrieved</p>");
-				// editContactWindow.getElementById("contactSearchResult").innerHTML = "Contact has been retrieved";
+
 				let jsonObject = JSON.parse( xhr.responseText );
 				
-				let contactId = jsonObject["contactId"];
+				var contactId = jsonObject["contactId"];
 				console.log("contactId = " + contactId +"\n");
-				let currName = jsonObject["name"];
-				console.log("currName = " + currName +"\n");
-				let currPhone = jsonObject["phone"];
-				console.log("currPhone = " + currPhone +"\n");
-				let currEmail = jsonObject["email"];
-				console.log("contactId = " + currEmail +"\n");
 
-				let userIdField = "<input id='userIdField' type='hidden' value='" + toString(userId) + "'><br/>\n";
-				let contIdField = "<input id='contIdField' type='hidden' value='" + toString(contId) + "'><br/>\n";
-				let editName = "<input id='editName' type='text' value='" + currName + "'><br/>\n";
-				let editPhone = "<input id='editPhone' type='text' value='" + currPhone + "'><br/>\n";
-				let editEmail = "<input id='editEmail' type='text' value='" + currEmail + "'><br/>\n";
-				let editSubmit = "<button id='editSubmit' type='submit'" +
-									"onclick='submitEdits();'>Submit Edits</button></br>\n";
+				/** Add the hidden Contact ID field to the document. **/
+				var contIdField = "<input id='contIdField' type='hidden' value='" + toString(contId) + "'><br/>\n";
 
-				editWindowHTMLString += userIdField + contIdField + editName + editPhone + editEmail + editSubmit;
-				
-				/* editContactWindow.document.createElement("button");
-				editContactWindow.createElement("br");
-
-				contIdField.id = "contIdField";
-				contIdField.type = "hidden";
-				contIdField.value = contactId;
-
-				editName.id = "editName";
-				editName.type = "text";
-				editName.value = currName;
-				editName.placeholder = currName;
-
-				editPhone.id = "editPhone";
-				editPhone.type = "text";
-				editPhone.value = currPhone;
-				editPhone.placeholder = currPhone;
-
-				editEmail.id = "editEmail";
-				editEmail.type = "text";
-				editEmail.value = currEmail;
-				editEmail.placeholder = currEmail;
-
-				editSubmit.id = "editSubmit";
-				editSubmit.type = "submit";
-				editSubmit.textContent = "Submit Edits";
-				editSubmit.addEventListener( "click", submitEdits( 
-					contactId, userId, editName.value, editPhone.value, editEmail.value 
-					) 
-				);
-
-				editForm.appendChild(contIdField);
-				editForm.appendChild(editName);
-				editForm.appendChild(editPhone);
-				editForm.appendChild(editEmail);
-				editForm.appendChild(editSubmit);
-
-				contactSearchResult.appendChild(editForm);
-
-				editContactWindow.getElementById("editContactBody").appendChild(contactSearchResult);
-				editContactWindow.getElementById("editContactBody").appendChild(contactAddResult);
-				editContactWindow.getElementById("editContactBody").appendChild(contactDeleteResult); */
+				/** Now, add the two hidden fields (User ID and Contact ID) to the document! **/
+				editWindowHTMLString += userIdField + contIdField;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -588,37 +532,45 @@ function addEditButtonFunctionality(userId, name) {
 		editWindowHTMLString.replace("<p id='contactSearchResult'>Contact Search Result: N/a</p>",
 												toString(err.message));
 	}
+	// ^^ End getting contact's Contact ID using SearchContacts API call ^^
+	// -------------------------------------------------------------------------------------------------
 
-	editWindowHTMLString += "<br/>";
+	/** Add the Name, Phone Number, and Email fields, below the hidden User ID and 
+	 * Contact ID fields on the HTML 'EDIT CONTACTS' page. **/
+	let editName = "<input id='editName' type='text' value='" + currName + "'><br/>\n";
+	let editPhone = "<input id='editPhone' type='text' value='" + currPhone + "'><br/>\n";
+	let editEmail = "<input id='editEmail' type='text' value='" + currEmail + "'><br/>\n";
+	let editSubmit = "<button id='editSubmit' type='submit'" +
+						"onclick='submitEdits();'>Submit Edits</button></br>\n";
 
+	editWindowHTMLString += editName + editPhone + editEmail + editSubmit + "<br />";
+
+	/** Add a button to allow RETURNING TO THE SEARCH PAGE below the 'SUBMIT EDITS' button. **/
 	let returnToSearchPage = "<button id='returnToSearchPage' type='button'" +
 								" onclick='goToSearchPage()'>Return to Search Page</button>\n";
 	editWindowHTMLString += returnToSearchPage;
 	editWindowHTMLString += "\n\n"
 	
+	/** Finish the page! **/
 	let endOfHTMLPage = "</body>\n</html>\n";
 	
 	editWindowHTMLString += endOfHTMLPage;
-	
-	/* var returnToSearchPage = editContactWindow.createElement("button");
-	returnToSearchPage.id = "returnToSearchPage";
-	returnToSearchPage.type = "button";
-	returnToSearchPage.textContent = "Return to Search Page";
-	returnToSearchPage.addEventListener("click", function() {
-		window.location.href = "./search.html";
-	}) */
 
-	// editContactWindow.getElementById("editContactBody").append(returnToSearchPage);
-	// var editContactWindow = window.open("./edit_contact.html");
-
+	/** WRITE ALL THE CONTENTS OF THE PAGE TO THE ACTUAL HTML PAGE ('edit_contact.html')!!! **/
 	editContactWindow.document.write(editWindowHTMLString);
-	editContactWindow.document.close();
+
+	/** Close the document-writing process to allow the buttons on the page to do what
+	 * what they're actually supposed to do (run their scripts). **/
+	editContactWindow.document.close();	
 }
 
 function goToSearchPage() {
 	location.href = "./search.html";
 }
 
+/** Caleb: I could probably edit this function to just use the UpdateContact API call, and I plan on doing that in 
+ * my next commit. 
+ * --------------------------------------------------------------------------------------------------------------- **/
 function submitEdits() {
 	var contId = document.getElementById('contIdField');
 	var userId = document.getElementById('userIdField');
@@ -676,20 +628,54 @@ function submitEdits() {
 	}
 }
 
-function deleteContactDBEntry() {
+function deleteContactDBEntry(row) {
+	/* Get the Contact ID of the Contact to be deleted from the hidden input field of 
+	the current table row. */
+	// TODO: FIND A LEGIT WAY TO GET THE CONTACT ID, OR UPDATE DELETE.PHP TO ALLOW DELETING BY NAME/PHONE/EMAIL */
+	let contactIdToDelete = row.item(0).value;
+	
+	let urlDel = urlBase + "/DeleteContact." + extension;
+
+	let delContactJSON = {contactId:contactIdToDelete};
+	let jsonDelPayload = JSON.stringify( delContactJSON );
+
 	/*API CALL HERE*/
+	let xhrDel = new XMLHttpRequest();
+	xhrDel.open("POST", urlDel, true);
+	xhrDel.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhrDel.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				console.log("Contact has been deleted");
+			}
+		};
+		xhrDel.send(jsonDelPayload);
+	}
+	catch(err)
+	{
+		console.log(err.message);
+	}
 }
 
+/*
 function searchContacts() { //Unused version. Delete at end of proj if necessary
 	let nameSearch = document.getElementById("nameSearch").value;
 	let numberSearch = document.getElementById("numberSearch").value;
 	let emailSearch = document.getElementById("emailSearch").value;
 
+	let jsonSearchObject = {searchName:nameSearch,searchPhone:numberSearch,searchEmail:emailSearch};
+
 	//Create search result storage object
+	var searchResults;
+
 
 	if (nameSearch != ""){
 		//Query by names
 		//Add to storage
+
 	}
 	if (numberSearch != ""){
 		//Query by phone number
@@ -705,7 +691,7 @@ function searchContacts() { //Unused version. Delete at end of proj if necessary
 
 	//Create array of already displayed contacts (by contact ID)
 
-	/* Passing through if statement with empty field allows for user to fetch all info or to *not* search by a field
+	/* Passing through if statement with empty field allows for user to fetch all info or to *not* search by a field */
 	/*loop for all entries in storage*/ {
 		//If contact's info matches name or if name field was empty
 			//If contact's info matches name or if phone field was empty
@@ -759,9 +745,9 @@ function searchContacts() { //Unused version. Delete at end of proj if necessary
 	{
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
-}*/
-
 }
+
+} */
 
 function searchContactTest()
 {
@@ -807,6 +793,7 @@ function searchContactTest()
 				}
 			}
 		};
+		xhr.send(jsonPayload);
 	}
 	catch (err)
 	{
