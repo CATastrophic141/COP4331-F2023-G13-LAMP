@@ -75,6 +75,7 @@ function register(){
 	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
 
 	if (newLogin != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phone.test(newUserPhone) ){ //Basic check
+		
 		//I Don't think we need to go too deep into the entry errors right now. We just care about there being something in there.
 		//First and last name information is *not* used, so it doesn't matter
 
@@ -434,7 +435,8 @@ function addEditButtonToRow(row, userId, name) {
     cell.appendChild(button);
 }
 
-function addEditButtonFunctionality(userId, name) {
+/* Caleb, would you mind adding documentation to this function? It is fairly obtuse and I am having trouble folowing some parts of it */
+function addEditButtonFunctionality(userId, name) { 
 	// var editContactWindow = window.location.href('./edit_contact.html');
 	// window.location.href = './edit_contact.html';
 	var editContactWindow = window.self;
@@ -607,8 +609,8 @@ function addEditButtonFunctionality(userId, name) {
 	}) */
 
 	// editContactWindow.getElementById("editContactBody").append(returnToSearchPage);
-
 	// var editContactWindow = window.open("./edit_contact.html");
+
 	editContactWindow.document.write(editWindowHTMLString);
 	editContactWindow.document.close();
 }
@@ -674,61 +676,11 @@ function submitEdits() {
 	}
 }
 
-/* function submitEdits(contId, userId, editName, editPhone, editEmail) {
-	let newContactJSON = {userId:userId,name:editName,phone:editPhone,email:editEmail};
-	let jsonPayload = JSON.stringify( newContactJSON );
-
-	let urlAdd = urlBase + '/AddContact.' + extension;
-	let urlDel = urlBase + '/DeletContact.' + extension;
-	
-	let xhrAdd = new XMLHttpRequest();
-	xhrAdd.open("POST", urlAdd, true);
-	xhrAdd.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhrAdd.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
-			}
-		};
-		xhrAdd.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
-	}
-
-
-	let oldContactJSON = {contId:contId};
-	let jsonDelPayload = JSON.stringify( oldContactJSON );
-
-	let xhrDel = new XMLHttpRequest();
-	xhrDel.open("POST", urlDel, true);
-	xhrDel.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhrDel.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
-			}
-		};
-		xhrDel.send(jsonDelPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactDeleteResult").innerHTML = err.message;
-	}
-} */
-
 function deleteContactDBEntry() {
 	/*API CALL HERE*/
 }
 
-function searchContacts() {
+function searchContacts() { //Unused version. Delete at end of proj if necessary
 	let nameSearch = document.getElementById("nameSearch").value;
 	let numberSearch = document.getElementById("numberSearch").value;
 	let emailSearch = document.getElementById("emailSearch").value;
