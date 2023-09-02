@@ -5,6 +5,7 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
+/* We can use the first and last name of the user to add a personalized greeting */
 function doLogin()
 {
 	console.log(urlBase);
@@ -59,15 +60,68 @@ function doLogin()
 }
 
 function register(){
-	let newLogin = document.getElementById("loginName").value;
-	let newPassword = document.getElementById("loginPassword").value;
-	if (newLogin != "" && newPassword != ""){ //Basic check
-	/////////////CALL REGISTER PHP
-	window.location.href = "./search.html";
+	let newUserFirstName = document.getElementById("registerFirstName").value;
+	let newUserLastName = document.getElementById("registerLastName").value;
+	let newPassword = document.getElementById("registerPassword").value;
+	let newUsername = document.getElementById("registerUsername").value;
+	let newUserPhone = document.getElementById("registerPhone").value;
+	let newUserEmail = document.getElementById("registerEmail").value;
+
+	firstName = newUserFirstName;
+	lastName = newUserLastName;
+
+	const nameRegex = new RegExp(/^[a-zA-z]+$/);
+	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
+	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+
+	if (newLogin != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phone.test(newUserPhone) ){ //Basic check
+		
+		//I Don't think we need to go too deep into the entry errors right now. We just care about there being something in there.
+		//First and last name information is *not* used, so it doesn't matter
+
+		/*if (nameRegex.test(newUserFirstName) === false) {
+			var firstNameErrMsg = document.getElementById("registerInstruction");
+			firstNameErrMsg.textContent = "Please enter a valid first name";
+			firstNameErrMsg.style.color = "red";
+		}
+		else if (nameRegex.test(newUserLastName) === false) {
+			var lastNameErrMsg = document.getElementById("registerInstruction");
+			lastNameErrMsg.textContent = "Please enter a valid last name";
+			lastNameErrMsg.style.color = "red";
+		}
+		else if (phoneRegex.test(newUser) === false) {
+			var phoneErrMsg = document.getElementById("registerInstruction");
+			phoneErrMsg.textContent = "Please enter a valid phone number. It should be of the format XXX-XXX-XXXX where the X's are 1-digit numbers";
+			phoneErrMsg.style.color = "red";
+		}
+		else if (emailRegex.test(newUserEmail) === false) {
+			var emailErrMsg = document.getElementById("registerInstruction");
+			emailErrMsg.textContent = "Please enter a valid email. It should be of the format something@someEmail.com";
+			emailErrMsg.style.color = "red";
+		}*/
+
+		///CALL REGISTER PHP
+		let newUserJSON = {firstName:newUserFirstName,lastName:newUserLastName,phone:newUserPhone,email:newUserEmail,login:newUsername,password:newPassword};
+		let jsonPayload = JSON.stringify( newUserJSON );
+		let url = urlBase + '/Register.' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			//No return necessary. Move on
+			xhr.send(jsonPayload);
+			window.location.href = "./search.html";
+		}
+		catch(err)
+		{
+			document.getElementById("registerInstruction").innerHTML = err.message;
+		}
 	}
 	else {
 		var msg = document.getElementById("registerInstruction");
-		msg.textContent = "Please enter a valid username and password in the login text fields"
+		msg.textContent = "Please enter valid credentials";
 		msg.style.color = "red";
 	}
 }
@@ -161,7 +215,7 @@ function addContact()   //////Update or replace test with new implementaitons
 
 	var table = document.getElementById("contactTable");
 
-	let newContactJSON = {userId,userId,name:newName,phone:newPhone,email:newEmail};
+	let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
 	let jsonPayload = JSON.stringify( newContactJSON );
 
 	let url = urlBase + '/AddContact.' + extension;
@@ -381,7 +435,8 @@ function addEditButtonToRow(row, userId, name) {
     cell.appendChild(button);
 }
 
-function addEditButtonFunctionality(userId, name) {
+/* Caleb, would you mind adding documentation to this function? It is fairly obtuse and I am having trouble folowing some parts of it */
+function addEditButtonFunctionality(userId, name) { 
 	// var editContactWindow = window.location.href('./edit_contact.html');
 	// window.location.href = './edit_contact.html';
 	var editContactWindow = window.self;
@@ -554,8 +609,8 @@ function addEditButtonFunctionality(userId, name) {
 	}) */
 
 	// editContactWindow.getElementById("editContactBody").append(returnToSearchPage);
-
 	// var editContactWindow = window.open("./edit_contact.html");
+
 	editContactWindow.document.write(editWindowHTMLString);
 	editContactWindow.document.close();
 }
@@ -621,61 +676,11 @@ function submitEdits() {
 	}
 }
 
-/* function submitEdits(contId, userId, editName, editPhone, editEmail) {
-	let newContactJSON = {userId:userId,name:editName,phone:editPhone,email:editEmail};
-	let jsonPayload = JSON.stringify( newContactJSON );
-
-	let urlAdd = urlBase + '/AddContact.' + extension;
-	let urlDel = urlBase + '/DeletContact.' + extension;
-	
-	let xhrAdd = new XMLHttpRequest();
-	xhrAdd.open("POST", urlAdd, true);
-	xhrAdd.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhrAdd.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
-			}
-		};
-		xhrAdd.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
-	}
-
-
-	let oldContactJSON = {contId:contId};
-	let jsonDelPayload = JSON.stringify( oldContactJSON );
-
-	let xhrDel = new XMLHttpRequest();
-	xhrDel.open("POST", urlDel, true);
-	xhrDel.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhrDel.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
-			}
-		};
-		xhrDel.send(jsonDelPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactDeleteResult").innerHTML = err.message;
-	}
-} */
-
 function deleteContactDBEntry() {
 	/*API CALL HERE*/
 }
 
-function searchContacts() {
+function searchContacts() { //Unused version. Delete at end of proj if necessary
 	let nameSearch = document.getElementById("nameSearch").value;
 	let numberSearch = document.getElementById("numberSearch").value;
 	let emailSearch = document.getElementById("emailSearch").value;
