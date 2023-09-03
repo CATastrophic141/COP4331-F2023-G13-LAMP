@@ -10,8 +10,8 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param("ssss", $inData["firstName"], $inData["lastName"], $inData["login"], $inData["password"]);
+		$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, PhoneNumber, Email, Login, Password) VALUES (?, ?, ?, ?, ?, ?)");
+		$stmt->bind_param("ssssss", $inData["firstName"], $inData["lastName"], $inData["phone"], $inData["email"], $inData["login"], $inData["password"]);
 
 		if ($stmt->execute()) {
 			$newUserId = $insertStmt->insert_id;
