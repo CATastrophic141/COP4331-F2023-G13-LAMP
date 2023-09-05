@@ -277,7 +277,7 @@ function makeTableRow(table, contactJSON){
 	// Append the new row to the table body
 	table.appendChild(newRow);
 	
-	addEditButtonToRow(newRow, userId, contactJSON["name"]);
+	addEditButtonToRow(newRow, userId);
 	addDeleteButtonToRow(newRow, table);
 }
 
@@ -436,15 +436,17 @@ function addEditButtonToRow(row, userId) {
     const button = document.createElement("button");
     button.textContent = "Edit";
 
-	let name = row.cells.rowData[0].innerHTML;
-	let phone = row.cells.rowData[1].innerHTML;
-	let email = row.cells.rowData[2].innerHTML;
+	let name = row.cells[0].innerHTML;
+	console.log("Name is " + name);	//Debug
+	let phone = row.cells[1].innerHTML;
+	console.log("Phone is " + phone);	//Debug
+	let email = row.cells[2].innerHTML;
+	console.log("Email is " + email);	//Debug
 
-	console.log("userId is " + toString(userId) +", name is " + name + ".\n");
+	console.log("userId is " + userId.toString() +", name is " + name + ".\n");
 
 	// Assign the function to the button's onclick event
-    button.onclick = function () {
-		location.href = './edit_contact.html';	
+    button.onclick = function () {	
 		addEditButtonFunctionality(userId, name, phone, email);
     };
 
@@ -452,8 +454,74 @@ function addEditButtonToRow(row, userId) {
     cell.appendChild(button);
 }
 
+// Todo: figure out why this doesn't work! Field values on edit_contact_... .html are not altered on entry.
+function addEditButtonFunctionality(userId, name, phone, email) {
+	location.href = './edit_contact_refactored.html?userId='+
+					userId.toString()+'&name='+name+'&phone='+
+					phone+'&email='+email;
+}
+
+
+function populateEditPage() {
+	const urlSearchParams = new URLSearchParams(window.location.search);
+	const params = Object.fromEntries(urlSearchParams.entries());
+
+	//console.log("In Edit Window");	//Debug
+
+	let userIdField = document.getElementById("userIdField");
+	userIdField.value = params.userId;
+	console.log("userIdField value is " + params.userId);	//Debug <---THIS NOT BEING CALLED FOR SOME REASON!!!
+
+	let nameField = document.getElementById("nameField");
+	nameField.value = params.name;
+	console.log("nameField value is " + params.name);	//Debug <---THIS NOT BEING CALLED!!!
+
+	let phoneField = document.getElementById("phoneField");
+	phoneField.value = params.phone;
+
+	let emailField = document.getElementById("emailField");
+	emailField.value = params.email;
+
+	let contactToEdit = {searchName:params.name, searchNumber:params.phone, searchEmail:params.email, userId:params.userId};
+	var jsonPayload = JSON.stringify( contactToEdit );
+
+	var url = urlBase + '/SearchContacts.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				
+				var contactId = jsonObject["contactId"];
+				console.log("contactId = " + contactId.toString() +"\n");
+
+				/** Add the correct Contact ID field to the hidden contact ID field in the document. **/
+				var contactIdField = document.getElementById("contactIdField");
+				contactIdField.value = contactId.toString();
+			}
+		};
+		xhr.send(jsonPayload);
+		console.log("JSON Payload sent");
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err;
+	}
+}
+
 /* Caleb, would you mind adding documentation to this function? It is fairly obtuse and I am having trouble folowing some parts of it */
 /* Sure thing! I'll try. */
+/** Update (Su. 9/3/2023): I commented out this function so that the refactored version above can work properly. However,
+ *  it seems like we may end up needing to use this version of the function, since the above function does not seem to accept 
+ *  arguments from the previous page. Perhaps that could be solved with a cookie?
+ */
+/* <-----------------------Block comment begins
 function addEditButtonFunctionality(userId, name, phone, email) {
 	var editContactWindow = window.self;	// Another way of referring to the current window
 
@@ -461,7 +529,7 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 	if (editContactWindow.document !== null || editContactWindow.document.getElementsByTagName('head') !== null) {
 		editContactWindow.document.documentElement.remove();	// Remove everything in the HTML document
 		/* NOTE: this may remove too much; I may have to replace it with document.querySelector.remove() 
-		   (which might have a similar effect) or document.head.innerHTML = null */
+		   (which might have a similar effect) or document.head.innerHTML = null */ /* <--------------------Block comment begins
 	}
 	var editWindowHTMLString = "";
 
@@ -490,11 +558,12 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 	/** This should now give us the start of the HTML document that we need to have a custom 'EDIT CONTACT' page. **/
 
 	/** Add the hidden User ID field to the super-string that will be used to populate the custom 
-	 * 'EDIT CONTACTS' HTML document. **/
+	 * 'EDIT CONTACTS' HTML document. **/ /* <----------------------------------------Block comment begins
 	let userIdField = "<input id='userIdField' type='hidden' value='" + toString(userId) + "'><br/>\n";
 
 	/** Get the contact's Contact ID using a SearchContacts API call **/
 	// ------------------------------------------------------------------------------------------------
+	/* <------------------------------------------------------------------------------Block comment begins
 	let contactToEdit = {searchName:name, searchNumber:phone, searchEmail:email, userId:userId};
 	var jsonPayload = JSON.stringify( contactToEdit );
 
@@ -518,9 +587,11 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 				console.log("contactId = " + contactId +"\n");
 
 				/** Add the hidden Contact ID field to the document. **/
+				/* <-------------------------------------------------------------------Block comment begins
 				var contIdField = "<input id='contIdField' type='hidden' value='" + toString(contId) + "'><br/>\n";
 
 				/** Now, add the two hidden fields (User ID and Contact ID) to the document! **/
+				/* <-------------------------------------------------------------------Block comment begins
 				editWindowHTMLString += userIdField + contIdField;
 			}
 		};
@@ -537,6 +608,7 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 
 	/** Add the Name, Phone Number, and Email fields, below the hidden User ID and 
 	 * Contact ID fields on the HTML 'EDIT CONTACTS' page. **/
+	/* <-------------------------------------------------------------------------------Block comment begins
 	let editName = "<input id='editName' type='text' value='" + currName + "'><br/>\n";
 	let editPhone = "<input id='editPhone' type='text' value='" + currPhone + "'><br/>\n";
 	let editEmail = "<input id='editEmail' type='text' value='" + currEmail + "'><br/>\n";
@@ -546,23 +618,28 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 	editWindowHTMLString += editName + editPhone + editEmail + editSubmit + "<br />";
 
 	/** Add a button to allow RETURNING TO THE SEARCH PAGE below the 'SUBMIT EDITS' button. **/
+	/* <-------------------------------------------------------------------------------Block comment begins
 	let returnToSearchPage = "<button id='returnToSearchPage' type='button'" +
 								" onclick='goToSearchPage()'>Return to Search Page</button>\n";
 	editWindowHTMLString += returnToSearchPage;
 	editWindowHTMLString += "\n\n"
 	
 	/** Finish the page! **/
+	/* <-------------------------------------------------------------------------------Block comment begins
 	let endOfHTMLPage = "</body>\n</html>\n";
 	
 	editWindowHTMLString += endOfHTMLPage;
 
 	/** WRITE ALL THE CONTENTS OF THE PAGE TO THE ACTUAL HTML PAGE ('edit_contact.html')!!! **/
+	/* <-------------------------------------------------------------------------------Block comment begins
 	editContactWindow.document.write(editWindowHTMLString);
 
 	/** Close the document-writing process to allow the buttons on the page to do what
 	 * what they're actually supposed to do (run their scripts). **/
+	/* <-------------------------------------------------------------------------------Block comment begins
 	editContactWindow.document.close();	
 }
+*/
 
 function goToSearchPage() {
 	location.href = "./search.html";
