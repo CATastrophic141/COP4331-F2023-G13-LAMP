@@ -1,25 +1,76 @@
-body 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap');
+html *
 {
-    background-color: #100b36;
+    font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+    background-color: #151426;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#title-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 16px;
+    background-color: #F2DFCE;
+    border-top-right-radius: 12px;
 }
 
 #title 
 {
-    font-size: 50px;
+    font-size: 64px;
     width: 100%;
-    margin-left: 1.5%;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #ffffff;
+    text-align: left;
+    color: #D94A64;
+    margin: 0;
+}
+
+#subtitle
+{
+    font-size: 36px;
+    font-weight: normal;
+    width: 100%;
+    text-align: left;
+    background-color: #85A6A6;
+    margin: 12px;
+    padding: 4px 24px 4px 24px;
+    border-radius: 4px;
 }
 
 #loginDiv
 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     font-size: 30px;
-    width: 70%;
-    margin-left: 14.5%;
+    width: 50%;
+    min-width: 500px;
+    margin-top: 24px;
     padding: 25px;
-    background-color: #100b36;
+    background: #85A6A6;
+}
+
+.nameFieldContainer
+{
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.loginInput
+{
+    font-size: 24px;
 }
 
 #registerDiv
@@ -27,9 +78,33 @@ body
     text-align: center;
     font-size: 20px;
     width: 70%;
-    margin-left: 15%;
     padding: 16px;
-    background-color: #100b36;
+    background: none;
+}
+
+.registerField
+{
+    font-size: 24px;
+    text-align: left;
+    width: 80%;
+    margin-bottom: 2%;
+    padding: 2px 4px 2px 4px;
+    border:none;
+    border-bottom: 2px solid #151426;
+    background-color: rgba(255, 255, 255, .6);
+}
+
+#registerFirstName,
+#registerLastName
+{
+    width: 45%;
+}
+
+#registerPhone,
+#registerEmail,
+#registerButton
+{
+    display: none;
 }
 
 .registerFields
@@ -41,15 +116,16 @@ body
     margin-right: 15%;
     margin-left: 15%;
     background-color: aliceblue;
-    color:#100b36;
     align-self: inherit;
 }
 
 #registerText
 {
     text-align: center;
-    color:aliceblue;
+    width: 100%;
+    color:#000000;
     font-family: 'Ubuntu', sans-serif;
+    font-size: 24px;
 }
 
 #registerInstruction
@@ -62,7 +138,7 @@ body
 }
 
 #registerButton{
-    margin-left: 0%;
+    min-width: 200px;
 }
 
 #loggedInDiv
@@ -89,24 +165,30 @@ body
     display: block;
     text-align: center;
     color: #d5e5e8;
-    background-color: #100b36;
-    margin-left: 25%;
-    margin-right: 25%;
+    background: none;
 }
 
 .buttons
 {
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    border-radius: 6px;
+    border-style: none;
+    height: 36px;
+    min-width: 128px;
+    color: #ffffff;
+    background-color: #151426;
+    margin: 8px 0 8px 0;
+    cursor: pointer;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
 }
 
 .buttons:hover{
-    background-color: #797979;
+    background-color: #D94A64;
     color: #edf3ff;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
     opacity: 75%;
+    transition: filter .3s;
 }
 
 .links:hover{
@@ -117,11 +199,11 @@ body
 
 #loginName
 {
-	font-size: 30px;
+	font-size: 24px;
 }
 #loginPassword
 {
-	font-size: 30px;
+	font-size: 24px;
 }
 #searchText
 {
@@ -133,12 +215,26 @@ body
 }
 
 input[type="text"],input[type="password"]{
-    border-radius: 25px;
-    text-align: center;
+    text-align: left;
     width: 80%;
-    margin-left: 10%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    padding: 2px 4px 2px 8px;
+    border:none;
+    border-bottom: 2px solid #151426;
+    background-color: rgba(255, 255, 255, .6);
+}
+
+input::placeholder {
+    color: #000000;
+    opacity: 75%;
+}
+
+input:hover,
+input:active,
+input:focus {
+    outline: 0;
+    border-bottom: 2px solid #D94A64;
+    background-color: rgba(255, 255, 255, .8);
 }
 
 #inner-title{
@@ -146,7 +242,6 @@ input[type="text"],input[type="password"]{
     font-size: 0.8em;
     width: 90%;
     text-align: center;
-    margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
     color: #ffffff;
@@ -182,3 +277,17 @@ select{
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
 }
+
+/* Color Theme Swatches in Hex */
+.Squire-12-1-hex { color: #D94A64; }
+.Squire-12-2-hex { color: #A65866; }
+.Squire-12-3-hex { color: #151426; }
+.Squire-12-4-hex { color: #85A6A6; }
+.Squire-12-5-hex { color: #F2DFCE; }
+
+/* Color Theme Swatches in RGBA */
+.Squire-12-1-rgba { color: rgba(216, 73, 100, 1); }
+.Squire-12-2-rgba { color: rgba(165, 87, 102, 1); }
+.Squire-12-3-rgba { color: rgba(20, 20, 38, 1); }
+.Squire-12-4-rgba { color: rgba(133, 165, 165, 1); }
+.Squire-12-5-rgba { color: rgba(242, 223, 205, 1); }
