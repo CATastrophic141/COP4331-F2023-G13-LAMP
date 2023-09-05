@@ -7,29 +7,40 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-
-<h1 id="title">Squire Contact Repository</h1>
+<div id="title-container">
+	<h1 id="title">Squire</h1>
+	<h2 id="subtitle">Contact Repository</h2>
+</div>
 
 <div id="loginDiv">
 	<span id="inner-title">LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
+	<div id="nameFields" class="nameFieldContainer">
+		<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
+		<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
+	</div>
+	<input type="text" id="loginName" placeholder="Username" class="loginField" />
+	<input type="password" id="loginPassword" placeholder="Password"/>
+	<input id="registerPhone" type="text" placeholder="Phone number (XXX-XXX-XXXX)" class="registerField">
+	<input id="registerEmail" type="text" placeholder="Email (NAME@DOMAIN.XYZ)" class="registerField">
+	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log in </button>
+	<button type="button" id="registerButton" class="buttons" onclick=register();> Create Account </button>
+	<span id="registerText">Not registered yet?</span>
+	<button id="signUpButton" type="button" class="buttons" onclick="showRegister(this);">Sign Up</button>
 	<a href="./search.html" id="loginLink" class="links">Go to the search page</a>
 	<span id="loginResult"></span>
 </div>
-
+<!--
 <div id="registerDiv">
-	<span id="registerText">Not registered yet?</span><br/>
+	<span id="registerText1">Not registered yet?</span><br/>
 	<p id="registerInstruction">Fill out the fields below, then click "Create Account".</p>
 	<input id="registerUsername" type="text" placeholder="Username" class="registerFields"><br />
 	<input id="registerPassword" type="text" placeholder="Password" class="registerFields"><br />
-	<input id="registerFirstName" type="text" placeholder="First Name" class="registerFields"><br />
-	<input id="registerLastName" type="text" placeholder="Last Name" class="registerFields"><br />
-	<input id="registerPhone" type="text" placeholder="Phone number (XXX-XXX-XXXX)" class="registerFields"><br />
-	<input id="registerEmail" type="text" placeholder="Email (NAME@DOMAIN.XYZ)" class="registerFields"><br />
-	<button id="registerButton" type="button" class="buttons" onclick="register();">Create Account</button>
+	<input id="registerFirstName1" type="text" placeholder="First Name" class="registerFields"><br />
+	<input id="registerLastName1" type="text" placeholder="Last Name" class="registerFields"><br />
+	<input id="registerPhone1" type="text" placeholder="Phone number (XXX-XXX-XXXX)" class="registerFields"><br />
+	<input id="registerEmail1" type="text" placeholder="Email (NAME@DOMAIN.XYZ)" class="registerFields"><br />
+	<button id="registerButton1" type="button" class="buttons" onclick="register();">Create Account</button>
 </div>
-
+-->
 </body>
 </html>
