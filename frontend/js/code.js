@@ -266,25 +266,22 @@ function addContact()   //////Update or replace test with new implementaitons
 
 function makeTableRow(table, contactJSON){
 	let newRow = table.insertRow(-1);
-	let isFirstProperty = true;
-	var contactID = "";
+    let contactID = contactJSON["contact ID"]; // Access contact ID property directly
 
-	let count = 0;
-	// Loop through the properties of the JSON object
-	for (let prop in contactJSON) {
-		if (isFirstProperty){
-			isFirstProperty = false;
-			contactID = contactJSON[prop];
-		} else {
-			if (contactJSON.hasOwnProperty(prop)) {
-				let newCell = newRow.insertCell(count);
-				newCell.setAttribute('data-id', contactID);
-				newCell.innerText = contactJSON[prop];
-			}
-		}
-		}
-	// Append the new row to the table body
-	//table.appendChild(newRow);
+    // Add Name
+    let nameCell = newRow.insertCell(0);
+    nameCell.setAttribute('data-id', contactID);
+    nameCell.innerText = contactJSON["Name"];
+
+    // Add Phone
+    let phoneCell = newRow.insertCell(1);
+    phoneCell.setAttribute('data-id', contactID);
+    phoneCell.innerText = contactJSON["Phone"];
+
+    // Add Email
+    let emailCell = newRow.insertCell(2);
+    emailCell.setAttribute('data-id', contactID);
+    emailCell.innerText = contactJSON["Email"];
 	
 	addEditButtonToRow(newRow, userId, contactJSON["name"]);
 	addDeleteButtonToRow(newRow, table);
@@ -339,7 +336,7 @@ function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTIO
 	}
 }
 
-function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN API CALL IS READY
+function addContactTest() 
 {
 	let newName = document.getElementById("contactNameText").value;
 	let newPhone = document.getElementById("contactNumberText").value;
@@ -477,7 +474,7 @@ function addDeleteButtonToRow(row, table) {
 
 	button.addEventListener("click", function() {
 		deleteContactDBEntry(row, rowNumber);
-		table.removeChild(row);///////////////////DELETE DATA VIA API ////
+		table.removeChild(row);///////////////////DELETE DATA VIA API
 	});
 
     const cell = row.insertCell();
@@ -487,12 +484,6 @@ function addDeleteButtonToRow(row, table) {
 function addEditButtonToRow(row, userId) {
     const button = document.createElement("button");
     button.textContent = "Edit";
-
-	let name = row.cells.rowData[0].innerHTML;
-	let phone = row.cells.rowData[1].innerHTML;
-	let email = row.cells.rowData[2].innerHTML;
-
-	console.log("userId is " + toString(userId) +", name is " + name + ".\n");
 
 	// Assign the function to the button's onclick event
     button.onclick = function () {
@@ -621,7 +612,7 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 	editContactWindow.document.close();	
 }
 
-function goToSearchPage() {
+function goToSearchPage() { //Lol
 	location.href = "./search.html";
 }
 
