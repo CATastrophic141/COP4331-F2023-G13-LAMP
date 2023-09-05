@@ -59,6 +59,29 @@ function doLogin()
 	}
 }
 
+function showRegister(element) {
+
+	if (element.innerHTML == "Sign Up") {
+		document.getElementById("nameFields").style.display = 'flex';
+		document.getElementById("registerPhone").style.display = 'block';
+		document.getElementById("registerEmail").style.display = 'block';
+		document.getElementById("registerButton").style.display = 'block';
+		document.getElementById("loginButton").style.display = 'none';
+		document.getElementById("inner-title").innerHTML = "Fill out the fields below, then click \"Create Account\".";
+		document.getElementById("registerText").innerHTML = "Already have an Account?";
+		document.getElementById("signUpButton").innerHTML = "Log In";
+	} else {
+		document.getElementById("nameFields").style.display = 'none';
+		document.getElementById("registerPhone").style.display = 'none';
+		document.getElementById("registerEmail").style.display = 'none';
+		document.getElementById("registerButton").style.display = 'none';
+		document.getElementById("loginButton").style.display = 'block';
+		document.getElementById("inner-title").innerHTML = "LOG IN";
+		document.getElementById("registerText").innerHTML = "Not registered yet?";
+		document.getElementById("signUpButton").innerHTML = "Sign Up";
+	}
+}
+
 function register(){
 	let newUserFirstName = document.getElementById("registerFirstName").value;
 	let newUserLastName = document.getElementById("registerLastName").value;
@@ -242,43 +265,78 @@ function addContact()   //////Update or replace test with new implementaitons
 }
 
 function makeTableRow(table, contactJSON){
-	var newRow = document.createElement("tr");
-	var isFirstProperty = true;
+	let newRow = table.insertRow(-1);
+	let isFirstProperty = true;
+	var contactID = "";
+
+	let count = 0;
 	// Loop through the properties of the JSON object
-	for (var prop in contactJSON) {
-		// Add Contact ID as hidden field to table row, so it can be deleted via 'Delete.php' API call
-		if (isFirstProperty){	
+	for (let prop in contactJSON) {
+		if (isFirstProperty){
 			isFirstProperty = false;
-			/** Caleb: I edited the below stuff out because I wasn't sure if somebody wanted to
-			 * update the DeleteContact.php function to delete based on the stuff in Joey's deleteContactTest()
-			 * function, or if we wanted to keep DeleteContact.php as is and instead add this hidden Contact ID
-			 * field as the first data item in each table row.
-			 * If we wanted to add that as a hidden value, then we would just need to change deleteContactTest()
-			 * a bit and probably also alter deleteContactDBEntry and addEditButtonToRow, since they
-			 * get their data based on where the data in each table row ('tr') is stored, and we'd also
-			 * want them to be able to get the contact ID from the hidden value field that it 
-			 * is stored in within the table row. ------------------------------------------------ **/
-			/// ---------------------------------------------------------------------------------------------------
-			/* ---------------------------------------------------------------------------------------
-			let contactIdField = document.createElement("input");
-			contactIdField.type = "hidden";
-			contactIdField.id = "contactIdRow" + toString(newRow.rowIndex);
-			contactIdField.value = contactJSON["contactId"];
-			newRow.appendChild(contactIdField);
-			--------------------------------------------------------------------------------------- */
+			contactID = contactJSON[prop];
 		} else {
-		if (contactJSON.hasOwnProperty(prop)) {
-			var newCell = document.createElement("td");
-			newCell.textContent = contactJSON[prop];
-			newRow.appendChild(newCell);
-		}}
+			if (contactJSON.hasOwnProperty(prop)) {
+				let newCell = newRow.insertCell(count);
+				newCell.setAttribute('data-id', contactID);
+				newCell.innerText = contactJSON[prop];
+			}
 		}
-	
+		}
 	// Append the new row to the table body
-	table.appendChild(newRow);
+	//table.appendChild(newRow);
 	
 	addEditButtonToRow(newRow, userId, contactJSON["name"]);
 	addDeleteButtonToRow(newRow, table);
+}
+
+function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTION
+{
+	let fakeData = "{\n" +
+		"  \"results\": [\n" +
+		"    {\n" +
+		"      \"contactID\": 51,\n" +
+		"      \"Name\": \"Kelley Wiegand\",\n" +
+		"      \"Phone\": \"948-506-7645\",\n" +
+		"      \"Email\": \"Kelley.Wiegand9@gmail.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 52,\n" +
+		"      \"Name\": \"Amelie Mills\",\n" +
+		"      \"Phone\": \"160-862-5831\",\n" +
+		"      \"Email\": \"Amelie.Mills@yahoo.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 53,\n" +
+		"      \"Name\": \"Josephine Ruecker\",\n" +
+		"      \"Phone\": \"345-049-2473\",\n" +
+		"      \"Email\": \"Josephine_Ruecker@yahoo.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 54,\n" +
+		"      \"Name\": \"Claud Schumm\",\n" +
+		"      \"Phone\": \"051-460-7174\",\n" +
+		"      \"Email\": \"Claud42@gmail.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 55,\n" +
+		"      \"Name\": \"Lura Wisoky\",\n" +
+		"      \"Phone\": \"212-812-1159\",\n" +
+		"      \"Email\": \"Lura.Wisoky@yahoo.com\"\n" +
+		"    }\n" +
+		"  ],\n" +
+		"  \"error\": \"\"\n" +
+		"}"
+
+	let testContacts = JSON.parse(fakeData);
+	console.log(testContacts);
+	let table = document.getElementById("contactTable");
+
+	if (testContacts.results) {
+		for (let i = 0; i < testContacts.results.length; i++) {
+			makeTableRow(table, testContacts.results[i]);
+		}
+	}
 }
 
 function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN API CALL IS READY
@@ -311,10 +369,35 @@ function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN A
 	}
 
 	if (!nameErr && !phoneErr && !emailErr){
-	let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
-	let jsonPayload = JSON.stringify( newContactJSON );
-	//console.log(newContactJSON); //Debug
-	makeTableRow(table, newContactJSON);
+		let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
+		let jsonPayload = JSON.stringify( newContactJSON );
+		//console.log(newContactJSON); //Debug
+
+
+		makeTableRow(table, newContactJSON);
+
+		let url = urlBase + '/AddContact.' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function()
+			{
+				if (this.readyState == 4 && this.status == 200)
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					let tableRow = {contactID:jsonObject.contactID,name:newName,phone:newPhone,email:newEmail}
+					document.getElementById("contactAddResult").innerHTML = "Color has been added";
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactAddResult").innerHTML = err.message;
+		}
 	}
 	else {
 		document.getElementById("addMsg").innerHTML = errMsg;
@@ -331,30 +414,6 @@ function addContactTest() ///////MODIFY THIS FUNCTION TO TAKE OVER ACUTAL WHEN A
 			Eemail.value = "";
 		}
 	}
-	///RESUSE AS SAMPLE OR REMOVE
-
-	/*
-	let url = urlBase + '/AddColor.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	*/
 }
 
 function deleteContactTest(element)
@@ -364,16 +423,9 @@ function deleteContactTest(element)
 
 	const rowData = contactTable.rows(currRow).cells;
 
-	/*
-	This could probably be simplified by using a global map that binds
-	each loaded contact to its database ID, that way we could execute the
-	DELETE query with only the contact ID and UserID
-	*/
-	let delName = rowData[0].innerHTML;
-	let delPhone = rowData[1].innerHTML;
-	let delEmail = rowData[2].innerHTML;
+	let delID = rowData[0].getAttribute("data-id");
 
-	let deleteContactJSON = {contactName:delName,contactPhone:delPhone,contactEmail:delEmail,userId:userId};
+	let deleteContactJSON = {contactID:delID};
 	let jsonPayload = JSON.stringify( deleteContactJSON );
 
 	console.log(deleteContactJSON);
@@ -460,7 +512,7 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 	// Delete anything that is currently on the page so that it can be repopulated with the appropriate elements.
 	if (editContactWindow.document !== null || editContactWindow.document.getElementsByTagName('head') !== null) {
 		editContactWindow.document.documentElement.remove();	// Remove everything in the HTML document
-		/* NOTE: this may remove too much; I may have to replace it with document.querySelector.remove() 
+		/* NOTE: this may remove too much; I may have to replace it with document.querySelector.remove()
 		   (which might have a similar effect) or document.head.innerHTML = null */
 	}
 	var editWindowHTMLString = "";
@@ -471,7 +523,7 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 	editWindowHTMLString += "<head>\n" +
 							"<title>Squire Contact Repository</title>\n" +
 							"<script type='text/javascript' src='../js/code.js'></script>\n" +
-							"<link href='../css/styles_searchPage.css' rel='stylesheet'>\n" +	
+							"<link href='../css/styles_searchPage.css' rel='stylesheet'>\n" +
 							"<link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>\n" +
 							"\n" +
 							"<script type='text/javascript'>\n" +
@@ -516,7 +568,14 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 				
 				var contactId = jsonObject["contactId"];
 				console.log("contactId = " + contactId +"\n");
+				let currName = jsonObject["name"];
+				console.log("currName = " + currName +"\n");
+				let currPhone = jsonObject["phone"];
+				console.log("currPhone = " + currPhone +"\n");
+				let currEmail = jsonObject["email"];
+				console.log("contactId = " + currEmail +"\n");
 
+				
 				/** Add the hidden Contact ID field to the document. **/
 				var contIdField = "<input id='contIdField' type='hidden' value='" + toString(contId) + "'><br/>\n";
 
@@ -550,10 +609,8 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 								" onclick='goToSearchPage()'>Return to Search Page</button>\n";
 	editWindowHTMLString += returnToSearchPage;
 	editWindowHTMLString += "\n\n"
-	
-	/** Finish the page! **/
 	let endOfHTMLPage = "</body>\n</html>\n";
-	
+
 	editWindowHTMLString += endOfHTMLPage;
 
 	/** WRITE ALL THE CONTENTS OF THE PAGE TO THE ACTUAL HTML PAGE ('edit_contact.html')!!! **/
@@ -659,95 +716,6 @@ function deleteContactDBEntry(row) {
 		console.log(err.message);
 	}
 }
-
-/*
-function searchContacts() { //Unused version. Delete at end of proj if necessary
-	let nameSearch = document.getElementById("nameSearch").value;
-	let numberSearch = document.getElementById("numberSearch").value;
-	let emailSearch = document.getElementById("emailSearch").value;
-
-	let jsonSearchObject = {searchName:nameSearch,searchPhone:numberSearch,searchEmail:emailSearch};
-
-	//Create search result storage object
-	var searchResults;
-
-
-	if (nameSearch != ""){
-		//Query by names
-		//Add to storage
-
-	}
-	if (numberSearch != ""){
-		//Query by phone number
-		//Add to storage
-	}
-	if (emailSearch != ""){
-		//Query by email
-		//Add to storage
-	}
-	if (nameSearch == "" && numberSearch == "" && emailSearch == ""){
-		//Fetch all info from database
-	}
-
-	//Create array of already displayed contacts (by contact ID)
-
-	/* Passing through if statement with empty field allows for user to fetch all info or to *not* search by a field */
-	/*loop for all entries in storage*/ {
-		//If contact's info matches name or if name field was empty
-			//If contact's info matches name or if phone field was empty
-				//if contact's info matches email or if email field was empty
-					//Add contact ID to array of added elements
-					//Add contact info to table
-	}
-
-	//Continue here as necessary
-
-	//////////////////////
-
-	/*
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	let colorList = "";
-
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/SearchColors.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
-				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-}
-
-} */
 
 function searchContactTest()
 {

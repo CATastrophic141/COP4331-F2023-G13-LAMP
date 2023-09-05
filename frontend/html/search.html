@@ -16,18 +16,29 @@
 </head>
 <body>
 
-<h1 id="title">Squire Contact Repository</h1>
-
+<div id="title-container">
+	<h1 id="title">Squire</h1>
+	<h2 id="subtitle">Contact Repository</h2>
+</div>
+<h2 id="greeting"></h2>
 <div id="loggedInDiv">
 	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
 </div>
 
 <div id="accessUIDiv">
-	<p id="searchMsg"> </p>
-	<input type="search" id="nameSearch" placeholder="Contact Name"/>
-	<input type="search" id="numberSearch" placeholder="Contact Number"/>
-	<input type="search" id="emailSearch" placeholder="Contact Email"/>
-	<button type="button" id="searchNameButton" class="buttons" onclick="searchContactTest();"> Search </button><br />
+	<div class="searchContainer">
+		<p id="searchMsg"> </p>
+		<div class="searchFieldContainer">
+			<input type="search" id="nameSearch" placeholder="Contact Name" class="searchField"/>
+			<input type="search" id="numberSearch" placeholder="Contact Number" class="searchField"/>
+			<input type="search" id="emailSearch" placeholder="Contact Email" class="searchField"/>
+		</div>
+		<button type="button" id="searchNameButton" class="buttons" onclick="searchContactTest();"> Search </button><br />
+	</div>
+	<button type="button" id="addTestContact" class="buttons" onclick="makeFakeContact();"> Add Test Contacts </button><br />
+	<div id="grow" class="growDiv">
+		<span>Here is some text</span>
+	</div>
 	<span id="contactSearchResult">
 		<table id="contactTable">
 			<tr>
@@ -39,10 +50,13 @@
 		  </table>
 	</span>
 	<p id="addMsg"> </p>
-	<input type="text" id="contactNameText" placeholder="Contact Name">
-	<input type="text" id="contactNumberText" placeholder="Contact Number (XXX-XXX-XXXX)">
-	<input type="text" id="contactEmailText" placeholder="Contact Email (NAME@DOMAIN.XYZ)">
-	<button type="button" id="addContactButton" class="buttons" onclick="addContactTest();"> Add Contact </button><br />
+	<div class="addContactContainer">
+
+		<input type="text" id="contactNameText" placeholder="Contact Name" class="addField">
+		<input type="text" id="contactNumberText" placeholder="Contact Number (XXX-XXX-XXXX)" class="addField">
+		<input type="text" id="contactEmailText" placeholder="Contact Email (NAME@DOMAIN.XYZ)" class="addField">
+		<button type="button" id="addContactButton" class="buttons" onclick="addContactTest();"> Add Contact </button>
+	</div>
 	<span id="contactAddResult"></span>
 
 <!-- <input type="tel" id="contactPhoneNumberText" placeholder="Contact Phone Number (e.g. 1234567890)" 
@@ -50,7 +64,7 @@
 	 <input type="email" id="contactEmailText" placeholder="Contact Email">
 	 <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br /> -->
 
-	<span id="contactAddResult"></span>
+	<!--<span id="contactAddResult"></span>-->
 </div>
 
 </body>
