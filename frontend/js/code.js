@@ -359,7 +359,6 @@ function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTIO
 	}
 }
 
-function addContactTest() 
 function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTION
 {
 	let fakeData = "{\n" +
@@ -445,12 +444,6 @@ function addContactTest()
 
 
 		makeTableRow(table, newContactJSON);
-		let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
-		let jsonPayload = JSON.stringify( newContactJSON );
-		//console.log(newContactJSON); //Debug
-
-
-		makeTableRow(table, newContactJSON);
 
 		let url = urlBase + '/AddContact.' + extension;
 
@@ -500,9 +493,7 @@ function deleteContactTest(element)
 	const rowData = contactTable.rows(currRow).cells;
 
 	let delID = rowData[0].getAttribute("data-id");
-	let delID = rowData[0].getAttribute("data-id");
 
-	let deleteContactJSON = {contactID:delID};
 	let deleteContactJSON = {contactID:delID};
 	let jsonPayload = JSON.stringify( deleteContactJSON );
 
@@ -566,6 +557,10 @@ function addDeleteButtonToRow(row, table) {
 function addEditButtonToRow(row, userId) {
     const button = document.createElement("button");
     button.textContent = "Edit";
+
+	let name = row.cells[0].innerHTML;
+	let phone = row.cells[1].innerHTML;
+	let email = row.cells[2].innerHTML;
 
 	// Assign the function to the button's onclick event
     button.onclick = function () {	
