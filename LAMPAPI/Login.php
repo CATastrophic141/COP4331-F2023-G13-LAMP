@@ -21,7 +21,7 @@
 			$stmt->bind_param("s", $row["ID"]);
 			$stmt->execute();
 
-			returnWithInfo( $row["firstName"], $row["lastName"], $row["ID"] );
+			returnWithInfo( $row["FirstName"], $row["LastName"], $row["ID"] );
 		}
 		else
 		{
