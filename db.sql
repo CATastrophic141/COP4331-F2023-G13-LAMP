@@ -1,37 +1,40 @@
 
+CREATE DATABASE CMdatabase;
+USE CMdatabase;
+
 # Users
 
-CREATE TABLE `COP4331`.`Users`
-(
-`ID` INT NOT NULL AUTO_INCREMENT ,
-`DateCreated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-`DateLastLoggedIn` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-`FirstName` VARCHAR(50) NOT NULL DEFAULT '' ,
-`LastName` VARCHAR(50) NOT NULL DEFAULT '' ,
-`Login` VARCHAR(50) NOT NULL DEFAULT '' UNIQUE ,
-`Password` VARCHAR(50) NOT NULL DEFAULT '' ,
-PRIMARY KEY (`ID`)
+CREATE TABLE Users (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `DateLastLoggedIn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FirstName` varchar(50) NOT NULL DEFAULT '',
+  `LastName` varchar(50) NOT NULL DEFAULT '',
+  `PhoneNumber` varchar(50) NOT NULL DEFAULT '',
+  `Email` varchar(50) NOT NULL DEFAULT '',
+  `Login` VARCHAR(50) NOT NULL DEFAULT '' UNIQUE ,
+  `Password` VARCHAR(50) NOT NULL DEFAULT '' ,
+  PRIMARY KEY (`ID`)
 ) ENGINE = InnoDB;
 
 # Contacts
 
-CREATE TABLE `COP4331`.`Contacts`
-(
-`ID` INT NOT NULL AUTO_INCREMENT ,
-`Name` VARCHAR(50) NOT NULL DEFAULT '' ,
-`Phone` VARCHAR(50) NOT NULL DEFAULT '' ,
-`Email` VARCHAR(50) NOT NULL DEFAULT '' ,
-`UserID` INT NOT NULL DEFAULT '0' ,
-PRIMARY KEY (`ID`)
+CREATE TABLE Contacts (
+  `ID` INT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(50) NOT NULL DEFAULT '' ,
+  `Phone` VARCHAR(50) NOT NULL DEFAULT '' ,
+  `Email` VARCHAR(50) NOT NULL DEFAULT '' ,
+  `UserID` INT NOT NULL DEFAULT '0' ,
+  PRIMARY KEY (`ID`)
 ) ENGINE = InnoDB;
 
 # Insert User Data
 
-insert into Users (FirstName,LastName,Login,Password) VALUES ('Usmaan','Baig','UsmaanB','password');
-insert into Users (FirstName,LastName,Login,Password) VALUES ('Joey','Crown','JoeyC','password');
-insert into Users (FirstName,LastName,Login,Password) VALUES ('Caleb','Gibson','CalebG','password');
-insert into Users (FirstName,LastName,Login,Password) VALUES ('Rahul','Mohan','RahulM','password');
-insert into Users (FirstName,LastName,Login,Password) VALUES ('Rylan','Simpson','RylanS','password');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Usmaan','Baig','123-456-7890','ub@contactmanager4331.online','UsmaanB','password');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Joey','Crown','123-456-7890','jc@contactmanager4331.online','JoeyC','password');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Caleb','Gibson','123-456-7890','cg@contactmanager4331.online','CalebG','password');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Rahul','Mohan','123-456-7890','rm@contactmanager4331.online','RahulM','password');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Rylan','Simpson','123-456-7890','rs@contactmanager4331.online','RylanS','password');
 
 # Insert Contact Data
 
