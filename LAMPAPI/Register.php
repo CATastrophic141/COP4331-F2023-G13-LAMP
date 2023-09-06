@@ -14,7 +14,7 @@
 		$stmt->bind_param("ssssss", $inData["firstName"], $inData["lastName"], $inData["phone"], $inData["email"], $inData["login"], $inData["password"]);
 
 		if ($stmt->execute()) {
-			$newUserId = $insertStmt->insert_id;
+			$newUserId = $stmt->insert_id;
 
 			returnWithInfo( $inData["firstName"], $inData["lastName"], $newUserId );
 		} else {
