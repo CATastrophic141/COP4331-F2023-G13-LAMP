@@ -1,0 +1,377 @@
+html *
+{
+    font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+    background-color: #151426;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#title-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 16px;
+    background-color: #F2DFCE;
+    border-top-right-radius: 12px;
+}
+
+#title
+{
+    font-size: 64px;
+    width: 100%;
+    text-align: left;
+    color: #D94A64;
+    margin: 0;
+}
+
+#subtitle
+{
+    font-size: 36px;
+    font-weight: normal;
+    width: 100%;
+    text-align: left;
+    background-color: #85A6A6;
+    margin: 12px;
+    padding: 4px 24px 4px 24px;
+    border-radius: 4px;
+}
+
+.searchContainer
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #85A6A6;
+    padding: 16px;
+}
+
+.searchFieldContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.addField,
+.searchField {
+    text-align: left;
+    font-size: 24px;
+    width: 80%;
+    margin-bottom: 2%;
+    padding: 2px 4px 2px 8px;
+    border:none;
+    border-bottom: 2px solid #151426;
+    background-color: rgba(255, 255, 255, .6);
+}
+
+.searchField:hover,
+.searchField:active,
+.searchField:focus,
+.addField:hover,
+.addField:active,
+.addField:focus{
+    outline: 0;
+    border-bottom: 2px solid #D94A64;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.searchField::placeholder,
+.addField::placeholder{
+    color: #000000;
+    opacity: 75%;
+}
+
+.growDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #85A6A6;
+    width: 80%;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: 1s;
+}
+
+.growDiv span {
+    font-size: 30px;
+    height: 30px;
+}
+
+.growDiv.active {
+    max-height: 100px;
+    transition: 1s;
+}
+
+.addContactContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #85A6A6;
+    width: 100%;
+    padding: 16px 0 8px 24px;
+}
+
+.addField
+{
+    width: 50%;
+}
+
+#loginDiv
+{
+    font-size: 30px;
+    width: 70%;
+    padding: 25px;
+}
+
+#loggedInDiv
+{
+    font-size: 20px;
+    width: 70%;
+    padding: 25px;
+}
+
+#accessUIDiv
+{
+    font-size: 30px;
+    width: 70%;
+    padding: 25px;
+}
+
+p{
+    color:#FFFFFF;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+a{
+    color:#cafff8;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+.links
+{
+    font-size: 30px;
+    display: block;
+    text-align: center;
+    color: #d5e5e8;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.buttons
+{
+    font-size: 20px;
+    font-weight: normal;
+    border-radius: 6px;
+    border-style: none;
+    height: 36px;
+    min-width: 128px;
+    color: #ffffff;
+    background-color: #151426;
+    margin: 8px 0 8px 0;
+    cursor: pointer;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+}
+
+.buttons:hover{
+    background-color: #D94A64;
+    color: #edf3ff;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    opacity: 75%;
+    transition: filter .3s;
+}
+
+#loginName
+{
+	font-size: 30px;
+}
+#loginPassword
+{
+	font-size: 30px;
+}
+#searchText
+{
+	font-size: 30px;
+}
+#colorText
+{
+	font-size: 30px;
+}
+
+
+#inner-title{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ffffff;
+}
+
+#loginResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
+#userName{
+    display: inline-block;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+#logoutButton{
+    width: 20%;
+    margin-left: 40%;
+}
+
+select{
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 2%;
+    font-size: 0.75em;
+    font-family: 'Ubuntu', sans-serif;
+}
+#editContact{
+    border-radius: 10px;
+    background-color: #cafff8;
+    color: darkblue;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+#deleteContact{
+    border-radius: 10px;
+    background-color: #cafff8;
+    color: darkblue;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+#editContactTitleHeading{
+    font-family: Arial, sans-serif;
+    color: #cafff8;
+    text-align: center;
+    font-weight: 5px;
+    font-size: 34px;
+}
+
+#editName{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#editPhone{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#editEmail{
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#submitEdit{
+    font-size: 30px;
+    border-radius: 25px;
+    width: 50%;
+    margin-left: 25%;
+    font-family: 'Ubuntu', sans-serif;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    border-radius: 25px;
+    color:#100b36;
+    background-color: #cafff8;
+}
+
+#newContactBody{
+    background-color: #100b36;
+    width: 600px;
+    height: 600px;
+    align-items: center;
+}
+
+table {
+    table-layout: auto;
+    border: 2px solid;
+    width: 100%;
+    color: #cafff8;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+td {
+    border: 1px solid;
+}
+
+#addMsg {
+    color: red;
+    text-align: center;
+}
+
+#logoutButton {
+    font-size: 18px;
+}
+
+/* Color Theme Swatches in Hex */
+.Squire-12-1-hex { color: #D94A64; }
+.Squire-12-2-hex { color: #A65866; }
+.Squire-12-3-hex { color: #151426; }
+.Squire-12-4-hex { color: #85A6A6; }
+.Squire-12-5-hex { color: #F2DFCE; }
+
+/* Color Theme Swatches in RGBA */
+.Squire-12-1-rgba { color: rgba(216, 73, 100, 1); }
+.Squire-12-2-rgba { color: rgba(165, 87, 102, 1); }
+.Squire-12-3-rgba { color: rgba(20, 20, 38, 1); }
+.Squire-12-4-rgba { color: rgba(133, 165, 165, 1); }
+.Squire-12-5-rgba { color: rgba(242, 223, 205, 1); }

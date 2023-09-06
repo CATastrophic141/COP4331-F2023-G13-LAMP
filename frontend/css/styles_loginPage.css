@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap');
+html *
+{
+    font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+    background-color: #151426;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#title-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 16px;
+    background-color: #F2DFCE;
+    border-top-right-radius: 12px;
+}
+
+#title 
+{
+    font-size: 64px;
+    width: 100%;
+    text-align: left;
+    color: #D94A64;
+    margin: 0;
+}
+
+#subtitle
+{
+    font-size: 36px;
+    font-weight: normal;
+    width: 100%;
+    text-align: left;
+    background-color: #85A6A6;
+    margin: 12px;
+    padding: 4px 24px 4px 24px;
+    border-radius: 4px;
+}
+
+#loginDiv
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 30px;
+    width: 50%;
+    min-width: 500px;
+    margin-top: 24px;
+    padding: 25px;
+    background: #85A6A6;
+}
+
+.nameFieldContainer
+{
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.loginInput
+{
+    font-size: 24px;
+}
+
+#registerDiv
+{
+    text-align: center;
+    font-size: 20px;
+    width: 70%;
+    padding: 16px;
+    background: none;
+}
+
+.registerField
+{
+    font-size: 24px;
+    text-align: left;
+    width: 80%;
+    margin-bottom: 2%;
+    padding: 2px 4px 2px 4px;
+    border:none;
+    border-bottom: 2px solid #151426;
+    background-color: rgba(255, 255, 255, .6);
+}
+
+#registerFirstName,
+#registerLastName
+{
+    width: 45%;
+}
+
+#registerPhone,
+#registerEmail,
+#registerButton
+{
+    display: none;
+}
+
+.registerFields
+{
+    text-align: center;
+    font-size: 20px;
+    border-radius: 20px;
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 15%;
+    background-color: aliceblue;
+    align-self: inherit;
+}
+
+#registerText
+{
+    text-align: center;
+    width: 100%;
+    color:#000000;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 24px;
+}
+
+#registerInstruction
+{
+    color: #d5e5e8;
+    text-decoration: double;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+#registerButton{
+    min-width: 200px;
+}
+
+#loggedInDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
+#accessUIDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
+.links
+{
+    font-size: 30px;
+    display: block;
+    text-align: center;
+    color: #d5e5e8;
+    background: none;
+}
+
+.buttons
+{
+    font-size: 20px;
+    font-weight: normal;
+    border-radius: 6px;
+    border-style: none;
+    height: 36px;
+    min-width: 128px;
+    color: #ffffff;
+    background-color: #151426;
+    margin: 8px 0 8px 0;
+    cursor: pointer;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+}
+
+.buttons:hover{
+    background-color: #D94A64;
+    color: #edf3ff;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    opacity: 75%;
+    transition: filter .3s;
+}
+
+.links:hover{
+    background-color: #4244a4;
+    color: #FFFFFF;
+    opacity: 100%;
+}
+
+#loginName
+{
+	font-size: 24px;
+}
+#loginPassword
+{
+	font-size: 24px;
+}
+#searchText
+{
+	font-size: 30px;
+}
+#colorText
+{
+	font-size: 30px;
+}
+
+input[type="text"],input[type="password"]{
+    text-align: left;
+    width: 80%;
+    margin-bottom: 2%;
+    padding: 2px 4px 2px 8px;
+    border:none;
+    border-bottom: 2px solid #151426;
+    background-color: rgba(255, 255, 255, .6);
+}
+
+input::placeholder {
+    color: #000000;
+    opacity: 75%;
+}
+
+input:hover,
+input:active,
+input:focus {
+    outline: 0;
+    border-bottom: 2px solid #D94A64;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+#inner-title{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ffffff;
+}
+
+#loginResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #be070d;
+}
+
+#userName{
+    display: inline-block;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+#logoutButton{
+    width: 20%;
+    margin-left: 40%;
+}
+
+select{
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 2%;
+    font-size: 0.75em;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Color Theme Swatches in Hex */
+.Squire-12-1-hex { color: #D94A64; }
+.Squire-12-2-hex { color: #A65866; }
+.Squire-12-3-hex { color: #151426; }
+.Squire-12-4-hex { color: #85A6A6; }
+.Squire-12-5-hex { color: #F2DFCE; }
+
+/* Color Theme Swatches in RGBA */
+.Squire-12-1-rgba { color: rgba(216, 73, 100, 1); }
+.Squire-12-2-rgba { color: rgba(165, 87, 102, 1); }
+.Squire-12-3-rgba { color: rgba(20, 20, 38, 1); }
+.Squire-12-4-rgba { color: rgba(133, 165, 165, 1); }
+.Squire-12-5-rgba { color: rgba(242, 223, 205, 1); }
