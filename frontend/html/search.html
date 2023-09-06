@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Squire Contact Repository</title>
+	<script type="text/javascript" src="../js/code.js"></script>
+    <link href="../css/styles_searchPage.css" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() 
+	{
+		//readCookie();
+	}, false);
+	</script>
+	
+</head>
+<body>
+
+<div id="title-container">
+	<h1 id="title">Squire</h1>
+	<h2 id="subtitle">Contact Repository</h2>
+</div>
+<h2 id="greeting"></h2>
+<div id="loggedInDiv">
+	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+</div>
+
+<div id="accessUIDiv">
+	<div class="searchContainer">
+		<p id="searchMsg"> </p>
+		<div class="searchFieldContainer">
+			<input type="search" id="nameSearch" placeholder="Contact Name" class="searchField"/>
+			<input type="search" id="numberSearch" placeholder="Contact Number" class="searchField"/>
+			<input type="search" id="emailSearch" placeholder="Contact Email" class="searchField"/>
+		</div>
+		<button type="button" id="searchNameButton" class="buttons" onclick="searchContactTest();"> Search </button><br />
+	</div>
+	<button type="button" id="addTestContact" class="buttons" onclick="makeFakeContact();"> Add Test Contacts </button><br />
+	<div id="grow" class="growDiv">
+		<span>Here is some text</span>
+	</div>
+	<span id="contactSearchResult">
+		<table id="contactTable">
+			<tr>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+			  </tr>
+
+		  </table>
+	</span>
+	<p id="addMsg"> </p>
+	<div class="addContactContainer">
+
+		<input type="text" id="contactNameText" placeholder="Contact Name" class="addField">
+		<input type="text" id="contactNumberText" placeholder="Contact Number (XXX-XXX-XXXX)" class="addField">
+		<input type="text" id="contactEmailText" placeholder="Contact Email (NAME@DOMAIN.XYZ)" class="addField">
+		<button type="button" id="addContactButton" class="buttons" onclick="addContactTest();"> Add Contact </button>
+	</div>
+	<span id="contactAddResult"></span>
+
+<!-- <input type="tel" id="contactPhoneNumberText" placeholder="Contact Phone Number (e.g. 1234567890)" 
+	 pattern="(([0-9]{10})|(+[1-249][(][0-9]{3}[)][ ]?[0-9]{3}[- ]?[0-9]{4}))$">
+	 <input type="email" id="contactEmailText" placeholder="Contact Email">
+	 <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br /> -->
+
+	<!--<span id="contactAddResult"></span>-->
+</div>
+
+</body>
+</html>

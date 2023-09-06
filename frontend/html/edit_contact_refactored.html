@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head id="editContactHead">
+	<title id="editContactTitle">Squire Contact Repository: Edit Contact</title>
+	<script type="text/javascript" src="../js/code.js"></script>
+    <link href="../css/styles_searchPage.css" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() 
+	{
+		//readCookie();
+	}, false);
+	</script>
+	
+</head>
+<body id="editContactBody" onload="populateEditPage()">
+    <h1 id="editContactTitleHeading">Edit Contact</h1><br/>
+    <p id="contactSearchResult">Contact Search Result: N/a</p>
+    <p id="contactAddResult">Contact Add Result: N/a</p>
+    <p id="contactDeleteResult">Contact Delete Result: N/a</p>
+    <input id="userIdField" type="hidden" value="defaultUserId" name="userId"/><br />
+    <input id="contactIdField" type="hidden" value="defaultContactId" name="contactId"/><br />
+    <input id="nameField" type="text" value="Default Name" name="name"/><br />
+    <input id="phoneField" type="text" value="123-456-7890" name="phone"/><br />
+    <input id="emailField" type="text" value="someting@anEmail.com" name="email"><br />
+    <button id="submitEditsButton" type="submit" onclick='submitEdits();'>Submit Edits</button><br />
+    <button id="returnToSearchPageButton" type="button" onclick="goToSearchPage();">Return to Search Page</button>
+</body>
+</html>
