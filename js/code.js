@@ -47,7 +47,7 @@ function doLogin()
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
-				saveCookie();
+				//saveCookie();
 	
 				window.location.href = "./search.html";
 			}
@@ -474,9 +474,8 @@ function addEditButtonToRow(row, userId) {
 }
 
 function addEditButtonFunctionality(userId, name, phone, email) {
-	location.href = './edit_contact_refactored.html?userId='+
-					userId.toString()+'&name='+name+'&phone='+
-					phone+'&email='+email;
+	location.href = './edit_contact.html?userId='+userId.toString()+
+					'&name='+name+'&phone='+phone+'&email='+email;
 }
 
 function populateEditPage() {
