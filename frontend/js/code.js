@@ -15,12 +15,13 @@ function doLogin()
 	
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
+
+	let hash = CryptoJS.SHA512(password).toString();
 //	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-	let tmp = {login:login,password:password};
-//	var tmp = {login:login,password:hash};
+	let tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
 	
 	let url = urlBase + '/Login.' + extension;
@@ -147,7 +148,8 @@ function register(){
 		}*/
 
 		///CALL REGISTER PHP
-		let newUserJSON = {firstName:newUserFirstName,lastName:newUserLastName,phone:newUserPhone,email:newUserEmail,login:newUsername,password:newPassword};
+		let hash = CryptoJS.SHA512(newPassword).toString();
+		let newUserJSON = {firstName:newUserFirstName,lastName:newUserLastName,phone:newUserPhone,email:newUserEmail,login:newUsername,password:hash};
 		let jsonPayload = JSON.stringify( newUserJSON );
 		let url = urlBase + '/Register.' + extension;
 
@@ -172,7 +174,7 @@ function register(){
 	}
 }
 
-function doLoginTest()
+/*function doLoginTest()
 {
 	userId = 0;
 	firstName = "";
@@ -200,7 +202,7 @@ function doLoginTest()
 		document.getElementById("loginResult").innerHTML = "Account username not found";
 		console.log("Failed username verification");
 	}
-}
+}*/
 
 /*function saveCookie()
 {
