@@ -13,7 +13,7 @@ CREATE TABLE Users (
   `PhoneNumber` varchar(50) NOT NULL DEFAULT '',
   `Email` varchar(50) NOT NULL DEFAULT '',
   `Login` VARCHAR(50) NOT NULL DEFAULT '' UNIQUE ,
-  `Password` VARCHAR(50) NOT NULL DEFAULT '' ,
+  `Password` VARCHAR(512) NOT NULL DEFAULT '' ,
   PRIMARY KEY (`ID`)
 ) ENGINE = InnoDB;
 
@@ -30,11 +30,11 @@ CREATE TABLE Contacts (
 
 # Insert User Data
 
-insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Usmaan','Baig','123-456-7890','ub@contactmanager4331.online','UsmaanB','password');
-insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Joey','Crown','123-456-7890','jc@contactmanager4331.online','JoeyC','password');
-insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Caleb','Gibson','123-456-7890','cg@contactmanager4331.online','CalebG','password');
-insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Rahul','Mohan','123-456-7890','rm@contactmanager4331.online','RahulM','password');
-insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Rylan','Simpson','123-456-7890','rs@contactmanager4331.online','RylanS','password');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Usmaan','Baig','123-456-7890','ub@contactmanager4331.online','UsmaanB','hash');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Joey','Crown','123-456-7890','jc@contactmanager4331.online','JoeyC','hash');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Caleb','Gibson','123-456-7890','cg@contactmanager4331.online','CalebG','hash');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Rahul','Mohan','123-456-7890','rm@contactmanager4331.online','RahulM','hash');
+insert into Users (FirstName,LastName,PhoneNumber,Email,Login,Password) VALUES ('Rylan','Simpson','123-456-7890','rs@contactmanager4331.online','RylanS','hash');
 
 # Insert Contact Data
 
