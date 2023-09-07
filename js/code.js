@@ -256,22 +256,22 @@ function doLogout()
 
 function makeTableRow(table, contactJSON){
 	let newRow = table.insertRow(-1);
-    let contactID = contactJSON["contact ID"]; // Access contact ID property directly
+    let contactID = contactJSON["contactId"]; // Access contact ID property directly
 
     // Add Name
     let nameCell = newRow.insertCell(0);
     nameCell.setAttribute('data-id', contactID);
-    nameCell.innerText = contactJSON["Name"];
+    nameCell.innerText = contactJSON["name"];
 
     // Add Phone
     let phoneCell = newRow.insertCell(1);
     phoneCell.setAttribute('data-id', contactID);
-    phoneCell.innerText = contactJSON["Phone"];
+    phoneCell.innerText = contactJSON["phone"];
 
     // Add Email
     let emailCell = newRow.insertCell(2);
     emailCell.setAttribute('data-id', contactID);
-    emailCell.innerText = contactJSON["Email"];
+    emailCell.innerText = contactJSON["email"];
 	
 	addEditButtonToRow(newRow, userId);
 	addDeleteButtonToRow(newRow);
