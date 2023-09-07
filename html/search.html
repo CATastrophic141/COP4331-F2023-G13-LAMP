@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Squire Contact Repository</title>
-	<script type="text/javascript" src="../js/code.js"></script>
-    <link href="../css/styles_searchPage.css" rel="stylesheet">	
+	<script type="text/javascript" src="./js/code.js"></script>
+    <link href="./css/styles_searchPage.css" rel="stylesheet">	
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	
 	<script type="text/javascript">
@@ -33,7 +33,7 @@
 			<input type="search" id="numberSearch" placeholder="Contact Number" class="searchField"/>
 			<input type="search" id="emailSearch" placeholder="Contact Email" class="searchField"/>
 		</div>
-		<button type="button" id="searchNameButton" class="buttons" onclick="searchContactTest();"> Search </button><br />
+		<button type="button" id="searchNameButton" class="buttons" onclick="searchContact();"> Search </button><br />
 	</div>
 	<button type="button" id="addTestContact" class="buttons" onclick="makeFakeContact();"> Add Test Contacts </button><br />
 	<div id="grow" class="growDiv">
@@ -55,7 +55,7 @@
 		<input type="text" id="contactNameText" placeholder="Contact Name" class="addField">
 		<input type="text" id="contactNumberText" placeholder="Contact Number (XXX-XXX-XXXX)" class="addField">
 		<input type="text" id="contactEmailText" placeholder="Contact Email (NAME@DOMAIN.XYZ)" class="addField">
-		<button type="button" id="addContactButton" class="buttons" onclick="addContactTest();"> Add Contact </button>
+		<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button>
 	</div>
 	<span id="contactAddResult"></span>
 
