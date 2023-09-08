@@ -100,31 +100,7 @@ function register(){
 	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
 	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
 
-	if (newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phone.test(newUserPhone) ){ //Basic check
-		
-		//I Don't think we need to go too deep into the entry errors right now. We just care about there being something in there.
-		//First and last name information is *not* used, so it doesn't matter
-
-		/*if (nameRegex.test(newUserFirstName) === false) {
-			var firstNameErrMsg = document.getElementById("registerInstruction");
-			firstNameErrMsg.textContent = "Please enter a valid first name";
-			firstNameErrMsg.style.color = "red";
-		}
-		else if (nameRegex.test(newUserLastName) === false) {
-			var lastNameErrMsg = document.getElementById("registerInstruction");
-			lastNameErrMsg.textContent = "Please enter a valid last name";
-			lastNameErrMsg.style.color = "red";
-		}
-		else if (phoneRegex.test(newUser) === false) {
-			var phoneErrMsg = document.getElementById("registerInstruction");
-			phoneErrMsg.textContent = "Please enter a valid phone number. It should be of the format XXX-XXX-XXXX where the X's are 1-digit numbers";
-			phoneErrMsg.style.color = "red";
-		}
-		else if (emailRegex.test(newUserEmail) === false) {
-			var emailErrMsg = document.getElementById("registerInstruction");
-			emailErrMsg.textContent = "Please enter a valid email. It should be of the format something@someEmail.com";
-			emailErrMsg.style.color = "red";
-		}*/
+	if (newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phoneRegex.test(newUserPhone) ){ //Basic check
 
 		///CALL REGISTER PHP
 		let hash = CryptoJS.SHA512(newPassword).toString();
