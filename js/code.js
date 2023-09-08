@@ -197,7 +197,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		console.log("UserID = " + userId);
 	}
 }
 
