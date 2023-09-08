@@ -583,6 +583,7 @@ function searchContact()
 				else
 				{
 					console.log(jsonObject.error)
+					document.getElementById("contactSearchResult").style.color = "red";
 					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 				}
 			}
@@ -591,7 +592,6 @@ function searchContact()
 	}
 	catch (err)
 	{
-		document.getElementById("contactSearchResult").style.color = "red";
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
