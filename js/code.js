@@ -46,11 +46,12 @@ function doLogin()
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
-				console.log (jsonObject);
 
 				saveCookie();
 	
 				window.location.href = "./search.html";
+
+				console.log(jsonObject);
 				readCookie();
 			}
 		};
@@ -122,6 +123,8 @@ function register(){
 					saveCookie();
 
 					window.location.href = "./search.html";
+
+					console.log(jsonObject);
 					readCookie();
 				}
 			};
@@ -298,7 +301,7 @@ function addContact()
 		//console.log(newContactJSON); //Debug
 
 
-		makeTableRow(table, newContactJSON);
+		//makeTableRow(table, newContactJSON);
 
 		let url = urlBase + '/AddContact.' + extension;
 
@@ -313,7 +316,8 @@ function addContact()
 				{
 					let jsonObject = JSON.parse( xhr.responseText );
 					let tableRow = {contactID:jsonObject.contactID,name:newName,phone:newPhone,email:newEmail}
-					document.getElementById("contactAddResult").innerHTML = "Color has been added";
+					makeTableRow(table, tableRow);
+					//document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 				}
 			};
 			xhr.send(jsonPayload);
