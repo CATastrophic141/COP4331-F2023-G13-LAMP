@@ -391,7 +391,6 @@ function addDeleteButtonToRow(row) {
 
 	button.addEventListener("click", function() {
 		deleteContact(button);
-		table.removeChild(row);///////////////////DELETE DATA VIA API
 	});
 
     const cell = row.insertCell();
