@@ -350,7 +350,7 @@ function deleteContact(element)
 	const currRow = element.parentNode.parentNode.rowIndex;
 	const contactTable = document.getElementById("contactTable");
 
-	const rowData = contactTable.rows(currRow).cells;
+	const rowData = contactTable.rows[currRow].cells;
 
 	let delID = rowData[0].getAttribute("data-id");
 
