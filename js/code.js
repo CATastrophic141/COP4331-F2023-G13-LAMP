@@ -100,7 +100,7 @@ function register(){
 	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
 	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
 
-	if (newLogin != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phone.test(newUserPhone) ){ //Basic check
+	if (newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phone.test(newUserPhone) ){ //Basic check
 		
 		//I Don't think we need to go too deep into the entry errors right now. We just care about there being something in there.
 		//First and last name information is *not* used, so it doesn't matter
