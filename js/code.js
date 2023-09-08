@@ -583,6 +583,7 @@ function searchContact()
 				else
 				{
 					console.log(jsonObject.error)
+					document.getElementById("contactSearchResult").style.color = "red";
 					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 				}
 			}
@@ -591,7 +592,15 @@ function searchContact()
 	}
 	catch (err)
 	{
-		document.getElementById("contactSearchResult").style.color = "red";	
+		/* if (document.getElementById("contactSearchResult").firstChild !== document.getElementById("searchResultText")) {
+			var table = document.getElementById("contactTable");
+			var searchResultText = document.createTextNode(err.message);
+			searchResultText.textContent = err.message;
+			searchResultText.id = "searchResultText";
+			searchResultText.style.color = "red";
+			document.getElementById("contactSearchResult").insertBefore(searchResultText, table);
+		} */
+
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
