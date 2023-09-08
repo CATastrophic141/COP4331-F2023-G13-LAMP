@@ -116,6 +116,10 @@ body
     transition: 1s;
 }
 
+#contactSearchResult{
+    color: red;
+}
+
 .addContactContainer
 {
     display: flex;
@@ -259,6 +263,7 @@ select{
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
 }
+
 #editContact{
     border-radius: 10px;
     background-color: #cafff8;
@@ -285,45 +290,69 @@ select{
     font-size: 34px;
 }
 
-#editName{
-    border-radius: 25px;
+#nameField{
+    font-size: 16px;
+    border-radius: 8px;
     text-align: center;
-    width: 80%;
-    margin-left: 10%;
+    min-width: 10%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Arial, sans-serif;
+    color:#151426;
+    background-color: #FFFFFF;
 }
 
-#editPhone{
-    border-radius: 25px;
+#phoneField{
+    font-size: 16px;
+    border-radius: 8px;
     text-align: center;
-    width: 80%;
-    margin-left: 10%;
+    min-width: 10%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Arial, sans-serif;
+    color:#151426;
+    background-color: #FFFFFF;
 }
 
 #editEmail{
-    border-radius: 25px;
+    font-size: 16px;
+    border-radius: 8px;
     text-align: center;
-    width: 80%;
-    margin-left: 10%;
+    min-width: 10%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Arial, sans-serif;
+    color:#151426;
+    background-color: #FFFFFF;
 }
 
-#submitEdit{
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
+#submitEditsButton{
+    font-size: 16px;
+    border-radius: 4px;
+    min-width: 10%;
+    font-family: Arial, sans-serif;
     text-decoration: none;
     text-align: center;
     display: block;
-    border-radius: 25px;
-    color:#100b36;
+    color:#151426;
     background-color: #cafff8;
+}
+
+#submitEditsButton:hover{
+    background-color: #D94A64;
+}
+
+#returnToSearchPageButton{
+    font-size: 16px;
+    border-radius: 4px;
+    min-width: 10%;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    color:#151426;
+    background-color: #cafff8;
+}
+
+#returnToSearchPageButton:hover{
+    color:#D94A64;
 }
 
 #newContactBody{
