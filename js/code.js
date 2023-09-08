@@ -400,22 +400,22 @@ function addDeleteButtonToRow(row) {
 function addEditButtonToRow(row, userId) {
     const button = document.createElement("button");
     button.textContent = "Edit";
-
+	let contactId = row.cells[0].getAttribute("data-id");
 	let name = row.cells[0].innerHTML;
 	let phone = row.cells[1].innerHTML;
 	let email = row.cells[2].innerHTML;
 
 	// Assign the function to the button's onclick event
     button.onclick = function () {	
-		addEditButtonFunctionality(userId, name, phone, email);
+		addEditButtonFunctionality(userId, contactId, name, phone, email);
     };
 
     const cell = row.insertCell();
     cell.appendChild(button);
 }
 
-function addEditButtonFunctionality(userId, name, phone, email) {
-	location.href = './edit_contact.html?userId='+userId.toString()+
+function addEditButtonFunctionality(userId, contactId, name, phone, email) {
+	location.href = './edit_contact.html?userId='+userId.toString()+'&contactId='+contactId+
 					'&name='+name+'&phone='+phone+'&email='+email;
 }
 
@@ -440,38 +440,8 @@ function populateEditPage() {
 	let emailField = document.getElementById("emailField");
 	emailField.value = params.email;
 
-	let contactToEdit = {searchName:params.name, searchNumber:params.phone, searchEmail:params.email, userId:params.userId};
-	var jsonPayload = JSON.stringify( contactToEdit );
-
-	var url = urlBase + '/SearchContacts.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				console.log(jsonObject)
-				
-				var contactId = jsonObject["contactId"];
-				console.log("contactId = " + contactId.toString() +"\n");
-
-				/** Add the correct Contact ID field to the hidden contact ID field in the document. **/
-				var contactIdField = document.getElementById("contactIdField");
-				contactIdField.value = contactId.toString();
-			}
-		};
-		xhr.send(jsonPayload);
-		console.log("JSON Payload sent");
-	}
-	catch(err)
-	{
-		document.getElementById("tableMsg").innerHTML = err;
-	}
+	let contactIdField = document.getElementById("contactIdField");
+	contactIdField.value = params.contactId;
 }
 
 function goToSearchPage() { //Lol
