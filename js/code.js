@@ -456,6 +456,7 @@ function populateEditPage() {
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
+				console.log(jsonObject)
 				
 				var contactId = jsonObject["contactId"];
 				console.log("contactId = " + contactId.toString() +"\n");
@@ -470,7 +471,7 @@ function populateEditPage() {
 	}
 	catch(err)
 	{
-		document.getElementById("contactSearchResult").innerHTML = err;
+		document.getElementById("tableMsg").innerHTML = err;
 	}
 }
 
@@ -552,7 +553,7 @@ function searchContact()
 	let nameSearch = document.getElementById("nameSearch").value;
 	let numberSearch = document.getElementById("numberSearch").value;
 	let emailSearch = document.getElementById("emailSearch").value;
-	document.getElementById("contactSearchResult").innerHTML = "";
+	document.getElementById("tableMsg").innerHTML = "";
 
 
 	let searchContactJSON = {searchName:nameSearch,searchPhone:numberSearch,searchEmail:emailSearch,userId:userId};
@@ -573,7 +574,7 @@ function searchContact()
 
 				if (jsonObject.error === "")
 				{
-					document.getElementById("contactSearchResult").innerHTML = "Contact (s) has been retrieved";
+					document.getElementById("tableMsg").innerHTML = "Contact (s) has been retrieved";
 					let results = jsonObject.results;
 					var table = document.getElementById("contactTable");
 
@@ -587,8 +588,8 @@ function searchContact()
 				else
 				{
 					console.log(jsonObject.error)
-					document.getElementById("contactSearchResult").style.color = "red";
-					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+					document.getElementById("tableMsg").style.color = "red";
+					document.getElementById("tableMsg").innerHTML = jsonObject.error;
 				}
 			}
 		};
@@ -596,6 +597,6 @@ function searchContact()
 	}
 	catch (err)
 	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
+		document.getElementById("tableMsg").innerHTML = err.message;
 	}
 }
