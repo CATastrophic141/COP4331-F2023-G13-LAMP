@@ -592,15 +592,6 @@ function searchContact()
 	}
 	catch (err)
 	{
-		/* if (document.getElementById("contactSearchResult").firstChild !== document.getElementById("searchResultText")) {
-			var table = document.getElementById("contactTable");
-			var searchResultText = document.createTextNode(err.message);
-			searchResultText.textContent = err.message;
-			searchResultText.id = "searchResultText";
-			searchResultText.style.color = "red";
-			document.getElementById("contactSearchResult").insertBefore(searchResultText, table);
-		} */
-
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
