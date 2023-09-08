@@ -17,7 +17,7 @@ function doLogin()
 	let password = document.getElementById("loginPassword").value;
 
 	let hash = CryptoJS.SHA512(password).toString();
-//	var hash = md5( password );
+	//	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
@@ -46,10 +46,12 @@ function doLogin()
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
+				console.log (jsonObject);
 
-				//saveCookie();
+				saveCookie();
 	
 				window.location.href = "./search.html";
+				readCookie();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -83,34 +85,11 @@ function showRegister(element) {
 	}
 }
 
-function showRegister(element) {
-
-	if (element.innerHTML == "Sign Up") {
-		document.getElementById("nameFields").style.display = 'flex';
-		document.getElementById("registerPhone").style.display = 'block';
-		document.getElementById("registerEmail").style.display = 'block';
-		document.getElementById("registerButton").style.display = 'block';
-		document.getElementById("loginButton").style.display = 'none';
-		document.getElementById("inner-title").innerHTML = "Fill out the fields below, then click \"Create Account\".";
-		document.getElementById("registerText").innerHTML = "Already have an Account?";
-		document.getElementById("signUpButton").innerHTML = "Log In";
-	} else {
-		document.getElementById("nameFields").style.display = 'none';
-		document.getElementById("registerPhone").style.display = 'none';
-		document.getElementById("registerEmail").style.display = 'none';
-		document.getElementById("registerButton").style.display = 'none';
-		document.getElementById("loginButton").style.display = 'block';
-		document.getElementById("inner-title").innerHTML = "LOG IN";
-		document.getElementById("registerText").innerHTML = "Not registered yet?";
-		document.getElementById("signUpButton").innerHTML = "Sign Up";
-	}
-}
-
 function register(){
 	let newUserFirstName = document.getElementById("registerFirstName").value;
 	let newUserLastName = document.getElementById("registerLastName").value;
-	let newPassword = document.getElementById("registerPassword").value;
-	let newUsername = document.getElementById("registerUsername").value;
+	let newPassword = document.getElementById("loginPassword").value;
+	let newUsername = document.getElementById("loginName").value;
 	let newUserPhone = document.getElementById("registerPhone").value;
 	let newUserEmail = document.getElementById("registerEmail").value;
 
@@ -121,46 +100,32 @@ function register(){
 	const phoneRegex = new RegExp(/^\d{3}-\d{3}-\d{4}$/);
 	const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
 
-	if (newLogin != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phone.test(newUserPhone) ){ //Basic check
-		
-		//I Don't think we need to go too deep into the entry errors right now. We just care about there being something in there.
-		//First and last name information is *not* used, so it doesn't matter
-
-		/*if (nameRegex.test(newUserFirstName) === false) {
-			var firstNameErrMsg = document.getElementById("registerInstruction");
-			firstNameErrMsg.textContent = "Please enter a valid first name";
-			firstNameErrMsg.style.color = "red";
-		}
-		else if (nameRegex.test(newUserLastName) === false) {
-			var lastNameErrMsg = document.getElementById("registerInstruction");
-			lastNameErrMsg.textContent = "Please enter a valid last name";
-			lastNameErrMsg.style.color = "red";
-		}
-		else if (phoneRegex.test(newUser) === false) {
-			var phoneErrMsg = document.getElementById("registerInstruction");
-			phoneErrMsg.textContent = "Please enter a valid phone number. It should be of the format XXX-XXX-XXXX where the X's are 1-digit numbers";
-			phoneErrMsg.style.color = "red";
-		}
-		else if (emailRegex.test(newUserEmail) === false) {
-			var emailErrMsg = document.getElementById("registerInstruction");
-			emailErrMsg.textContent = "Please enter a valid email. It should be of the format something@someEmail.com";
-			emailErrMsg.style.color = "red";
-		}*/
+	if (newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phoneRegex.test(newUserPhone) ){ //Basic check
 
 		///CALL REGISTER PHP
 		let hash = CryptoJS.SHA512(newPassword).toString();
 		let newUserJSON = {firstName:newUserFirstName,lastName:newUserLastName,phone:newUserPhone,email:newUserEmail,login:newUsername,password:hash};
 		let jsonPayload = JSON.stringify( newUserJSON );
 		let url = urlBase + '/Register.' + extension;
-
 		let xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		try
 		{
-			//No return necessary. Move on
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					userId = jsonObject.id;
+
+					saveCookie();
+
+					window.location.href = "./search.html";
+					readCookie();
+				}
+			};
 			xhr.send(jsonPayload);
-			window.location.href = "./search.html";
 		}
 		catch(err)
 		{
@@ -174,45 +139,16 @@ function register(){
 	}
 }
 
-/*function doLoginTest()
-{
-	userId = 0;
-	firstName = "";
-	lastName = "";
-
-	var testUserName = "testUser123";
-	var testPassword = "Admin123";
-	
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
-	
-	document.getElementById("loginResult").innerHTML = "";
-
-	if (login == testUserName) {
-		if (password == testPassword) {
-			window.location.href = "./search.html";
-		}
-		else{
-			document.getElementById("loginResult").innerHTML = "Password is incorrect";
-			console.log("Failed password verification");
-		}
-	}
-	else {
-		document.getElementById("loginResult").innerHTML = "Account username not found";
-		console.log("Failed username verification");
-	}
-}*/
-
-/*function saveCookie()
+function saveCookie()
 {
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
+	console.log ("firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString());
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-}*/
+}
 
-/*function readCookie()
+function readCookie()
 {
 	userId = -1;
 	let data = document.cookie;
@@ -234,23 +170,23 @@ function register(){
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
+	console.log("Read cookie: Firstname:"+firstName+" Lastname: "+lastName+" ID:"+userId);
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		console.log("UserID = " + userId);
 	}
-}*/
+}
 
 function doLogout()
 {
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	//document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	saveCookie();
 	window.location.href = "./index.html";
 }
 
@@ -328,6 +264,7 @@ function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTIO
 
 function addContact() 
 {
+	readCookie();
 	let newName = document.getElementById("contactNameText").value;
 	let newPhone = document.getElementById("contactNumberText").value;
 	let newEmail = document.getElementById("contactEmailText").value;
@@ -405,6 +342,7 @@ function addContact()
 
 function deleteContact(element)
 {
+	readCookie();
 	const currRow = element.parentNode.parentNode.rowIndex;
 	const contactTable = document.getElementByID("contactTable");
 
@@ -479,6 +417,7 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 }
 
 function populateEditPage() {
+	readCookie();
 	const urlSearchParams = new URLSearchParams(window.location.search);
 	const params = Object.fromEntries(urlSearchParams.entries());
 
@@ -531,11 +470,13 @@ function populateEditPage() {
 	}
 }
 
-function goToSearchPage() { //Lol //Lol
+function goToSearchPage() { //Lol
 	location.href = "./search.html";
+	readCookie();
 }
 
 function submitEdits() {
+	readCookie();
 	var contId = document.getElementById('contactIdField').value;
 	var editName = document.getElementById('nameField').value;
 	var editPhone = document.getElementById('phoneField').value;
@@ -603,6 +544,7 @@ function deleteContactDBEntry(row) {
 
 function searchContact()
 {
+	readCookie();
 	let nameSearch = document.getElementById("nameSearch").value;
 	let numberSearch = document.getElementById("numberSearch").value;
 	let emailSearch = document.getElementById("emailSearch").value;

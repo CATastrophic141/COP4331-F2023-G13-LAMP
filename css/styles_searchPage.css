@@ -385,6 +385,12 @@ td {
 
 #logoutButton {
     font-size: 18px;
+    background-color:rgba(165, 87, 102, 1); 
+}
+
+#logoutButton:hover{
+    background-color:rgba(242, 223, 205, 1);
+    color: black;
 }
 
 /* Color Theme Swatches in Hex */
