@@ -17,7 +17,7 @@ function doLogin()
 	let password = document.getElementById("loginPassword").value;
 
 	let hash = CryptoJS.SHA512(password).toString();
-//	var hash = md5( password );
+	//	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
@@ -47,7 +47,7 @@ function doLogin()
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
-				//saveCookie();
+				saveCookie();
 	
 				window.location.href = "./search.html";
 			}
@@ -57,29 +57,6 @@ function doLogin()
 	catch(err)
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
-	}
-}
-
-function showRegister(element) {
-
-	if (element.innerHTML == "Sign Up") {
-		document.getElementById("nameFields").style.display = 'flex';
-		document.getElementById("registerPhone").style.display = 'block';
-		document.getElementById("registerEmail").style.display = 'block';
-		document.getElementById("registerButton").style.display = 'block';
-		document.getElementById("loginButton").style.display = 'none';
-		document.getElementById("inner-title").innerHTML = "Fill out the fields below, then click \"Create Account\".";
-		document.getElementById("registerText").innerHTML = "Already have an Account?";
-		document.getElementById("signUpButton").innerHTML = "Log In";
-	} else {
-		document.getElementById("nameFields").style.display = 'none';
-		document.getElementById("registerPhone").style.display = 'none';
-		document.getElementById("registerEmail").style.display = 'none';
-		document.getElementById("registerButton").style.display = 'none';
-		document.getElementById("loginButton").style.display = 'block';
-		document.getElementById("inner-title").innerHTML = "LOG IN";
-		document.getElementById("registerText").innerHTML = "Not registered yet?";
-		document.getElementById("signUpButton").innerHTML = "Sign Up";
 	}
 }
 
@@ -152,15 +129,24 @@ function register(){
 		let newUserJSON = {firstName:newUserFirstName,lastName:newUserLastName,phone:newUserPhone,email:newUserEmail,login:newUsername,password:hash};
 		let jsonPayload = JSON.stringify( newUserJSON );
 		let url = urlBase + '/Register.' + extension;
-
 		let xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		try
 		{
-			//No return necessary. Move on
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					userId = jsonObject.id;
+
+					saveCookie();
+
+					window.location.href = "./search.html";
+				}
+			};
 			xhr.send(jsonPayload);
-			window.location.href = "./search.html";
 		}
 		catch(err)
 		{
@@ -174,45 +160,15 @@ function register(){
 	}
 }
 
-/*function doLoginTest()
-{
-	userId = 0;
-	firstName = "";
-	lastName = "";
-
-	var testUserName = "testUser123";
-	var testPassword = "Admin123";
-	
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
-	
-	document.getElementById("loginResult").innerHTML = "";
-
-	if (login == testUserName) {
-		if (password == testPassword) {
-			window.location.href = "./search.html";
-		}
-		else{
-			document.getElementById("loginResult").innerHTML = "Password is incorrect";
-			console.log("Failed password verification");
-		}
-	}
-	else {
-		document.getElementById("loginResult").innerHTML = "Account username not found";
-		console.log("Failed username verification");
-	}
-}*/
-
-/*function saveCookie()
+function saveCookie()
 {
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-}*/
+}
 
-/*function readCookie()
+function readCookie()
 {
 	userId = -1;
 	let data = document.cookie;
@@ -243,14 +199,14 @@ function register(){
 	{
 		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
-}*/
+}
 
 function doLogout()
 {
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	//document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	saveCookie();
 	window.location.href = "./index.html";
 }
 
@@ -328,6 +284,7 @@ function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTIO
 
 function addContact() 
 {
+	readCookie();
 	let newName = document.getElementById("contactNameText").value;
 	let newPhone = document.getElementById("contactNumberText").value;
 	let newEmail = document.getElementById("contactEmailText").value;
@@ -405,6 +362,7 @@ function addContact()
 
 function deleteContact(element)
 {
+	readCookie();
 	const currRow = element.parentNode.parentNode.rowIndex;
 	const contactTable = document.getElementByID("contactTable");
 
@@ -479,6 +437,7 @@ function addEditButtonFunctionality(userId, name, phone, email) {
 }
 
 function populateEditPage() {
+	readCookie();
 	const urlSearchParams = new URLSearchParams(window.location.search);
 	const params = Object.fromEntries(urlSearchParams.entries());
 
@@ -531,11 +490,12 @@ function populateEditPage() {
 	}
 }
 
-function goToSearchPage() { //Lol //Lol
+function goToSearchPage() { //Lol
 	location.href = "./search.html";
 }
 
 function submitEdits() {
+	readCookie();
 	var contId = document.getElementById('contactIdField').value;
 	var editName = document.getElementById('nameField').value;
 	var editPhone = document.getElementById('phoneField').value;
@@ -603,6 +563,7 @@ function deleteContactDBEntry(row) {
 
 function searchContact()
 {
+	readCookie();
 	let nameSearch = document.getElementById("nameSearch").value;
 	let numberSearch = document.getElementById("numberSearch").value;
 	let emailSearch = document.getElementById("emailSearch").value;
