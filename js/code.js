@@ -51,6 +51,7 @@ function doLogin()
 				saveCookie();
 	
 				window.location.href = "./search.html";
+				readCookie();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -145,6 +146,7 @@ function register(){
 					saveCookie();
 
 					window.location.href = "./search.html";
+					readCookie();
 				}
 			};
 			xhr.send(jsonPayload);
@@ -494,6 +496,7 @@ function populateEditPage() {
 
 function goToSearchPage() { //Lol
 	location.href = "./search.html";
+	readCookie();
 }
 
 function submitEdits() {
