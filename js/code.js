@@ -354,7 +354,7 @@ function deleteContact(element)
 
 	let delID = rowData[0].getAttribute("data-id");
 
-	let deleteContactJSON = {contactID:delID};
+	let deleteContactJSON = {contactId:delID};
 	let jsonPayload = JSON.stringify( deleteContactJSON );
 
 	console.log(deleteContactJSON);
