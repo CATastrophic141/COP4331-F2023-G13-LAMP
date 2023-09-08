@@ -649,7 +649,7 @@ function searchContact()
 	}
 	catch (err)
 	{
-		document.getElementById("contactSearchResult").style.color = "red";
+		document.getElementById("contactSearchResult").style.color = "red";	
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }

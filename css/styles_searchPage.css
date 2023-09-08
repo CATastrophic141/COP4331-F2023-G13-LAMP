@@ -116,10 +116,6 @@ body
     transition: 1s;
 }
 
-#contactSearchResult{
-    color: red;
-}
-
 .addContactContainer
 {
     display: flex;
@@ -312,7 +308,7 @@ select{
     background-color: #FFFFFF;
 }
 
-#editEmail{
+#emailField{
     font-size: 16px;
     border-radius: 8px;
     text-align: center;
@@ -332,7 +328,7 @@ select{
     text-align: center;
     display: block;
     color:#151426;
-    background-color: #cafff8;
+    background-color: #ffffff;
 }
 
 #submitEditsButton:hover{
@@ -348,7 +344,7 @@ select{
     text-align: center;
     display: block;
     color:#151426;
-    background-color: #cafff8;
+    background-color: #ffffff;
 }
 
 #returnToSearchPageButton:hover{
