@@ -88,8 +88,8 @@ function showRegister(element) {
 function register(){
 	let newUserFirstName = document.getElementById("registerFirstName").value;
 	let newUserLastName = document.getElementById("registerLastName").value;
-	let newPassword = document.getElementById("registerPassword").value;
-	let newUsername = document.getElementById("registerUsername").value;
+	let newPassword = document.getElementById("loginPassword").value;
+	let newUsername = document.getElementById("loginName").value;
 	let newUserPhone = document.getElementById("registerPhone").value;
 	let newUserEmail = document.getElementById("registerEmail").value;
 
