@@ -55,6 +55,9 @@ function doLogin() {
 		saveCookie();
 		goToSearchPage();
 	}, function (err) {
+		if (err.message === "No Records Found") {
+			err.message = "User/Password combination incorrect";
+		}
 		document.getElementById("loginResult").innerHTML = err.message;
 	})
 }
