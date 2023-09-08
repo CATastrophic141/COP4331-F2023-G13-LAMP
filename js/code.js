@@ -145,7 +145,7 @@ function register(){
 
 					saveCookie();
 
-					window.location.href = "./search.html";
+					//window.location.href = "./search.html";
 					readCookie();
 				}
 			};
