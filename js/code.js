@@ -50,7 +50,7 @@ function doLogin()
 
 				saveCookie();
 	
-				//window.location.href = "./search.html";
+				window.location.href = "./search.html";
 				readCookie();
 			}
 		};
@@ -170,7 +170,7 @@ function readCookie()
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	console.log("Read coockie: Firstname:"+firstName+" Lastname: "+lastName+" ID:"+userId);
+	console.log("Read cookie: Firstname:"+firstName+" Lastname: "+lastName+" ID:"+userId);
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
