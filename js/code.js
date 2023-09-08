@@ -334,6 +334,8 @@ function searchContact() {
 		userId: USER_INFO.userId
 	};
 
+	clearTable();
+
 	sendPostRequest("SearchContacts", request, function (response) {
 		document.getElementById("tableMsg").innerHTML = "Contact(s) has been retrieved";
 		let results = response.results;
@@ -346,4 +348,8 @@ function searchContact() {
 		document.getElementById("tableMsg").style.color = "red";
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
+}
+
+function clearTable() {
+	document.getElementById("contactTable").innerHTML = "<tr><th>Name</th><th>Phone</th><th>Email</th></tr>";
 }
