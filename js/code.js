@@ -650,5 +650,6 @@ function searchContact()
 	catch (err)
 	{
 		document.getElementById("contactSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").style = "color:red;";
 	}
 }
