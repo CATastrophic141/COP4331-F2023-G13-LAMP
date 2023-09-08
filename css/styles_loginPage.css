@@ -1,3 +1,11 @@
+:root {
+    --color-green: #6A8E7F;
+    --color-brown: #6B4B3E;
+    --color-light-brown: #C49E85;
+    --color-beige: #FED6AF;
+    --color-white: #F8F4F9;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap');
 html *
 {
@@ -277,17 +285,3 @@ select{
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
 }
-
-/* Color Theme Swatches in Hex */
-.Squire-12-1-hex { color: #D94A64; }
-.Squire-12-2-hex { color: #A65866; }
-.Squire-12-3-hex { color: #151426; }
-.Squire-12-4-hex { color: #85A6A6; }
-.Squire-12-5-hex { color: #F2DFCE; }
-
-/* Color Theme Swatches in RGBA */
-.Squire-12-1-rgba { color: rgba(216, 73, 100, 1); }
-.Squire-12-2-rgba { color: rgba(165, 87, 102, 1); }
-.Squire-12-3-rgba { color: rgba(20, 20, 38, 1); }
-.Squire-12-4-rgba { color: rgba(133, 165, 165, 1); }
-.Squire-12-5-rgba { color: rgba(242, 223, 205, 1); }
