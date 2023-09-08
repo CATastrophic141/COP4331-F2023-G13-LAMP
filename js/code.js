@@ -46,6 +46,7 @@ function doLogin()
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
+				console.log (jsonObject);
 
 				saveCookie();
 	
@@ -165,6 +166,7 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
+	console.log ("firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString());
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
@@ -190,7 +192,7 @@ function readCookie()
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
+	console.log("Read coockie: Firstname:"+firstName+" Lastname: "+lastName+" ID:"+userId);
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
