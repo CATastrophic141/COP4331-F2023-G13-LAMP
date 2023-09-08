@@ -348,7 +348,7 @@ function deleteContact(element)
 {
 	readCookie();
 	const currRow = element.parentNode.parentNode.rowIndex;
-	const contactTable = document.getElementByID("contactTable");
+	const contactTable = document.getElementById("contactTable");
 
 	const rowData = contactTable.rows(currRow).cells;
 
