@@ -296,7 +296,7 @@ function addContact()
 	}
 
 	if (!nameErr && !phoneErr && !emailErr){
-		let newContactJSON = {userId:userId,name:newName,phone:newPhone,email:newEmail};
+		let newContactJSON = {userId:userId,contactName:newName,contactPhone:newPhone,contactEmail:newEmail};
 		let jsonPayload = JSON.stringify( newContactJSON );
 		//console.log(newContactJSON); //Debug
 
