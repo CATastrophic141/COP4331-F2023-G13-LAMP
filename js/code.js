@@ -260,7 +260,10 @@ function addEditButtonToRow(row, userId) {
 
 	// Assign the function to the button's onclick event
 	button.onclick = function () {
-		addEditButtonFunctionality(userId, contactId, name, phone, email);
+		//addEditButtonFunctionality(userId, contactId, name, phone, email);
+		// Alternatively, can use Rahul's idea and make the Add Contact block function like an Edit Contact block;
+		// below is the function call that would do that.
+		altAddEditButtonFunctionality(row, contactId, name, phone, email);
 	};
 
 	const cell = row.insertCell();
@@ -270,6 +273,72 @@ function addEditButtonToRow(row, userId) {
 function addEditButtonFunctionality(userId, contactId, name, phone, email) {
 	window.location.href = './edit_contact.html?userId=' + userId.toString() + '&contactId=' + contactId +
 		'&name=' + name + '&phone=' + phone + '&email=' + email;
+}
+
+function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
+	// If the edit/add contact block is in the default "add contact" state,
+	// change it to be in the "edit contact" state.
+	if (document.getElementById("addContactButton") !== null) {
+		// Edit the "contactAddResult" span's ID to reflect that it now indicates the result of EDITING the contact.
+		var contactEditResult = document.getElementById("contactAddResult");
+		contactEditResult.id = "contactEditResult";
+
+		// Edit the "addContactButton" button's ID and inner text to reflect that it now 
+		// is used to submit the user's edits to their existing contact.
+		var editContactButton = document.getElementById("addContactButton");
+		editContactButton.innerHTML = " Submit Edits ";
+		editContactButton.id = "editContactButton";
+
+		// Edit the functionality of the "addContactButton" button to be that of editing the contact, 
+		// then revert its functionality back to that of adding the contact.
+		editContactButton.onclick = function() {
+			let editName = document.getElementById("contactNameText").value;
+			let editPhone = document.getElementById("contactNumberText").value;
+			let editEmail = document.getElementById("contactEmailText").value;
+
+			//Request packet with info fields to be updated and contactID to identify contact to be updated.
+			let request = {
+				contactName: editName,
+				contactPhone: editPhone,
+				contactEmail: editEmail,
+				contactId: contactId
+			};
+
+			sendPostRequest("UpdateContact", request, function(response) {
+				//Indicate success!
+				contactEditResult.innerHTML = "Success! Contact edited.";
+
+				//Update the table row cell values in the table.
+				row.cells[0].innerHTML = editName;
+				row.cells[1].innerHTML = editPhone;
+				row.cells[2].innerHTML = editEmail;
+			}, function(err) {
+				contactEditResult.innerHTML = "Error: " + err.message;
+			});
+
+			//Reset to the default "add contact" values.
+			// First, reset the result span.
+			document.getElementById("contactEditResult").innerHTML = "";
+			document.getElementById("contactEditResult").id = "contactAddResult";
+
+			// Second, reset the default values in the edit/add contact fields.
+			document.getElementById("contactNameText").value = "Contact Name";
+			document.getElementById("contactNumberText").value = "Contact Number (XXX-XXX-XXXX)";
+			document.getElementById("contactEmailText").value = "Contact Email (NAME@DOMAIN.XYZ)";
+
+			// Third, reset the ID and text of the edit/add contact button.
+			editContactButton.innerHTML = " Add Contact ";
+			editContactButton.id = "addContactButton";
+
+			// Fourth and finally, reset the onclick function of the edit/add contact button.
+			editContactButton.setAttribute("onclick", "javascript: addContact();");
+		}
+	}
+
+	//Populate the edit contact fields with the values based on what they are in the table.
+	document.getElementById("contactNameText").value = name;
+	document.getElementById("contactNumberText").value = phone;
+	document.getElementById("contactEmailText").value = email;
 }
 
 function populateEditPage() {
