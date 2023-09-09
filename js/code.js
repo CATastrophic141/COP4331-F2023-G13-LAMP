@@ -215,7 +215,7 @@ function addContact() {
 		let tableRow = { contactID: response.contactID, name: newName, phone: newPhone, email: newEmail }
 		makeTableRow(table, tableRow);
 	}, function (err) {
-		document.getElementById("contactAddResult").innerHTML = err.message;
+		document.getElementById("tableMsg").innerHTML = err.message;
 	});
 }
 
@@ -279,8 +279,8 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 	// If the edit/add contact block is in the default "add contact" state,
 	// change it to be in the "edit contact" state.
 	if (document.getElementById("addContactButton") !== null) {
-		// Edit the "contactAddResult" span's ID to reflect that it now indicates the result of EDITING the contact.
-		var contactEditResult = document.getElementById("contactAddResult");
+		// Edit the "tableMsg" span's ID to reflect that it now indicates the result of EDITING the contact.
+		var contactEditResult = document.getElementById("tableMsg");
 		contactEditResult.id = "contactEditResult";
 
 		// Edit the "addContactButton" button's ID and inner text to reflect that it now 
@@ -319,7 +319,7 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 			//Reset to the default "add contact" values.
 			// First, reset the result span.
 			document.getElementById("contactEditResult").innerHTML = "";
-			document.getElementById("contactEditResult").id = "contactAddResult";
+			document.getElementById("contactEditResult").id = "tableMsg";
 
 			// Second, reset the default values in the edit/add contact fields.
 			document.getElementById("contactNameText").value = "Contact Name";
