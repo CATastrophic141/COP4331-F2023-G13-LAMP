@@ -260,10 +260,10 @@ function addEditButtonToRow(row, userId) {
 
 	// Assign the function to the button's onclick event
 	button.onclick = function () {
-		addEditButtonFunctionality(userId, contactId, name, phone, email);
+		//addEditButtonFunctionality(userId, contactId, name, phone, email);
 		// Alternatively, can use Rahul's idea and make the Add Contact block function like an Edit Contact block;
 		// below is the function call that would do that.
-		//altAddEditButtonFunctionality(row, contactId, name, phone, email);
+		altAddEditButtonFunctionality(row, contactId, name, phone, email);
 	};
 
 	const cell = row.insertCell();
