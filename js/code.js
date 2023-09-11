@@ -125,12 +125,10 @@ function register() {
 }
 
 function saveCookie() {
-	console.log("SAVING COOKIE");
 	let expiry_time = 20 * 60 * 1000; // 20 minutes
 	let date = new Date();
 	date.setTime(date.getTime() + expiry_time);
 	document.cookie = "userInfo=" + JSON.stringify(USER_INFO) + ";expires=" + date.toGMTString();
-	console.log(document.cookie);
 }
 
 function readCookie() {
@@ -138,8 +136,6 @@ function readCookie() {
 		window.location.href = "index.html";
 		return;
 	}
-
-	console.log("COOKIE EXISTS");
 
 	USER_INFO = JSON.parse(document.cookie.split("=")[1]);
 }
@@ -231,7 +227,6 @@ function deleteContact(element) {
 	let request = { contactId: delID };
 
 	sendPostRequest("DeleteContact", request, function (response) {
-		console.log("Contact successfully deleted.");
 		contactTable.deleteRow(currRow);
 	}, function (err) {
 		console.log(err.message);
@@ -317,9 +312,9 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 			document.getElementById("contactEditResult").id = "tableMsg";
 
 			// Second, reset the default values in the edit/add contact fields.
-			document.getElementById("contactNameText").value = "Contact Name";
-			document.getElementById("contactNumberText").value = "Contact Number (XXX-XXX-XXXX)";
-			document.getElementById("contactEmailText").value = "Contact Email (NAME@DOMAIN.XYZ)";
+			document.getElementById("contactNameText").value = "";
+			document.getElementById("contactNumberText").value = "";
+			document.getElementById("contactEmailText").value = "";
 
 			// Third, reset the ID and text of the edit/add contact button.
 			editContactButton.innerHTML = " Add Contact ";
