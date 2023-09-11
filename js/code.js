@@ -241,7 +241,7 @@ function addDeleteButtonToRow(row) {
 	button.textContent = "Delete";
 
 	button.addEventListener("click", function () {
-		if (confirm("Are you sure you want to delete this contact?")) {
+		if (window.confirm("Are you sure you want to delete this contact?")) {
 			deleteContact(button);
 		} else {
 			return;
