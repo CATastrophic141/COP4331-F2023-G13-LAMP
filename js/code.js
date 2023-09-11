@@ -270,11 +270,6 @@ function addEditButtonToRow(row, userId) {
 	cell.appendChild(button);
 }
 
-function addEditButtonFunctionality(userId, contactId, name, phone, email) {
-	window.location.href = './edit_contact.html?userId=' + userId.toString() + '&contactId=' + contactId +
-		'&name=' + name + '&phone=' + phone + '&email=' + email;
-}
-
 function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 	// If the edit/add contact block is in the default "add contact" state,
 	// change it to be in the "edit contact" state.
@@ -341,52 +336,9 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 	document.getElementById("contactEmailText").value = email;
 }
 
-function populateEditPage() {
-	readCookie();
-	const urlSearchParams = new URLSearchParams(window.location.search);
-	const params = Object.fromEntries(urlSearchParams.entries());
-
-	let userIdField = document.getElementById("userIdField");
-	userIdField.value = params.userId;
-
-	let nameField = document.getElementById("nameField");
-	nameField.value = params.name;
-
-	let phoneField = document.getElementById("phoneField");
-	phoneField.value = params.phone;
-
-	let emailField = document.getElementById("emailField");
-	emailField.value = params.email;
-
-	let contactIdField = document.getElementById("contactIdField");
-	contactIdField.value = params.contactId;
-}
-
 function goToSearchPage() {
 	window.location.href = "./search.html";
 	readCookie();
-}
-
-function submitEdits() {
-	readCookie();
-	var contId = document.getElementById('contactIdField').value;
-	var editName = document.getElementById('nameField').value;
-	var editPhone = document.getElementById('phoneField').value;
-	var editEmail = document.getElementById('emailField').value;
-
-	let request = {
-		contactName: editName,
-		contactPhone: editPhone,
-		contactEmail: editEmail,
-		contactId: contId
-	};
-
-	sendPostRequest("UpdateContact", request, function (response) {
-		document.getElementById("editPageContactUpdateResult").innerHTML = "Contact Update Result: updated";
-		goToSearchPage();
-	}, function (err) {
-		document.getElementById("editPageContactUpdateResult").innerHTML = "Contact Update Result: " + err.message;
-	});
 }
 
 function searchContact() {
