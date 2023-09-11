@@ -378,6 +378,36 @@ function searchContact() {
 	});
 }
 
+function searchAllContacts() {
+	readCookie();
+	let nameSearch = "";
+	let numberSearch = "";
+	let emailSearch = "";
+	document.getElementById("tableMsg").innerHTML = "";
+
+	let request = {
+		searchName: nameSearch,
+		searchPhone: numberSearch,
+		searchEmail: emailSearch,
+		userId: USER_INFO.userId
+	};
+
+	clearTable();
+
+	sendPostRequest("SearchContacts", request, function (response) {
+		document.getElementById("tableMsg").innerHTML = "Contact(s) has been retrieved";
+		let results = response.results;
+		var table = document.getElementById("contactTable");
+
+		for (let i = 0; i < results.length; i++) {
+			makeTableRow(table, results[i]);
+		}
+	}, function (err) {
+		document.getElementById("tableMsg").style.color = "red";
+		document.getElementById("tableMsg").innerHTML = err.message;
+	});
+}
+
 function clearTable() {
 	document.getElementById("contactTable").innerHTML = "<tr><th>Name</th><th>Phone</th><th>Email</th></tr>";
 }
