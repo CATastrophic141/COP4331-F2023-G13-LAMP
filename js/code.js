@@ -215,6 +215,11 @@ function addContact() {
 	}, function (err) {
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
+
+	// Clear the Add Contact text fields now that the contact has been added.
+	document.getElementById("contactNameText").value = "";
+	document.getElementById("contactNumberText").value = "";
+	document.getElementById("contactEmailText").value = "";
 }
 
 function deleteContact(element) {
