@@ -213,6 +213,7 @@ function addContact() {
 		let tableRow = { contactID: response.contactID, name: newName, phone: newPhone, email: newEmail }
 		makeTableRow(table, tableRow);
 	}, function (err) {
+		document.getElementById("tableMsg").style.color = "red";
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
 
@@ -235,8 +236,10 @@ function deleteContact(element) {
 
 	sendPostRequest("DeleteContact", request, function (response) {
 		contactTable.deleteRow(currRow);
+		document.getElementById("tableMsg").style.color = "white";
 		document.getElementById("tableMsg").innerHTML = "Successfully deleted contact";
 	}, function (err) {
+		document.getElementById("tableMsg").style.color = "red";
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
 }
@@ -365,6 +368,8 @@ function searchContact() {
 	clearTable();
 
 	sendPostRequest("SearchContacts", request, function (response) {
+		// Reset the message color if it was previously red (i.e. if it was previously a warning)
+		document.getElementById("tableMsg").style.color = "white";
 		document.getElementById("tableMsg").innerHTML = "Contact(s) has been retrieved";
 		let results = response.results;
 		var table = document.getElementById("contactTable");
@@ -395,6 +400,8 @@ function searchAllContacts() {
 	clearTable();
 
 	sendPostRequest("SearchContacts", request, function (response) {
+		// Reset the message color if it was previously red (i.e. if it was previously a warning)
+		document.getElementById("tableMsg").style.color = "white";
 		document.getElementById("tableMsg").innerHTML = "Contact(s) has been retrieved";
 		let results = response.results;
 		var table = document.getElementById("contactTable");
