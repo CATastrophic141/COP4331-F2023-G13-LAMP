@@ -241,7 +241,11 @@ function addDeleteButtonToRow(row) {
 	button.textContent = "Delete";
 
 	button.addEventListener("click", function () {
-		deleteContact(button);
+		if (confirm("Are you sure you want to delete this contact?")) {
+			deleteContact(button);
+		} else {
+			return;
+		}
 	});
 
 	const cell = row.insertCell();
