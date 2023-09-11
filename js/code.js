@@ -129,15 +129,18 @@ function saveCookie() {
 	let date = new Date();
 	date.setTime(date.getTime() + expiry_time);
 	document.cookie = "userInfo=" + JSON.stringify(USER_INFO) + ";expires=" + date.toGMTString();
+	console.log("Saving cookie: " + document.cookie);
 }
 
 function readCookie() {
 	if (document.cookie === "") {
+		console.log("Reading cookie: NONE");
 		window.location.href = "index.html";
 		return;
 	}
 
 	USER_INFO = JSON.parse(document.cookie.split("=")[1]);
+	console.log("Reading cookie: " + document.cookie);
 }
 
 function doLogout() {
