@@ -171,7 +171,6 @@ function addContact() {
 	let newName = document.getElementById("contactNameText").value.trim();
 	let newPhone = document.getElementById("contactNumberText").value.trim();
 	let newEmail = document.getElementById("contactEmailText").value.trim();
-	document.getElementById("contactAddResult").innerHTML = "";
 
 	var table = document.getElementById("contactTable");
 	var errMsg = "";
@@ -228,8 +227,9 @@ function deleteContact(element) {
 
 	sendPostRequest("DeleteContact", request, function (response) {
 		contactTable.deleteRow(currRow);
+		document.getElementById("tableMsg").innerHTML = "Successfully deleted contact";
 	}, function (err) {
-		console.log(err.message);
+		document.getElementById("tableMsg").innerHTML = err.message;
 	});
 }
 
