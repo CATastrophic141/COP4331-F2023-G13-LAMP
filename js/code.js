@@ -34,6 +34,63 @@ function sendPostRequest(endPoint, request, onSuccess, onError) {
 	}
 }
 
+function buttonSearchPage() {
+	USER_INFO.userId = 1;
+	USER_INFO.firstName = "Joey";
+	USER_INFO.lastName = "Crown";
+	saveCookie();
+	goToSearchPage();
+}
+
+function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTION
+{
+	let fakeData = "{\n" +
+		"  \"results\": [\n" +
+		"    {\n" +
+		"      \"contactID\": 51,\n" +
+		"      \"name\": \"Kelley Wiegand\",\n" +
+		"      \"phone\": \"948-506-7645\",\n" +
+		"      \"email\": \"Kelley.Wiegand9@gmail.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 52,\n" +
+		"      \"name\": \"Amelie Mills\",\n" +
+		"      \"phone\": \"160-862-5831\",\n" +
+		"      \"email\": \"Amelie.Mills@yahoo.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 53,\n" +
+		"      \"name\": \"Josephine Ruecker\",\n" +
+		"      \"phone\": \"345-049-2473\",\n" +
+		"      \"email\": \"Josephine_Ruecker@yahoo.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 54,\n" +
+		"      \"name\": \"Claud Schumm\",\n" +
+		"      \"phone\": \"051-460-7174\",\n" +
+		"      \"email\": \"Claud42@gmail.com\"\n" +
+		"    },\n" +
+		"    {\n" +
+		"      \"contactID\": 55,\n" +
+		"      \"name\": \"Lura Wisoky\",\n" +
+		"      \"phone\": \"212-812-1159\",\n" +
+		"      \"email\": \"Lura.Wisoky@yahoo.com\"\n" +
+		"    }\n" +
+		"  ],\n" +
+		"  \"error\": \"\"\n" +
+		"}"
+
+	let testContacts = JSON.parse(fakeData);
+	console.log(testContacts);
+	let table = document.getElementById("contactTable");
+
+	if (testContacts.results) {
+		for (let i = 0; i < testContacts.results.length; i++) {
+			makeTableRow(table, testContacts.results[i]);
+		}
+	}
+}
+
 function doLogin() {
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
@@ -165,6 +222,13 @@ function makeTableRow(table, contactJSON) {
 		cell.innerText = cellData[i];
 	}
 
+	newRow.addEventListener("mouseover", function () {
+		newRow.classList.add("active");
+	});
+	newRow.addEventListener("mouseout", function () {
+		newRow.classList.remove("active");
+	});
+
 	addEditButtonToRow(newRow, USER_INFO.userId);
 	addDeleteButtonToRow(newRow);
 }
@@ -255,7 +319,7 @@ function addDeleteButtonToRow(row) {
 			return;
 		}
 	});
-
+	button.classList.add("buttons", "tableButton");
 	const cell = row.insertCell();
 	cell.appendChild(button);
 }
@@ -275,7 +339,8 @@ function addEditButtonToRow(row, userId) {
 		// below is the function call that would do that.
 		altAddEditButtonFunctionality(row, contactId, name, phone, email);
 	};
-
+	
+	button.classList.add("buttons", "tableButton");
 	const cell = row.insertCell();
 	cell.appendChild(button);
 }
