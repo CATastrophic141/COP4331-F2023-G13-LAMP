@@ -13,7 +13,7 @@ html *
 
 body
 {
-    background-color: #151426;
+    background-color: var(--color-green);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -366,24 +366,75 @@ select{
     align-items: center;
 }
 
-table {
-    table-layout: auto;
-    border: 2px solid;
+#contactTable {
     width: 100%;
-    color: #cafff8;
-    font-family: Arial, sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     text-align: left;
     border-radius: 10px;
-    overflow: hidden;
+    border-collapse: collapse;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin: auto;
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
-td {
-    border: 1px solid;
+#contactTable #tableHeading {
+    background-color: var(--color-brown);
+    border: none;
+    color: var(--color-white);
+}
+
+#contactTable th,
+#contactTable td {
+    padding: 12px 15px;
+}
+
+#contactTable tr {
+    background-color: var(--color-light-brown);
+    /*border-bottom: 2px solid var(--color-light-brown);*/
+    border-top: 2px solid var(--color-light-brown);
+}
+
+#contactTable tr.active {
+    background-color: var(--color-white);
+    border-bottom: 2px solid var(--color-brown);
+    border-top: 2px solid var(--color-brown);
+}
+
+#contactTable tr:nth-of-type(even) {
+    background-color: var(--color-beige);
+    border-bottom: 2px solid var(--color-beige);
+    /*border-top: 2px solid var(--color-beige);  */
+}
+
+#contactTable tr.active:nth-of-type(even) {
+    background-color: var(--color-white);
+    border-bottom: 2px solid var(--color-brown);
+    border-top: 2px solid var(--color-brown);
+}
+
+#phoneHeadingTable {
+    min-width: 130px;
+}
+
+.tableButton {
+    font-size: 16px;
+    height: 28px;
+    min-width: 72px;
+    border-radius: 12px;
+    padding: 0;
+    margin: 0;
+    filter: none;
+    visibility: hidden;
+}
+
+#contactTable tr.active td button{
+    visibility: visible;
+}
+
+.tableButton:hover {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    transition: filter .2s;
 }
 
 #addMsg {
