@@ -36,63 +36,6 @@ function sendPostRequest(endPoint, request, onSuccess, onError) {
 	}
 }
 
-function buttonSearchPage() {
-	USER_INFO.userId = 1;
-	USER_INFO.firstName = "Joey";
-	USER_INFO.lastName = "Crown";
-	saveCookie();
-	goToSearchPage();
-}
-
-function makeFakeContact() // for testing adding table rows REMOVE FOR PRODUCTION
-{
-	let fakeData = "{\n" +
-		"  \"results\": [\n" +
-		"    {\n" +
-		"      \"contactID\": 51,\n" +
-		"      \"name\": \"Kelley Wiegand\",\n" +
-		"      \"phone\": \"948-506-7645\",\n" +
-		"      \"email\": \"Kelley.Wiegand9@gmail.com\"\n" +
-		"    },\n" +
-		"    {\n" +
-		"      \"contactID\": 52,\n" +
-		"      \"name\": \"Amelie Mills\",\n" +
-		"      \"phone\": \"160-862-5831\",\n" +
-		"      \"email\": \"Amelie.Mills@yahoo.com\"\n" +
-		"    },\n" +
-		"    {\n" +
-		"      \"contactID\": 53,\n" +
-		"      \"name\": \"Josephine Ruecker\",\n" +
-		"      \"phone\": \"345-049-2473\",\n" +
-		"      \"email\": \"Josephine_Ruecker@yahoo.com\"\n" +
-		"    },\n" +
-		"    {\n" +
-		"      \"contactID\": 54,\n" +
-		"      \"name\": \"Claud Schumm\",\n" +
-		"      \"phone\": \"051-460-7174\",\n" +
-		"      \"email\": \"Claud42@gmail.com\"\n" +
-		"    },\n" +
-		"    {\n" +
-		"      \"contactID\": 55,\n" +
-		"      \"name\": \"Lura Wisoky\",\n" +
-		"      \"phone\": \"212-812-1159\",\n" +
-		"      \"email\": \"Lura.Wisoky@yahoo.com\"\n" +
-		"    }\n" +
-		"  ],\n" +
-		"  \"error\": \"\"\n" +
-		"}"
-
-	let testContacts = JSON.parse(fakeData);
-	console.log(testContacts);
-	let table = document.getElementById("contactTable");
-
-	if (testContacts.results) {
-		for (let i = 0; i < testContacts.results.length; i++) {
-			makeTableRow(table, testContacts.results[i]);
-		}
-	}
-}
-
 function doLogin() {
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
@@ -454,60 +397,36 @@ function toggleAdvancedSearch(element) {
 	}
 }
 
-function advancedSearchTest() {
-	let nameSearch = "";
-	let numberSearch = "";
-	let emailSearch = "";
-	console.log("Advanced search is active: " + advancedSearchActive);
-	if (advancedSearchActive) {
-		nameSearch = document.getElementById("nameSearch").value;
-		numberSearch = document.getElementById("numberSearch").value;
-		emailSearch = document.getElementById("emailSearch").value;
-	} else {
-		let searchOption = document.getElementById("searchOption").value;
-		let searchStr = document.getElementById("simpleSearch").value;
-		console.log("currently selected option: " + searchOption);
-		switch (searchOption) {
-			case "Name":
-				nameSearch = searchStr;
-				break;
-			case "Phone":
-				numberSearch = searchStr;
-				break;
-			case "Email":
-				emailSearch = searchStr;
-				break;
-			default:
-				console.log("Error in switch statement");
-		}
-	}
-
-	document.getElementById("tableMsg").innerHTML = "";
-
-	let request = {
-		searchName: nameSearch,
-		searchPhone: numberSearch,
-		searchEmail: emailSearch,
-		userId: USER_INFO.userId
-	};
-
-	console.log(request)
-}
-
-function searchContact() {
+function searchContact(button) {
 	readCookie();
 	let nameSearch = "";
 	let numberSearch = "";
 	let emailSearch = "";
-	if (advancedSearchActive) {
-		nameSearch = document.getElementById("nameSearch").value;
-		numberSearch = document.getElementById("numberSearch").value;
-		emailSearch = document.getElementById("emailSearch").value;
-	} else {
-		let searchOption = document.getElementById("searchOption").value;
+	//check if button is "View All"
+	if (button !== "searchAllButton") {
+		if (advancedSearchActive) {
+			nameSearch = document.getElementById("nameSearch").value;
+			numberSearch = document.getElementById("numberSearch").value;
+			emailSearch = document.getElementById("emailSearch").value;
+		} else {
+			let searchOption = document.getElementById("searchOption").value;
+			let searchStr = document.getElementById("simpleSearch").value;
 
+			switch (searchOption) {
+				case "Name":
+					nameSearch = searchStr;
+					break;
+				case "Phone":
+					numberSearch = searchStr;
+					break;
+				case "Email":
+					emailSearch = searchStr;
+					break;
+				default:
+					console.log("Error in switch statement");
+			}
+		}
 	}
-
 	document.getElementById("tableMsg").innerHTML = "";
 	document.getElementById("tableMsg").style.display = "none";
 	let request = {
@@ -521,7 +440,7 @@ function searchContact() {
 
 	sendPostRequest("SearchContacts", request, function (response) {
 		// Reset the message color if it was previously red (i.e. if it was previously a warning)
-		document.getElementById("tableMsg").style.color = "white";
+		document.getElementById("tableMsg").style.color = "black";
 		document.getElementById("tableMsg").innerHTML = "Contact(s) has been retrieved";
 		let results = response.results;
 		var table = document.getElementById("contactTable");
@@ -530,44 +449,11 @@ function searchContact() {
 			makeTableRow(table, results[i]);
 		}
 	}, function (err) {
-		document.getElementById("tableMsg").style.color = "red";
+		document.getElementById("tableMsg").style.color = "#e00000";
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
 	document.getElementById("tableMsg").style.display = "block";
 }
-
-function searchAllContacts() {
-	readCookie();
-	let nameSearch = "";
-	let numberSearch = "";
-	let emailSearch = "";
-	document.getElementById("tableMsg").innerHTML = "";
-
-	let request = {
-		searchName: nameSearch,
-		searchPhone: numberSearch,
-		searchEmail: emailSearch,
-		userId: USER_INFO.userId
-	};
-
-	clearTable();
-
-	sendPostRequest("SearchContacts", request, function (response) {
-		// Reset the message color if it was previously red (i.e. if it was previously a warning)
-		document.getElementById("tableMsg").style.color = "white";
-		document.getElementById("tableMsg").innerHTML = "Contact(s) has been retrieved";
-		let results = response.results;
-		var table = document.getElementById("contactTable");
-
-		for (let i = 0; i < results.length; i++) {
-			makeTableRow(table, results[i]);
-		}
-	}, function (err) {
-		document.getElementById("tableMsg").style.color = "red";
-		document.getElementById("tableMsg").innerHTML = err.message;
-	});
-}
-
 function clearTable() {
 	document.getElementById("contactTable").innerHTML = "<tr><th>Name</th><th>Phone</th><th>Email</th></tr>";
 }
