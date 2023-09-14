@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
-    --color-green: #6A8E7F;
     --color-brown: #6B4B3E;
-    --color-light-brown: #C49E85;
-    --color-beige: #FED6AF;
     --color-white: #F8F4F9;
+    --cadet-gray: #8da7beff;
+    --smoky-black: #171312ff;
+    --alice-blue: #eef6fcff;
+    --platinum: #d2d6dbff;
+    --thistle: #c5adc5ff;
 }
 
 html *
@@ -13,74 +23,180 @@ html *
 
 body
 {
-    background-color: var(--color-green);
+    background-color: var(--smoky-black);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
 #title-container
 {
+    background-image: linear-gradient(45deg, var(--thistle), var(--platinum));
+    background-size: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     margin-top: 30px;
-    padding: 16px;
-    background-color: #F2DFCE;
-    border-top-right-radius: 12px;
+    padding: 16px 0;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
 }
 
 #title
 {
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 64px;
-    width: 100%;
-    text-align: left;
-    color: #D94A64;
+    font-weight: 700;
+    text-align: center;
     margin: 0;
+    padding: 0 24px;
+    border-right: 3px solid var(--smoky-black);
 }
 
 #subtitle
 {
-    font-size: 36px;
-    font-weight: normal;
-    width: 100%;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
     text-align: left;
-    background-color: #85A6A6;
-    margin: 12px;
-    padding: 4px 24px 4px 24px;
-    border-radius: 4px;
+    min-width: 400px;
+    margin: 12px 0;
+    padding: 10px 0 4px 24px;
 }
 
-.searchContainer
+.navContainer
 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: #85A6A6;
+}
+
+#greeting
+{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    min-width: 240px;
+    font-weight: 300;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+}
+
+#logoutButton{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    width: 128px;
+    margin: 0 36px;
+}
+
+#accessUIDiv
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--platinum);
+    width: 80%;
+    height: 100%;
+    margin-top: 12px;
+    padding: 0 16px;
+}
+
+.simpleSearchContainer
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+}
+
+#searchOption
+{
+    border: 2px solid var(--smoky-black);
+    background-color: var(--smoky-black);
+    color: #ffffff;
+    height: 36px;
+    width: 84px;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding-left: 4px;
+    outline: none;
+    cursor: pointer;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+}
+
+#simpleSearch
+{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    margin-left: 0;
+    width: 60%;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+}
+
+#advancedSearch
+{
+    margin-right: 80%;
+    border: 0;
+    font-size: 14px;
+    background: transparent;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+#advancedSearch:hover
+{
+    color: #647686;
+    border-bottom: 1px solid #647686;
+}
+
+.advancedSearchContainer
+{
+    display: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
     padding: 16px;
 }
 
-.searchFieldContainer {
+.searchFieldContainer
+{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 100%;
+    margin: 0 8px;
 }
 
 .addField,
 .searchField {
+    font-size: 18px;
+    height: 36px;
     text-align: left;
-    font-size: 24px;
-    width: 80%;
-    margin-bottom: 2%;
-    padding: 2px 4px 2px 8px;
-    border:none;
-    border-bottom: 2px solid #151426;
-    background-color: rgba(255, 255, 255, .6);
+    width: 100%;
+    min-width: 300px;
+    margin: 4px 8px;
+    padding: 4px 16px;
+    border-radius: 6px;
+    border: 2px solid var(--cadet-gray);
+    background-color: var(--color-white);
 }
 
 .searchField:hover,
@@ -90,8 +206,8 @@ body
 .addField:active,
 .addField:focus{
     outline: 0;
-    border-bottom: 2px solid #D94A64;
-    background-color: rgba(255, 255, 255, .8);
+    border: 2px solid var(--smoky-black);
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .searchField::placeholder,
@@ -100,28 +216,10 @@ body
     opacity: 75%;
 }
 
-.growDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #85A6A6;
-    width: 80%;
-    height: 0;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    transition: 1s;
-}
-
-.growDiv span {
-    font-size: 30px;
-    height: 30px;
-}
-
-.growDiv.active {
-    max-height: 100px;
-    transition: 1s;
+#searchNameButton,
+#searchAllButton
+{
+    margin: 12px;
 }
 
 .addContactContainer
@@ -130,9 +228,11 @@ body
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color: #85A6A6;
+    background-color: var(--cadet-gray);
+    border-radius: 6px;
     width: 100%;
     padding: 16px 0 8px 24px;
+    margin-bottom: 20px;
 }
 
 .addField
@@ -140,61 +240,24 @@ body
     width: 50%;
 }
 
-#loginDiv
-{
-    font-size: 30px;
-    width: 70%;
-    padding: 25px;
-}
-
-#loggedInDiv
-{
-    font-size: 20px;
-    width: 70%;
-    padding: 25px;
-}
-
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    padding: 25px;
-}
-
-p{
-    color:#FFFFFF;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
+#tableMsg{
+    color: #e00000;
+    font-size: 24px;
     text-align: left;
-}
-
-a{
-    color:#cafff8;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
-    text-align: left;
-}
-
-.links
-{
-    font-size: 30px;
-    display: block;
-    text-align: center;
-    color: #d5e5e8;
-    margin-left: 25%;
-    margin-right: 25%;
+    font-weight: 500;
+    display: none;
 }
 
 .buttons
 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
     border-radius: 6px;
     border-style: none;
     height: 36px;
     min-width: 128px;
     color: #ffffff;
-    background-color: #151426;
+    background-color: var(--smoky-black);
     margin: 8px 0 8px 0;
     cursor: pointer;
     filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
@@ -208,14 +271,6 @@ a{
     transition: filter .3s;
 }
 
-#loginName
-{
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
 #searchText
 {
 	font-size: 30px;
@@ -223,49 +278,6 @@ a{
 #colorText
 {
 	font-size: 30px;
-}
-
-
-#inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #ffffff;
-}
-
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
-}
-
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
-}
-
-#logoutButton{
-    width: 20%;
-    margin-left: 60%;
-}
-
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
 }
 
 #editContact{
@@ -290,41 +302,7 @@ select{
     font-family: Arial, sans-serif;
     color: #cafff8;
     text-align: center;
-    font-weight: 5px;
     font-size: 34px;
-}
-
-#nameField{
-    font-size: 16px;
-    border-radius: 8px;
-    text-align: center;
-    min-width: 10%;
-    margin-bottom: 2%;
-    font-family: Arial, sans-serif;
-    color:#151426;
-    background-color: #FFFFFF;
-}
-
-#phoneField{
-    font-size: 16px;
-    border-radius: 8px;
-    text-align: center;
-    min-width: 10%;
-    margin-bottom: 2%;
-    font-family: Arial, sans-serif;
-    color:#151426;
-    background-color: #FFFFFF;
-}
-
-#emailField{
-    font-size: 16px;
-    border-radius: 8px;
-    text-align: center;
-    min-width: 10%;
-    margin-bottom: 2%;
-    font-family: Arial, sans-serif;
-    color:#151426;
-    background-color: #FFFFFF;
 }
 
 #submitEditsButton{
@@ -366,22 +344,43 @@ select{
     align-items: center;
 }
 
+.tableContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 95%;
+    padding: 8px;
+    margin-top: 8px;
+    border-top: 2px solid #312927;
+    border-bottom: 2px solid #312927;
+}
+
 #contactTable {
     width: 100%;
     font-size: 18px;
     text-align: left;
-    border-radius: 10px;
+
     border-collapse: collapse;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-#contactTable #tableHeading {
-    background-color: var(--color-brown);
-    border: none;
-    color: var(--color-white);
+#tableHeading {
+    border-top-right-radius: 12px;
+}
+
+#contactTable tr th {
+    background-color: var(--cadet-gray);
+}
+
+#contactTable tr th:first-child {
+    border-top-left-radius: 6px;
+}
+
+#contactTable tr th:last-child {
+    border-top-right-radius: 6px;
 }
 
 #contactTable th,
@@ -390,27 +389,21 @@ select{
 }
 
 #contactTable tr {
-    background-color: var(--color-light-brown);
-    /*border-bottom: 2px solid var(--color-light-brown);*/
-    border-top: 2px solid var(--color-light-brown);
+    border-bottom: 2px solid var(--thistle);
 }
 
 #contactTable tr.active {
-    background-color: var(--color-white);
+    background-color: var(--thistle);
     border-bottom: 2px solid var(--color-brown);
-    border-top: 2px solid var(--color-brown);
 }
 
 #contactTable tr:nth-of-type(even) {
-    background-color: var(--color-beige);
-    border-bottom: 2px solid var(--color-beige);
-    /*border-top: 2px solid var(--color-beige);  */
+    background-color: var(--alice-blue);
 }
 
 #contactTable tr.active:nth-of-type(even) {
-    background-color: var(--color-white);
+    background-color: var(--thistle);
     border-bottom: 2px solid var(--color-brown);
-    border-top: 2px solid var(--color-brown);
 }
 
 #phoneHeadingTable {
@@ -418,18 +411,19 @@ select{
 }
 
 .tableButton {
-    font-size: 16px;
+    font-size: 20px;
     height: 28px;
-    min-width: 72px;
+    min-width: 48px;
     border-radius: 12px;
     padding: 0;
     margin: 0;
     filter: none;
-    visibility: hidden;
+    opacity: 0;
 }
 
-#contactTable tr.active td button{
-    visibility: visible;
+#contactTable tr.active td button,
+#contactTable tr td button:focus{
+    opacity: 100%;
 }
 
 .tableButton:hover {
@@ -440,11 +434,6 @@ select{
 #addMsg {
     color: red;
     text-align: center;
-}
-
-#logoutButton {
-    font-size: 18px;
-    background-color:rgba(165, 87, 102, 1); 
 }
 
 #logoutButton:hover{

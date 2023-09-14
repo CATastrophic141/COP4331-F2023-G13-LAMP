@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 :root {
-    --color-green: #6A8E7F;
     --color-brown: #6B4B3E;
-    --color-light-brown: #C49E85;
-    --color-beige: #FED6AF;
     --color-white: #F8F4F9;
+    --cadet-gray: #8da7beff;
+    --smoky-black: #171312ff;
+    --alice-blue: #eef6fcff;
+    --platinum: #d2d6dbff;
+    --thistle: #c5adc5ff;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap');
 html *
 {
     font-family: 'Roboto', sans-serif;
@@ -14,48 +17,19 @@ html *
 
 body
 {
-    background-color: #6A8E7F;
+    /*background-color: var(--smoky-black);*/
+    background-image: url("/images/login-background.jpg");
+    background-size: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
 
-#title-container
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    padding: 16px;
-    background-color: #F2DFCE;
-    border-top-right-radius: 12px;
-}
-
-#title 
-{
-    font-size: 64px;
-    width: 100%;
-    text-align: left;
-    color: #D94A64;
-    margin: 0;
-}
-
-#subtitle
-{
-    font-size: 36px;
-    font-weight: normal;
-    width: 100%;
-    text-align: left;
-    background-color: #85A6A6;
-    margin: 12px;
-    padding: 4px 24px 4px 24px;
-    border-radius: 4px;
-}
-
 #loginDiv
 {
+    background-image: linear-gradient(45deg, var(--thistle), var(--platinum));
+    background-size: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -63,9 +37,51 @@ body
     font-size: 30px;
     width: 50%;
     min-width: 500px;
-    margin-top: 24px;
-    padding: 25px;
-    background: #85A6A6;
+    max-width: 700px;
+    margin-top: 8%;
+    border-radius: 12px;
+    border: 4px solid var(--alice-blue);
+}
+
+#title-container
+{
+
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 3px solid var(--smoky-black);
+}
+
+#title 
+{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 64px;
+    width: 30%;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+#subtitle
+{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    width: 50%;
+    text-align: center;
+    padding-top: 8px;
+    margin: 0;
+}
+
+#inner-title{
+    font-family: 'Space Grotesk', sans-serif;
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin: 12px 0;
 }
 
 .nameFieldContainer
@@ -73,7 +89,7 @@ body
     display: none;
     flex-direction: row;
     justify-content: space-between;
-    width: 80%;
+    width: 50%;
 }
 
 .loginInput
@@ -105,9 +121,11 @@ body
 #registerFirstName,
 #registerLastName
 {
-    width: 45%;
+    width: 50%;
 }
 
+#registerFirstName,
+#registerLastName,
 #registerPhone,
 #registerEmail,
 #registerButton
@@ -129,10 +147,10 @@ body
 
 #registerText
 {
+    font-family: 'Space Grotesk', sans-serif;
     text-align: center;
     width: 100%;
     color:#000000;
-    font-family: 'Ubuntu', sans-serif;
     font-size: 24px;
 }
 
@@ -140,7 +158,6 @@ body
 {
     color: #d5e5e8;
     text-decoration: double;
-    font-family: 'Ubuntu', sans-serif;
     font-size: 18px;
     text-align: center;
 }
@@ -184,15 +201,15 @@ body
     border-style: none;
     height: 36px;
     min-width: 128px;
+    width: 50%;
     color: #ffffff;
-    background-color: #151426;
+    background-color: var(--smoky-black);
     margin: 8px 0 8px 0;
     cursor: pointer;
     filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
 }
 
 .buttons:hover{
-    background-color: #D94A64;
     color: #edf3ff;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
     opacity: 75%;
@@ -205,31 +222,16 @@ body
     opacity: 100%;
 }
 
-#loginName
-{
-	font-size: 24px;
-}
-#loginPassword
-{
-	font-size: 24px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#colorText
-{
-	font-size: 30px;
-}
-
 input[type="text"],input[type="password"]{
+    font-size: 18px;
+    height: 36px;
     text-align: left;
-    width: 80%;
+    width: 50%;
     margin-bottom: 2%;
-    padding: 2px 4px 2px 8px;
-    border:none;
-    border-bottom: 2px solid #151426;
-    background-color: rgba(255, 255, 255, .6);
+    padding: 4px 16px;
+    border-radius: 6px;
+    border: 2px solid var(--cadet-gray);
+    background-color: var(--color-white);
 }
 
 input::placeholder {
@@ -241,18 +243,8 @@ input:hover,
 input:active,
 input:focus {
     outline: 0;
-    border-bottom: 2px solid #D94A64;
-    background-color: rgba(255, 255, 255, .8);
-}
-
-#inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #ffffff;
+    border: 2px solid var(--smoky-black);
+    background-color: rgba(255, 255, 255, 1);
 }
 
 #loginResult{
@@ -262,7 +254,6 @@ input:focus {
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
     color: #be070d;
 }
 
@@ -283,5 +274,4 @@ select{
     margin-left: 35%;
     margin-top: 2%;
     font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
 }
