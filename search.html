@@ -5,6 +5,8 @@
 	<script type="text/javascript" src="./js/code.js"></script>
     <link href="./css/styles_searchPage.css" rel="stylesheet">	
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() 
@@ -17,29 +19,44 @@
 <body>
 
 <div id="title-container">
-	<h1 id="title">Squire</h1>
-	<h2 id="subtitle">Contact Repository</h2>
+	<div class="header-title">
+		<h1 id="title">Squire</h1>
+		<h2 id="subtitle">Contact Repository</h2>
+	</div>
+	<div class="navContainer">
+		<h2 id="greeting">Welcome back, Joey</h2>
+		<button type="button" id="logoutButton" class="buttons" onclick="doLogout();">
+			Log Out &nbsp <i class="fa-solid fa-right-from-bracket"></i>
+		</button>
+	</div>
 </div>
-<h2 id="greeting"></h2>
+
 
 <div id="accessUIDiv">
-	<div class="searchContainer">
-		<p id="searchMsg"> </p>
-		<div class="searchFieldContainer">
-			<input type="search" id="nameSearch" placeholder="Contact Name" class="searchField"/>
-			<input type="search" id="numberSearch" placeholder="Contact Number" class="searchField"/>
-			<input type="search" id="emailSearch" placeholder="Contact Email" class="searchField"/>
+	<button type="button" class="buttons" onclick="makeFakeContact();"> fake contacts </button>
+
+	<div class="simpleSearchContainer">
+		<div id="advancedSearchFields" class="advancedSearchContainer">
+			<p id="searchMsg"> </p>
+			<div class="searchFieldContainer">
+				<input type="search" id="nameSearch" placeholder="Contact Name" class="searchField"/>
+				<input type="search" id="numberSearch" placeholder="Contact Number" class="searchField"/>
+				<input type="search" id="emailSearch" placeholder="Contact Email" class="searchField"/>
+			</div>
 		</div>
-		<button type="button" id="searchNameButton" class="buttons" onclick="searchContact();"> Search </button><br />
-		<button type="button" id="searchAllButton" class="buttons" onclick="searchAllContacts();"> Search all contacts </button>
-		<br />
+		<select id="searchOption">
+			<option value="Name">Name</option>
+			<option value="Phone">Phone</option>
+			<option value="Email">Email</option>
+		</select>
+		<input type="search" id="simpleSearch" placeholder="Search" class="searchField"/>
+		<button type="button" id="searchNameButton" class="buttons" onclick="advancedSearchTest();">
+			<i class="fa-solid fa-magnifying-glass"></i> Search </button>
+		<button type="button" id="searchAllButton" class="buttons" onclick="searchAllContacts();">View All</button>
 	</div>
-	<div id="grow" class="growDiv">
-		<span>Here is some text</span>
-	</div>
-	<button type="button" id="searchNameButton" class="buttons" onclick="makeFakeContact();"> fake contacts </button><br />
-	<span id="contactSearchResult">
-		<p id="tableMsg"> </p>
+	<button id="advancedSearch" onclick="toggleAdvancedSearch(this);">Advanced Search</button>
+	<div class="tableContainer">
+		<h3 id="tableMsg"> </h3>
 		<table id="contactTable">
 			<tr id="tableHeading">
 				<th>Name</th>
@@ -51,19 +68,14 @@
 			<tbody>
 
 			</tbody>
-		  </table>
-	</span>
+		</table>
+	</div>
 	<p id="addMsg"> </p>
 	<div class="addContactContainer">
-
 		<input type="text" id="contactNameText" placeholder="Contact Name" class="addField">
 		<input type="text" id="contactNumberText" placeholder="Contact Number (XXX-XXX-XXXX)" class="addField">
 		<input type="text" id="contactEmailText" placeholder="Contact Email (NAME@DOMAIN.XYZ)" class="addField">
 		<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button>
-	</div>
-	<br />
-	<div id="loggedInDiv">
-		<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
 	</div>
 </div>
 
