@@ -8,26 +8,23 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-<div id="title-container">
-	<h1 id="title">Squire</h1>
-	<h2 id="subtitle">Contact Repository</h2>
-</div>
-
 <div id="loginDiv">
-	<span id="inner-title">LOG IN</span>
-	<div id="nameFields" class="nameFieldContainer">
-		<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
-		<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
+	<div id="title-container">
+		<h1 id="title">Squire</h1>
+		<h2 id="subtitle">Contact Repository</h2>
 	</div>
+	<span id="inner-title">Log in</span>
+	<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
+	<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
 	<input type="text" id="loginName" placeholder="Username" class="loginField" />
 	<input type="password" id="loginPassword" placeholder="Password"/>
-	<input id="registerPhone" type="text" placeholder="Phone number (XXX-XXX-XXXX)" class="registerField">
-	<input id="registerEmail" type="text" placeholder="Email (NAME@DOMAIN.XYZ)" class="registerField">
+	<input id="registerPhone" type="text" placeholder="Phone number (xxx-xxx-xxxx)" class="registerField">
+	<input id="registerEmail" type="text" placeholder="Email (someone@example.com)" class="registerField">
 	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log in </button>
 	<button type="button" id="registerButton" class="buttons" onclick=register();> Create Account </button>
 	<span id="registerText">Not registered yet?</span>
 	<button id="signUpButton" type="button" class="buttons" onclick="showRegister(this);">Sign Up</button>
-	<button id="signUpButton" type="button" class="buttons" onclick="buttonSearchPage();">Search Page</button>
+	<button id="searchPageButton" type="button" class="buttons" onclick="buttonSearchPage();">Search Page</button>
 	<span id="loginResult"></span>
 </div>
 <!--
