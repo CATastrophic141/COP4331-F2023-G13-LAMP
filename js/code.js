@@ -10,6 +10,8 @@ var USER_INFO = {
 	lastName: ""
 }
 
+var advancedSearchActive = false;
+
 function sendPostRequest(endPoint, request, onSuccess, onError) {
 	let url = urlBase + endPoint + '.php';
 	let xhr = new XMLHttpRequest();
@@ -111,6 +113,7 @@ function doLogin() {
 
 		saveCookie();
 		goToSearchPage();
+		document.getElementById("greeting").innerHTML = "Welcome back, " + USER_INFO.firstName + "."
 	}, function (err) {
 		if (err.message === "No Records Found") {
 			err.message = "User/Password combination incorrect";
@@ -121,7 +124,8 @@ function doLogin() {
 
 function showRegister(element) {
 	if (element.innerHTML == "Sign Up") {
-		document.getElementById("nameFields").style.display = 'flex';
+		document.getElementById("registerFirstName").style.display = 'block';
+		document.getElementById("registerLastName").style.display = 'block';
 		document.getElementById("registerPhone").style.display = 'block';
 		document.getElementById("registerEmail").style.display = 'block';
 		document.getElementById("registerButton").style.display = 'block';
@@ -130,12 +134,13 @@ function showRegister(element) {
 		document.getElementById("registerText").innerHTML = "Already have an Account?";
 		document.getElementById("signUpButton").innerHTML = "Log In";
 	} else {
-		document.getElementById("nameFields").style.display = 'none';
+		document.getElementById("registerFirstName").style.display = 'none';
+		document.getElementById("registerLastName").style.display = 'none';
 		document.getElementById("registerPhone").style.display = 'none';
 		document.getElementById("registerEmail").style.display = 'none';
 		document.getElementById("registerButton").style.display = 'none';
 		document.getElementById("loginButton").style.display = 'block';
-		document.getElementById("inner-title").innerHTML = "LOG IN";
+		document.getElementById("inner-title").innerHTML = "Log in";
 		document.getElementById("registerText").innerHTML = "Not registered yet?";
 		document.getElementById("signUpButton").innerHTML = "Sign Up";
 	}
@@ -222,12 +227,26 @@ function makeTableRow(table, contactJSON) {
 		cell.innerText = cellData[i];
 	}
 
-	newRow.addEventListener("mouseover", function () {
+	//newRow.setAttribute('tabindex', "0");
+
+	['mouseover', 'focus'].forEach(function(event) {
+		newRow.addEventListener(event, () => {
+			newRow.classList.add("active")
+		}, false);
+	});
+
+	['mouseout', 'blur'].forEach(function(event) {
+		newRow.addEventListener(event, () => {
+			newRow.classList.remove("active");
+		}, false);
+	});
+
+	/*newRow.addEventListener("mouseover", function () {
 		newRow.classList.add("active");
 	});
 	newRow.addEventListener("mouseout", function () {
 		newRow.classList.remove("active");
-	});
+	});*/
 
 	addEditButtonToRow(newRow, USER_INFO.userId);
 	addDeleteButtonToRow(newRow);
@@ -310,7 +329,8 @@ function deleteContact(element) {
 
 function addDeleteButtonToRow(row) {
 	const button = document.createElement("button");
-	button.textContent = "Delete";
+	button.setAttribute("title", "Delete");
+	button.innerHTML = "<i class=\"fa-solid fa-xmark\"></i>";
 
 	button.addEventListener("click", function () {
 		if (window.confirm("Are you sure you want to delete this contact?")) {
@@ -326,7 +346,8 @@ function addDeleteButtonToRow(row) {
 
 function addEditButtonToRow(row, userId) {
 	const button = document.createElement("button");
-	button.textContent = "Edit";
+	button.setAttribute("title", "Edit");
+	button.innerHTML = "<i class=\"fa-solid fa-pen-to-square\"></i>";
 	let contactId = row.cells[0].getAttribute("data-id");
 	let name = row.cells[0].innerHTML;
 	let phone = row.cells[1].innerHTML;
@@ -416,13 +437,79 @@ function goToSearchPage() {
 	readCookie();
 }
 
-function searchContact() {
-	readCookie();
-	let nameSearch = document.getElementById("nameSearch").value;
-	let numberSearch = document.getElementById("numberSearch").value;
-	let emailSearch = document.getElementById("emailSearch").value;
+function toggleAdvancedSearch(element) {
+	if (element.innerHTML == "Advanced Search") {
+		document.getElementById("advancedSearchFields").style.display = 'flex';
+		document.getElementById("searchOption").style.display = 'none';
+		document.getElementById("simpleSearch").style.display = 'none';
+		advancedSearchActive = true;
+		element.innerHTML = "Simple Search";
+	}
+	else {
+		document.getElementById("advancedSearchFields").style.display = 'none';
+		document.getElementById("searchOption").style.display = 'block';
+		document.getElementById("simpleSearch").style.display = 'block';
+		advancedSearchActive = false;
+		element.innerHTML = "Advanced Search";
+	}
+}
+
+function advancedSearchTest() {
+	let nameSearch = "";
+	let numberSearch = "";
+	let emailSearch = "";
+	console.log("Advanced search is active: " + advancedSearchActive);
+	if (advancedSearchActive) {
+		nameSearch = document.getElementById("nameSearch").value;
+		numberSearch = document.getElementById("numberSearch").value;
+		emailSearch = document.getElementById("emailSearch").value;
+	} else {
+		let searchOption = document.getElementById("searchOption").value;
+		let searchStr = document.getElementById("simpleSearch").value;
+		console.log("currently selected option: " + searchOption);
+		switch (searchOption) {
+			case "Name":
+				nameSearch = searchStr;
+				break;
+			case "Phone":
+				numberSearch = searchStr;
+				break;
+			case "Email":
+				emailSearch = searchStr;
+				break;
+			default:
+				console.log("Error in switch statement");
+		}
+	}
+
 	document.getElementById("tableMsg").innerHTML = "";
 
+	let request = {
+		searchName: nameSearch,
+		searchPhone: numberSearch,
+		searchEmail: emailSearch,
+		userId: USER_INFO.userId
+	};
+
+	console.log(request)
+}
+
+function searchContact() {
+	readCookie();
+	let nameSearch = "";
+	let numberSearch = "";
+	let emailSearch = "";
+	if (advancedSearchActive) {
+		nameSearch = document.getElementById("nameSearch").value;
+		numberSearch = document.getElementById("numberSearch").value;
+		emailSearch = document.getElementById("emailSearch").value;
+	} else {
+		let searchOption = document.getElementById("searchOption").value;
+
+	}
+
+	document.getElementById("tableMsg").innerHTML = "";
+	document.getElementById("tableMsg").style.display = "none";
 	let request = {
 		searchName: nameSearch,
 		searchPhone: numberSearch,
@@ -446,6 +533,7 @@ function searchContact() {
 		document.getElementById("tableMsg").style.color = "red";
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
+	document.getElementById("tableMsg").style.display = "block";
 }
 
 function searchAllContacts() {
