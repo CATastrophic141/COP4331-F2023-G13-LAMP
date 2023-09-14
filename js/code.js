@@ -56,7 +56,6 @@ function doLogin() {
 
 		saveCookie();
 		goToSearchPage();
-		//document.getElementById("greeting").innerHTML = "Welcome back, " + USER_INFO.firstName + "."
 	}, function (err) {
 		if (err.message === "No Records Found") {
 			err.message = "User/Password combination incorrect";
@@ -378,8 +377,6 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 function goToSearchPage() {
 	window.location.href = "./search.html";
 	readCookie();
-	document.getElementById("greeting").innerHTML = "Welcome back, " + USER_INFO.firstName + ".";
-	console.log("Code 0");
 }
 
 function toggleAdvancedSearch(element) {
