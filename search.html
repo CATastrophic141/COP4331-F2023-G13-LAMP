@@ -30,11 +30,7 @@
 		</button>
 	</div>
 </div>
-
-
 <div id="accessUIDiv">
-	<button type="button" class="buttons" onclick="makeFakeContact();"> fake contacts </button>
-
 	<div class="simpleSearchContainer">
 		<div id="advancedSearchFields" class="advancedSearchContainer">
 			<p id="searchMsg"> </p>
@@ -50,9 +46,9 @@
 			<option value="Email">Email</option>
 		</select>
 		<input type="search" id="simpleSearch" placeholder="Search" class="searchField"/>
-		<button type="button" id="searchNameButton" class="buttons" onclick="advancedSearchTest();">
+		<button type="button" id="searchButton" class="buttons" onclick="searchContact(this.id);">
 			<i class="fa-solid fa-magnifying-glass"></i> Search </button>
-		<button type="button" id="searchAllButton" class="buttons" onclick="searchAllContacts();">View All</button>
+		<button type="button" id="searchAllButton" class="buttons" onclick="searchContact(this.id);">View All</button>
 	</div>
 	<button id="advancedSearch" onclick="toggleAdvancedSearch(this);">Advanced Search</button>
 	<div class="tableContainer">
