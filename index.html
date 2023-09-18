@@ -14,12 +14,26 @@
 		<h2 id="subtitle">Contact Repository</h2>
 	</div>
 	<span id="inner-title">Log in</span>
-	<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
-	<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
-	<input type="text" id="loginName" placeholder="Username" class="loginField" />
-	<input type="password" id="loginPassword" placeholder="Password"/>
-	<input id="registerPhone" type="text" placeholder="Phone number (xxx-xxx-xxxx)" class="registerField">
-	<input id="registerEmail" type="text" placeholder="Email (someone@example.com)" class="registerField">
+	<form id="loginForm">
+		<label for="registerFirstName" id="regFirstNameLabel"></label>
+		<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
+
+		<label for="registerLastName" id="regLastNameLabel"></label>
+		<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
+
+		<label for="loginName" id="loginNameLabel">Username </label>
+		<input type="text" id="loginName" placeholder="Username" class="loginField" />
+
+		<label for="loginPassword" id="loginPasswordLabel">Password </label>
+		<input type="password" id="loginPassword" placeholder="Password"/>
+
+		<label for="registerPhone" id="regPhoneLabel"></label>
+		<input id="registerPhone" type="text" placeholder="Phone number (xxx-xxx-xxxx)" class="registerField">
+
+		<label for="registerEmail" id="regEmailLabel"></label>
+		<input id="registerEmail" type="text" placeholder="Email (someone@example.com)" class="registerField">
+		
+	</form>
 	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log in </button>
 	<button type="button" id="registerButton" class="buttons" onclick=register();> Create Account </button>
 	<span id="registerText">Not registered yet?</span>

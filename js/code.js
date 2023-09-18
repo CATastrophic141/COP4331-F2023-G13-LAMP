@@ -66,16 +66,37 @@ function doLogin() {
 
 function showRegister(element) {
 	if (element.innerHTML == "Sign Up") {
-		document.getElementById("registerFirstName").style.display = 'block';
-		document.getElementById("registerLastName").style.display = 'block';
-		document.getElementById("registerPhone").style.display = 'block';
-		document.getElementById("registerEmail").style.display = 'block';
+		document.getElementById("registerFirstName").style.display = 'inline-block';
+		document.getElementById("regFirstNameLabel").style.display = 'inline-block';
+		document.getElementById("regFirstNameLabel").innerText = 'First Name ';
+
+		document.getElementById("registerLastName").style.display = 'inline-block';
+		document.getElementById("regLastNameLabel").style.display = 'inline-block';
+		document.getElementById("regLastNameLabel").innerText = 'Last Name ';
+
+		document.getElementById("registerPhone").style.display = 'inline-block';
+		document.getElementById("regPhoneLabel").style.display = 'inline-block';
+		document.getElementById("regPhoneLabel").innerText = 'Phone Number ';
+
+		document.getElementById("registerEmail").style.display = 'inline-block';
+		document.getElementById("regEmailLabel").style.display = 'inline-block';
+		document.getElementById("regEmailLabel").innerText = 'Email ';
+
 		document.getElementById("registerButton").style.display = 'block';
 		document.getElementById("loginButton").style.display = 'none';
 		document.getElementById("inner-title").innerHTML = "Fill out the fields below, then click \"Create Account\".";
 		document.getElementById("registerText").innerHTML = "Already have an Account?";
 		document.getElementById("signUpButton").innerHTML = "Log In";
 	} else {
+		// Hide the labels for the fields in the register box as necessary
+		document.getElementById("regFirstNameLabel").style.display = 'none';
+		document.getElementById("regLastNameLabel").style.display = 'none';
+		document.getElementById("regPhoneLabel").style.display = 'none';
+		document.getElementById("regEmailLabel").style.display = 'none';
+		document.getElementById("regFirstNameLabel").innerHTML = '';
+		document.getElementById("regLastNameLabel").innerHTML = '';
+		document.getElementById("regPhoneLabel").innerHTML = '';
+		document.getElementById("regEmailLabel").innerHTML = '';
 		document.getElementById("registerFirstName").style.display = 'none';
 		document.getElementById("registerLastName").style.display = 'none';
 		document.getElementById("registerPhone").style.display = 'none';
@@ -101,7 +122,7 @@ function register() {
 
 	// If fails input constraints
 	if (!(newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phoneRegex.test(newUserPhone))) {
-		var msg = document.getElementById("registerInstruction");
+		var msg = document.getElementById("registerText");
 		msg.textContent = "Please enter valid credentials";
 		msg.style.color = "red";
 	}
@@ -122,9 +143,13 @@ function register() {
 		USER_INFO.lastName = response.lastName;
 
 		saveCookie();
+
+		document.getElementById("registerText").style.color = "smoky-black";
+
 		goToSearchPage();
 	}, function (err) {
-		document.getElementById("registerInstruction").innerHTML = err.message;
+		document.getElementById("registerText").innerHTML = err.message;
+		document.getElementById("registerText").style.color = "red";
 	});
 }
 
