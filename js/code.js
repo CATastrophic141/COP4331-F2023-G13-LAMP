@@ -66,6 +66,11 @@ function doLogin() {
 
 function showRegister(element) {
 	if (element.innerHTML == "Sign Up") {
+		document.getElementById("loginName").style.fontSize = '20px';
+		document.getElementById("loginPassword").style.fontSize = '20px';
+		document.getElementById("loginNameLabel").style.fontSize = '20px';
+		document.getElementById("loginPasswordLabel").style.fontSize = '20px';
+
 		document.getElementById("registerFirstName").style.display = 'inline-block';
 		document.getElementById("regFirstNameLabel").style.display = 'inline-block';
 		document.getElementById("regFirstNameLabel").innerText = 'First Name ';
@@ -88,7 +93,12 @@ function showRegister(element) {
 		document.getElementById("registerText").innerHTML = "Already have an Account?";
 		document.getElementById("signUpButton").innerHTML = "Log In";
 	} else {
-		// Hide the labels for the fields in the register box as necessary
+		// Hide and adjust the labels for the fields in the register box as necessary
+		document.getElementById("loginName").style.fontSize = '24px';
+		document.getElementById("loginPassword").style.fontSize = '24px';
+		document.getElementById("loginNameLabel").style.fontSize = '24px';
+		document.getElementById("loginPasswordLabel").style.fontSize = '24px';
+
 		document.getElementById("regFirstNameLabel").style.display = 'none';
 		document.getElementById("regLastNameLabel").style.display = 'none';
 		document.getElementById("regPhoneLabel").style.display = 'none';
