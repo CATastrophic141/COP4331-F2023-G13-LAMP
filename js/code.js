@@ -479,5 +479,8 @@ function searchContact(button) {
 	document.getElementById("tableMsg").style.display = "block";
 }
 function clearTable() {
-	document.getElementById("contactTable").innerHTML = "<tr><th>Name</th><th>Phone</th><th>Email</th></tr>";
+	var contactTable = document.getElementById("contactTable")
+	for (let i = contactTable.rows.length - 1; i > 0; i--) {
+		contactTable.deleteRow(i);
+	}
 }
