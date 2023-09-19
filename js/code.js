@@ -162,7 +162,7 @@ function register() {
 			document.getElementById("phoneErrText").textContent = "";
 		}
 		if (!emailRegex.test(newUserEmail)) {
-			document.getElementById("emailErrText").textContent = "Please etner a valid email (name@host.domain)";
+			document.getElementById("emailErrText").textContent = "Please enter a valid email (name@host.domain)";
 		} else {
 			document.getElementById("emailErrText").textContent = "";
 		}

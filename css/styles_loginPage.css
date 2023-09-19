@@ -318,6 +318,5 @@ select{
 #emailErrText {
     text-align: center;
     font-size: 12px;
-    margin-right: 15%;
-    margin-left: 15%;
+    color: #be070d;
 }
