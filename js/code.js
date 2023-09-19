@@ -381,16 +381,13 @@ function addEditButtonToRow(row, userId) {
 	button.setAttribute("title", "Edit");
 	button.innerHTML = "<i class=\"fa-solid fa-pen-to-square\"></i>";
 	let contactId = row.cells[0].getAttribute("data-id");
-	let name = row.cells[0].innerHTML;
-	let phone = row.cells[1].innerHTML;
-	let email = row.cells[2].innerHTML;
 
 	// Assign the function to the button's onclick event
 	button.onclick = function () {
 		//addEditButtonFunctionality(userId, contactId, name, phone, email);
 		// Alternatively, can use Rahul's idea and make the Add Contact block function like an Edit Contact block;
 		// below is the function call that would do that.
-		altAddEditButtonFunctionality(row, contactId, name, phone, email);
+		altAddEditButtonFunctionality(row, contactId);
 	};
 	
 	button.classList.add("buttons", "tableButton");
@@ -398,7 +395,7 @@ function addEditButtonToRow(row, userId) {
 	cell.appendChild(button);
 }
 
-function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
+function altAddEditButtonFunctionality(row, contactId) {
 	// If the edit/add contact block is in the default "add contact" state,
 	// change it to be in the "edit contact" state.
 	if (document.getElementById("addContactButton") !== null) {
@@ -459,9 +456,9 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 	}
 
 	//Populate the edit contact fields with the values based on what they are in the table.
-	document.getElementById("contactNameText").value = name;
-	document.getElementById("contactNumberText").value = phone;
-	document.getElementById("contactEmailText").value = email;
+	document.getElementById("contactNameText").value = row.cells[0].textContent;
+	document.getElementById("contactNumberText").value = row.cells[1].textContent;
+	document.getElementById("contactEmailText").value = row.cells[2].textContent;
 }
 
 function goToSearchPage() {
