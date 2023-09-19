@@ -16,30 +16,41 @@
 	</div>
 	<span id="inner-title">Log in</span>
 	<form id="loginForm">
-		<label for="registerFirstName" id="regFirstNameLabel"></label>
-		<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
-		<span id="firstErrText"></span>
-
-		<label for="registerLastName" id="regLastNameLabel"></label>
-		<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
-		<span id="lastErrText"></span>
-
-		<label for="loginName" id="loginNameLabel">Username </label>
-		<input type="text" id="loginName" placeholder="Username" class="loginField" />
-		<span id="usernameErrText"></span>
-
-		<label for="loginPassword" id="loginPasswordLabel">Password </label>
-		<input type="password" id="loginPassword" placeholder="Password"/>
-		<span id="passwordErrText"></span>
-
-		<label for="registerPhone" id="regPhoneLabel"></label>
-		<input id="registerPhone" type="text" placeholder="Phone number (xxx-xxx-xxxx)" class="registerField">
-		<span id="phoneErrText"></span>
-
-		<label for="registerEmail" id="regEmailLabel"></label>
-		<input id="registerEmail" type="text" placeholder="Email (someone@example.com)" class="registerField">
-		<span id="emailErrText"></span>
-
+		<div class="formFieldGroup">
+			<label for="registerFirstName" id="regFirstNameLabel"></label>
+			<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
+			<span id="firstErrText"></span>
+		</div>
+	
+		<div class="formFieldGroup">
+			<label for="registerLastName" id="regLastNameLabel"></label>
+			<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
+			<span id="lastErrText"></span>
+		</div>
+	
+		<div class="formFieldGroup">
+			<label for="loginName" id="loginNameLabel">Username </label>
+			<input type="text" id="loginName" placeholder="Username" class="loginField" />
+			<span id="usernameErrText"></span>
+		</div>
+	
+		<div class="formFieldGroup">
+			<label for="loginPassword" id="loginPasswordLabel">Password </label>
+			<input type="password" id="loginPassword" placeholder="Password"/>
+			<span id="passwordErrText"></span>
+		</div>
+	
+		<div class="formFieldGroup">
+			<label for="registerPhone" id="regPhoneLabel"></label>
+			<input id="registerPhone" type="text" placeholder="Phone number (xxx-xxx-xxxx)" class="registerField">
+			<span id="phoneErrText"></span>
+		</div>
+	
+		<div class="formFieldGroup">
+			<label for="registerEmail" id="regEmailLabel"></label>
+			<input id="registerEmail" type="text" placeholder="Email (someone@example.com)" class="registerField">
+			<span id="emailErrText"></span>
+		</div>
 	</form>
 	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log in </button>
 	<span id="registerErrText"></span>
