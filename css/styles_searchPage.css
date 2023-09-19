@@ -440,3 +440,15 @@ body
     background-color:rgba(242, 223, 205, 1);
     color: black;
 }
+
+#nameSearchLabel,
+#numberSearchLabel,
+#emailSearchLabel,
+#nameLabel,
+#numberLabel,
+#emailLabel {
+    display: inline-block;
+    text-align: left;
+    font-size: 24px;
+    width: 50%; 
+}
