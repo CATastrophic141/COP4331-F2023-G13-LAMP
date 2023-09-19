@@ -36,8 +36,11 @@
 		<div id="advancedSearchFields" class="advancedSearchContainer">
 			<p id="searchMsg"> </p>
 			<div class="searchFieldContainer">
+				<label for="nameSearch" id="nameSearchLabel">Name </label>
 				<input type="search" id="nameSearch" placeholder="Contact Name" class="searchField"/>
+				<label for="numberSearch" id="numberSearchLabel">Phone </label>
 				<input type="search" id="numberSearch" placeholder="Contact Number" class="searchField"/>
+				<label for="emailSearch" id="emailSearchLabel">Email </label>
 				<input type="search" id="emailSearch" placeholder="Contact Email" class="searchField"/>
 			</div>
 		</div>
@@ -67,8 +70,11 @@
 	</div>
 	<p id="addMsg"> </p>
 	<div class="addContactContainer">
+		<label for="contactNameText" id="nameLabel">Name </label>
 		<input type="text" id="contactNameText" placeholder="Contact Name" class="addField">
+		<label for="contactNumberText" id="numberLabel">Phone </label>
 		<input type="text" id="contactNumberText" placeholder="Contact Number (XXX-XXX-XXXX)" class="addField">
+		<label for="contactEmailText" id="emailLabel">Email </label>
 		<input type="text" id="contactEmailText" placeholder="Contact Email (NAME@DOMAIN.XYZ)" class="addField">
 		<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button>
 	</div>

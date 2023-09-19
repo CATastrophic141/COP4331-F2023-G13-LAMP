@@ -128,14 +128,36 @@ function register() {
 	let newUserEmail = document.getElementById("registerEmail").value;
 
 	firstName = newUserFirstName;
-	lastName = newUserLastName;
+    lastName = newUserLastName;
 
 	// If fails input constraints
-	if (!(newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && (emailRegex.test(newUserEmail)) && phoneRegex.test(newUserPhone))) {
-		var msg = document.getElementById("registerText");
-		msg.textContent = "Please enter valid credentials";
+	if (!(newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && emailRegex.test(newUserEmail) && phoneRegex.test(newUserPhone))) {
+		var msg = document.getElementById("registerErrText");
+		var msgString = "";
+		if (newUsername == ""){
+			msgString = msgString + "Please enter a username.\n";
+		}
+		if (newPassword == ""){
+			msgString = msgString + "Please enter a password.\n";
+		}
+		if (!nameRegex.test(newUserFirstName)) {
+			msgString = msgString + "Please enter a valid first name.\n";
+		}
+		if (!nameRegex.test(newUserLastName)) {
+			msgString = msgString + "Please enter a valid last name. (Human names only)\n";
+		}
+		if (!phoneRegex.test(newUserPhone)) {
+			msgString = msgString + "Please enter a phone. (XXX-XXX-XXXX)\n";
+		}
+		if (!emailRegex.test(newUserEmail)) {
+			msgString = msgString + "Please enter a valid email. (name@server.domain)\n";
+		}
+		msg.textContent = msgString;
 		msg.style.color = "red";
+		return;
 	}
+
+	document.getElementById("registerErrText").textContent = "" //Ensure error message is wiped
 
 	let hash = CryptoJS.SHA512(newPassword).toString();
 	let request = {
