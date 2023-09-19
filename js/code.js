@@ -89,6 +89,7 @@ function showRegister(element) {
 
 		document.getElementById("registerButton").style.display = 'block';
 		document.getElementById("loginButton").style.display = 'none';
+		document.getElementById("loginResult").innerHTML = "";
 		document.getElementById("inner-title").innerHTML = "Fill out the fields below, then click \"Create Account\".";
 		document.getElementById("registerText").innerHTML = "Already have an Account?";
 		document.getElementById("signUpButton").innerHTML = "Log In";
