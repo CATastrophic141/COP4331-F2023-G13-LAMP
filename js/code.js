@@ -113,6 +113,7 @@ function showRegister(element) {
 		document.getElementById("registerPhone").style.display = 'none';
 		document.getElementById("registerEmail").style.display = 'none';
 		document.getElementById("registerButton").style.display = 'none';
+		document.getElementById("registerErrText").textContent = '';
 		document.getElementById("loginButton").style.display = 'block';
 		document.getElementById("inner-title").innerHTML = "Log in";
 		document.getElementById("registerText").innerHTML = "Not registered yet?";
