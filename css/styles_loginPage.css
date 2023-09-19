@@ -309,3 +309,15 @@ select{
     margin-top: 2%;
     font-size: 0.75em;
 }
+
+#firstErrText,
+#lastErrText,
+#usernameErrText,
+#passwordErrText,
+#phoneErrText,
+#emailErrText {
+    text-align: center;
+    font-size: 12px;
+    margin-right: 15%;
+    margin-left: 15%;
+}

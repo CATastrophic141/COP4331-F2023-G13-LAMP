@@ -135,29 +135,47 @@ function register() {
 		var msg = document.getElementById("registerErrText");
 		var msgString = "";
 		if (newUsername == ""){
-			msgString = msgString + "Please enter a username.\n";
+			document.getElementById("firstErrText").textContent = "Please enter username";
+		} else {
+			document.getElementById("firstErrText").textContent = "";
 		}
 		if (newPassword == ""){
-			msgString = msgString + "Please enter a password.\n";
+			document.getElementById("lastErrText").textContent = "Please enter a password";
+		} else{
+			document.getElementById("lastErrText").textContent = "";
 		}
 		if (!nameRegex.test(newUserFirstName)) {
-			msgString = msgString + "Please enter a valid first name.\n";
+			document.getElementById("usernameErrText").textContent = "Please enter a valid first name";
+		} else {
+			document.getElementById("usernameErrText").textContent = "";
 		}
 		if (!nameRegex.test(newUserLastName)) {
-			msgString = msgString + "Please enter a valid last name. (Human names only)\n";
+			document.getElementById("passwordErrText").textContent = "Please enter a valid last name";
+		} else {
+			document.getElementById("passwordErrText").textContent = "";
 		}
 		if (!phoneRegex.test(newUserPhone)) {
-			msgString = msgString + "Please enter a phone. (XXX-XXX-XXXX)\n";
+			document.getElementById("phoneErrText").textContent = "Please enter a valid phone number (XXX-XXX-XXXX)";
+		} else {
+			document.getElementById("phoneErrText").textContent = "";
 		}
 		if (!emailRegex.test(newUserEmail)) {
-			msgString = msgString + "Please enter a valid email. (name@server.domain)\n";
+			document.getElementById("emailErrText").textContent = "Please etner a valid email (name@host.domain)";
+		} else {
+			document.getElementById("emailErrText").textContent = "";
 		}
-		msg.textContent = msgString;
+		msg.textContent = "Please correct the indicated fields";
 		msg.style.color = "red";
 		return;
 	}
 
 	document.getElementById("registerErrText").textContent = "" //Ensure error message is wiped
+	document.getElementById("firstErrText").textContent = "";
+	document.getElementById("lastErrText").textContent = "";
+	document.getElementById("usernameErrText").textContent = "";
+	document.getElementById("passwordErrText").textContent = "";
+	document.getElementById("phoneErrText").textContent = "";
+	document.getElementById("emailErrText").textContent = "";
 
 	let hash = CryptoJS.SHA512(newPassword).toString();
 	let request = {

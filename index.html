@@ -1,3 +1,4 @@
+<!--TODO: ERROR SYMBOLS-->
 <html>
 <head>
 	<title>COP 4331 LAMP Stack Demo</title>
@@ -17,22 +18,28 @@
 	<form id="loginForm">
 		<label for="registerFirstName" id="regFirstNameLabel"></label>
 		<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
+		<span id="firstErrText"></span>
 
 		<label for="registerLastName" id="regLastNameLabel"></label>
 		<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
+		<span id="lastErrText"></span>
 
 		<label for="loginName" id="loginNameLabel">Username </label>
 		<input type="text" id="loginName" placeholder="Username" class="loginField" />
+		<span id="usernameErrText"></span>
 
 		<label for="loginPassword" id="loginPasswordLabel">Password </label>
 		<input type="password" id="loginPassword" placeholder="Password"/>
+		<span id="passwordErrText"></span>
 
 		<label for="registerPhone" id="regPhoneLabel"></label>
 		<input id="registerPhone" type="text" placeholder="Phone number (xxx-xxx-xxxx)" class="registerField">
+		<span id="phoneErrText"></span>
 
 		<label for="registerEmail" id="regEmailLabel"></label>
 		<input id="registerEmail" type="text" placeholder="Email (someone@example.com)" class="registerField">
-		
+		<span id="emailErrText"></span>
+
 	</form>
 	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log in </button>
 	<span id="registerErrText"></span>
@@ -41,18 +48,5 @@
 	<button id="signUpButton" type="button" class="buttons" onclick="showRegister(this);">Sign Up</button>
 	<span id="loginResult"></span>
 </div>
-<!--
-<div id="registerDiv">
-	<span id="registerText1">Not registered yet?</span><br/>
-	<p id="registerInstruction">Fill out the fields below, then click "Create Account".</p>
-	<input id="registerUsername" type="text" placeholder="Username" class="registerFields"><br />
-	<input id="registerPassword" type="text" placeholder="Password" class="registerFields"><br />
-	<input id="registerFirstName1" type="text" placeholder="First Name" class="registerFields"><br />
-	<input id="registerLastName1" type="text" placeholder="Last Name" class="registerFields"><br />
-	<input id="registerPhone1" type="text" placeholder="Phone number (XXX-XXX-XXXX)" class="registerFields"><br />
-	<input id="registerEmail1" type="text" placeholder="Email (NAME@DOMAIN.XYZ)" class="registerFields"><br />
-	<button id="registerButton1" type="button" class="buttons" onclick="register();">Create Account</button>
-</div>
--->
 </body>
 </html>
