@@ -89,6 +89,7 @@ function showRegister(element) {
 
 		document.getElementById("registerButton").style.display = 'block';
 		document.getElementById("loginButton").style.display = 'none';
+		document.getElementById("loginResult").innerHTML = "";
 		document.getElementById("inner-title").innerHTML = "Fill out the fields below, then click \"Create Account\".";
 		document.getElementById("registerText").innerHTML = "Already have an Account?";
 		document.getElementById("signUpButton").innerHTML = "Log In";
@@ -112,6 +113,7 @@ function showRegister(element) {
 		document.getElementById("registerPhone").style.display = 'none';
 		document.getElementById("registerEmail").style.display = 'none';
 		document.getElementById("registerButton").style.display = 'none';
+		document.getElementById("registerErrText").textContent = '';
 		document.getElementById("loginButton").style.display = 'block';
 		document.getElementById("inner-title").innerHTML = "Log in";
 		document.getElementById("registerText").innerHTML = "Not registered yet?";
