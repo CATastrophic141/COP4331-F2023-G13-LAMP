@@ -99,7 +99,6 @@ function showRegister(element) {
 		document.getElementById("loginPassword").style.fontSize = '24px';
 		document.getElementById("loginNameLabel").style.fontSize = '24px';
 		document.getElementById("loginPasswordLabel").style.fontSize = '24px';
-
 		document.getElementById("regFirstNameLabel").style.display = 'none';
 		document.getElementById("regLastNameLabel").style.display = 'none';
 		document.getElementById("regPhoneLabel").style.display = 'none';
@@ -108,12 +107,26 @@ function showRegister(element) {
 		document.getElementById("regLastNameLabel").innerHTML = '';
 		document.getElementById("regPhoneLabel").innerHTML = '';
 		document.getElementById("regEmailLabel").innerHTML = '';
+
+		// Hide any and all error messages
+		document.getElementById("firstErrText").innerHTML = "<br/>";
+		document.getElementById("lastErrText").innerHTML = "<br/>";
+		document.getElementById("usernameErrText").innerHTML = "<br/>";
+		document.getElementById("passwordErrText").innerHTML = "<br/>";
+		document.getElementById("phoneErrText").innerHTML = "<br/>";
+		document.getElementById("emailErrText").innerHTML = "<br/>";
+
+		// Clear the register box input fields
 		document.getElementById("registerFirstName").style.display = 'none';
 		document.getElementById("registerLastName").style.display = 'none';
 		document.getElementById("registerPhone").style.display = 'none';
 		document.getElementById("registerEmail").style.display = 'none';
 		document.getElementById("registerButton").style.display = 'none';
 		document.getElementById("registerErrText").textContent = '';
+		document.getElementById("registerFirstName").value = '';
+		document.getElementById("registerLastName").value = '';
+		document.getElementById("registerPhone").value = '';
+		document.getElementById("registerEmail").value = '';
 		document.getElementById("loginButton").style.display = 'block';
 		document.getElementById("inner-title").innerHTML = "Log in";
 		document.getElementById("registerText").innerHTML = "Not registered yet?";
@@ -136,38 +149,38 @@ function register() {
 	if (!(newUsername != "" && newPassword != "" && nameRegex.test(newUserFirstName) && nameRegex.test(newUserLastName) && emailRegex.test(newUserEmail) && phoneRegex.test(newUserPhone))) {
 		var msg = document.getElementById("registerErrText");
 		var msgString = "";
-		if (newUsername == ""){
-			document.getElementById("firstErrText").textContent = "Please enter username";
+		if (!nameRegex.test(newUserFirstName)){
+			document.getElementById("firstErrText").innerHTML = "Please enter a valid first name<br/>";
 		} else {
-			document.getElementById("firstErrText").textContent = "";
+			document.getElementById("firstErrText").innerHTML = "<br/>";
 		}
-		if (newPassword == ""){
-			document.getElementById("lastErrText").textContent = "Please enter a password";
+		if (!nameRegex.test(newUserLastName)){
+			document.getElementById("lastErrText").innerHTML = "Please enter a valid last name<br/>";
 		} else{
-			document.getElementById("lastErrText").textContent = "";
+			document.getElementById("lastErrText").innerHTML = "<br/>";
 		}
-		if (!nameRegex.test(newUserFirstName)) {
-			document.getElementById("usernameErrText").textContent = "Please enter a valid first name";
+		if (newUsername == "") {
+			document.getElementById("usernameErrText").innerHTML = "Please enter a username<br/>";
 		} else {
-			document.getElementById("usernameErrText").textContent = "";
+			document.getElementById("usernameErrText").innerHTML = "<br/>";
 		}
-		if (!nameRegex.test(newUserLastName)) {
-			document.getElementById("passwordErrText").textContent = "Please enter a valid last name";
+		if (newPassword == "") {
+			document.getElementById("passwordErrText").innerHTML = "Please enter a password<br/>";
 		} else {
-			document.getElementById("passwordErrText").textContent = "";
+			document.getElementById("passwordErrText").innerHTML = "<br/>";
 		}
 		if (!phoneRegex.test(newUserPhone)) {
-			document.getElementById("phoneErrText").textContent = "Please enter a valid phone number (XXX-XXX-XXXX)";
+			document.getElementById("phoneErrText").innerHTML = "Please enter a valid phone number (XXX-XXX-XXXX)<br/>";
 		} else {
-			document.getElementById("phoneErrText").textContent = "";
+			document.getElementById("phoneErrText").innerHTML = "<br/>";
 		}
 		if (!emailRegex.test(newUserEmail)) {
-			document.getElementById("emailErrText").textContent = "Please enter a valid email (name@host.domain)";
+			document.getElementById("emailErrText").innerHTML = "Please enter a valid email (name@host.domain)<br/>";
 		} else {
-			document.getElementById("emailErrText").textContent = "";
+			document.getElementById("emailErrText").innerHTML = "<br/>";
 		}
 		msg.textContent = "Please correct the indicated fields";
-		msg.style.color = "red";
+		msg.style.color = "#be070d";
 		return;
 	}
 
@@ -201,7 +214,7 @@ function register() {
 		goToSearchPage();
 	}, function (err) {
 		document.getElementById("registerText").innerHTML = err.message;
-		document.getElementById("registerText").style.color = "red";
+		document.getElementById("registerText").style.color = "#be070d";
 	});
 }
 
@@ -315,7 +328,7 @@ function addContact() {
 		let tableRow = { contactID: response.contactID, name: newName, phone: newPhone, email: newEmail }
 		makeTableRow(table, tableRow);
 	}, function (err) {
-		document.getElementById("tableMsg").style.color = "red";
+		document.getElementById("tableMsg").style.color = "#be070d";
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
 
@@ -341,7 +354,7 @@ function deleteContact(element) {
 		document.getElementById("tableMsg").style.color = "white";
 		document.getElementById("tableMsg").innerHTML = "Successfully deleted contact";
 	}, function (err) {
-		document.getElementById("tableMsg").style.color = "red";
+		document.getElementById("tableMsg").style.color = "#be070d";
 		document.getElementById("tableMsg").innerHTML = err.message;
 	});
 }

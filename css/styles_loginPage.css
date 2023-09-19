@@ -46,6 +46,7 @@ body
 
 #loginForm 
 {
+    width: 90%;
     #loginNameLabel,
     #loginPasswordLabel
     {
@@ -319,4 +320,5 @@ select{
     text-align: center;
     font-size: 12px;
     color: #be070d;
+    margin-left: 30%;
 }
