@@ -7,6 +7,8 @@
 	<script type="text/javascript" src="./js/code.js"></script>
     <link href="./css/styles_loginPage.css" rel="stylesheet">	
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
 <div id="loginDiv">
@@ -16,39 +18,39 @@
 	</div>
 	<span id="inner-title">Log in</span>
 	<form id="loginForm">
-		<div class="formFieldGroup">
+		<div id="firstNameContainer" class="formFieldGroup">
 			<span id="firstErrText"><br/></span>
-			<label for="registerFirstName" id="regFirstNameLabel"></label>
+			<label for="registerFirstName" id="regFirstNameLabel"><i class="fa-solid fa-triangle-exclamation"></i> First Name</label>
 			<input id="registerFirstName" type="text" placeholder="First Name" class="registerField" />
 		</div>
 	
-		<div class="formFieldGroup">
+		<div id="lastNameContainer"  class="formFieldGroup">
 			<span id="lastErrText"><br/></span>
-			<label for="registerLastName" id="regLastNameLabel"></label>
+			<label for="registerLastName" id="regLastNameLabel"><i class="fa-solid fa-triangle-exclamation"></i> Last Name</label>
 			<input id="registerLastName" type="text" placeholder="Last Name" class="registerField" />
 		</div>
 	
-		<div class="formFieldGroup">
+		<div id="usernameContainer" class="formFieldGroup">
 			<span id="usernameErrText"><br/></span>
-			<label for="loginName" id="loginNameLabel">Username </label>
+			<label for="loginName" id="loginNameLabel"><i class="fa-solid fa-triangle-exclamation"></i> Username </label>
 			<input type="text" id="loginName" placeholder="Username" class="loginField" />
 		</div>
 	
-		<div class="formFieldGroup">
+		<div id="passwordContainer" class="formFieldGroup">
 			<span id="passwordErrText"><br/></span>
-			<label for="loginPassword" id="loginPasswordLabel">Password </label>
+			<label for="loginPassword" id="loginPasswordLabel"><i class="fa-solid fa-triangle-exclamation"></i> Password </label>
 			<input type="password" id="loginPassword" placeholder="Password"/>
 		</div>
 	
-		<div class="formFieldGroup">
+		<div id="phoneContainer" class="formFieldGroup">
 			<span id="phoneErrText"><br/></span>
-			<label for="registerPhone" id="regPhoneLabel"></label>
+			<label for="registerPhone" id="regPhoneLabel"><i class="fa-solid fa-triangle-exclamation"></i> Phone Number</label>
 			<input id="registerPhone" type="text" placeholder="Phone number (xxx-xxx-xxxx)" class="registerField">
 		</div>
 	
-		<div class="formFieldGroup">
+		<div id="emailContainer" class="formFieldGroup">
 			<span id="emailErrText"><br/></span>
-			<label for="registerEmail" id="regEmailLabel"></label>
+			<label for="registerEmail" id="regEmailLabel"><i class="fa-solid fa-triangle-exclamation"></i> Email</label>
 			<input id="registerEmail" type="text" placeholder="Email (someone@example.com)" class="registerField">
 		</div>
 	</form>
@@ -59,6 +61,7 @@
 	<span id="registerText">Not registered yet?</span>
 	<button id="signUpButton" type="button" class="buttons" onclick="showRegister(this);">Sign Up</button>
 	<span id="loginResult"></span>
+	<button id="searchPageButton" type="button" class="buttons" onclick="buttonSearchPage();">Search Page</button>
 </div>
 </body>
 </html>
