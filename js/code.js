@@ -11,6 +11,15 @@ var USER_INFO = {
 }
 
 var advancedSearchActive = false;
+var editModeActive = false;
+
+function buttonSearchPage() {
+	USER_INFO.userId = 1;
+	USER_INFO.firstName = "Joey";
+	USER_INFO.lastName = "Crown";
+	saveCookie();
+	goToSearchPage();
+}
 
 function sendPostRequest(endPoint, request, onSuccess, onError) {
 	let url = urlBase + endPoint + '.php';
@@ -66,26 +75,10 @@ function doLogin() {
 
 function showRegister(element) {
 	if (element.innerHTML == "Sign Up") {
-		document.getElementById("loginName").style.fontSize = '20px';
-		document.getElementById("loginPassword").style.fontSize = '20px';
-		document.getElementById("loginNameLabel").style.fontSize = '20px';
-		document.getElementById("loginPasswordLabel").style.fontSize = '20px';
-
-		document.getElementById("registerFirstName").style.display = 'inline-block';
-		document.getElementById("regFirstNameLabel").style.display = 'inline-block';
-		document.getElementById("regFirstNameLabel").innerText = 'First Name ';
-
-		document.getElementById("registerLastName").style.display = 'inline-block';
-		document.getElementById("regLastNameLabel").style.display = 'inline-block';
-		document.getElementById("regLastNameLabel").innerText = 'Last Name ';
-
-		document.getElementById("registerPhone").style.display = 'inline-block';
-		document.getElementById("regPhoneLabel").style.display = 'inline-block';
-		document.getElementById("regPhoneLabel").innerText = 'Phone Number ';
-
-		document.getElementById("registerEmail").style.display = 'inline-block';
-		document.getElementById("regEmailLabel").style.display = 'inline-block';
-		document.getElementById("regEmailLabel").innerText = 'Email ';
+		document.getElementById("firstNameContainer").style.display = 'block';
+		document.getElementById("lastNameContainer").style.display = 'block';
+		document.getElementById("phoneContainer").style.display = 'block';
+		document.getElementById("emailContainer").style.display = 'block';
 
 		document.getElementById("registerButton").style.display = 'block';
 		document.getElementById("loginButton").style.display = 'none';
@@ -95,18 +88,18 @@ function showRegister(element) {
 		document.getElementById("signUpButton").innerHTML = "Log In";
 	} else {
 		// Hide and adjust the labels for the fields in the register box as necessary
-		document.getElementById("loginName").style.fontSize = '24px';
-		document.getElementById("loginPassword").style.fontSize = '24px';
-		document.getElementById("loginNameLabel").style.fontSize = '24px';
-		document.getElementById("loginPasswordLabel").style.fontSize = '24px';
-		document.getElementById("regFirstNameLabel").style.display = 'none';
-		document.getElementById("regLastNameLabel").style.display = 'none';
-		document.getElementById("regPhoneLabel").style.display = 'none';
-		document.getElementById("regEmailLabel").style.display = 'none';
-		document.getElementById("regFirstNameLabel").innerHTML = '';
-		document.getElementById("regLastNameLabel").innerHTML = '';
-		document.getElementById("regPhoneLabel").innerHTML = '';
-		document.getElementById("regEmailLabel").innerHTML = '';
+		// document.getElementById("loginName").style.fontSize = '24px';
+		// document.getElementById("loginPassword").style.fontSize = '24px';
+		// document.getElementById("loginNameLabel").style.fontSize = '24px';
+		// document.getElementById("loginPasswordLabel").style.fontSize = '24px';
+		// document.getElementById("regFirstNameLabel").style.display = 'none';
+		// document.getElementById("regLastNameLabel").style.display = 'none';
+		// document.getElementById("regPhoneLabel").style.display = 'none';
+		// document.getElementById("regEmailLabel").style.display = 'none';
+		// document.getElementById("regFirstNameLabel").innerHTML = '';
+		// document.getElementById("regLastNameLabel").innerHTML = '';
+		// document.getElementById("regPhoneLabel").innerHTML = '';
+		// document.getElementById("regEmailLabel").innerHTML = '';
 
 		// Hide any and all error messages
 		document.getElementById("firstErrText").innerHTML = "<br/>";
@@ -116,22 +109,30 @@ function showRegister(element) {
 		document.getElementById("phoneErrText").innerHTML = "<br/>";
 		document.getElementById("emailErrText").innerHTML = "<br/>";
 
+		let formFields = document.getElementsByClassName("formFieldGroup");
+		for (let item of formFields) {
+			item.classList.remove("error");
+		}
+
 		// Clear the register box input fields
-		document.getElementById("registerFirstName").style.display = 'none';
-		document.getElementById("registerLastName").style.display = 'none';
-		document.getElementById("registerPhone").style.display = 'none';
-		document.getElementById("registerEmail").style.display = 'none';
-		document.getElementById("registerButton").style.display = 'none';
-		document.getElementById("registerErrText").textContent = '';
-		document.getElementById("registerFirstName").value = '';
-		document.getElementById("registerLastName").value = '';
-		document.getElementById("registerPhone").value = '';
-		document.getElementById("registerEmail").value = '';
+		document.getElementById("firstNameContainer").style.display = 'none';
+		document.getElementById("lastNameContainer").style.display = 'none';
+		document.getElementById("phoneContainer").style.display = 'none';
+		document.getElementById("emailContainer").style.display = 'none';
 		document.getElementById("loginButton").style.display = 'block';
 		document.getElementById("inner-title").innerHTML = "Log in";
 		document.getElementById("registerText").innerHTML = "Not registered yet?";
 		document.getElementById("signUpButton").innerHTML = "Sign Up";
+		document.getElementById("registerErrText").style.display = 'none';
+		document.getElementById("registerButton").style.display = 'none';
 	}
+}
+
+function displayRegistrationErr(id, msg) {
+	const fieldContainer = document.getElementById(id).parentElement;
+	fieldContainer.classList.add("error");
+	document.getElementById(id).innerHTML = msg;
+
 }
 
 function register() {
@@ -150,37 +151,44 @@ function register() {
 		var msg = document.getElementById("registerErrText");
 		var msgString = "";
 		if (!nameRegex.test(newUserFirstName)){
-			document.getElementById("firstErrText").innerHTML = "Please enter a valid first name<br/>";
+			//document.getElementById("firstErrText").innerHTML = "Please enter a valid first name<br/>";
+			displayRegistrationErr("firstErrText", "Please enter a valid first name<br/>");
 		} else {
 			document.getElementById("firstErrText").innerHTML = "<br/>";
 		}
 		if (!nameRegex.test(newUserLastName)){
-			document.getElementById("lastErrText").innerHTML = "Please enter a valid last name<br/>";
+			//document.getElementById("lastErrText").innerHTML = "Please enter a valid last name<br/>";
+			displayRegistrationErr("lastErrText", "Please enter a valid last name<br/>");
 		} else{
 			document.getElementById("lastErrText").innerHTML = "<br/>";
 		}
 		if (newUsername == "") {
-			document.getElementById("usernameErrText").innerHTML = "Please enter a username<br/>";
+			//document.getElementById("usernameErrText").innerHTML = "Please enter a username<br/>";
+			displayRegistrationErr("usernameErrText", "Please enter a username<br/>");
 		} else {
 			document.getElementById("usernameErrText").innerHTML = "<br/>";
 		}
 		if (newPassword == "") {
-			document.getElementById("passwordErrText").innerHTML = "Please enter a password<br/>";
+			//document.getElementById("passwordErrText").innerHTML = "Please enter a password<br/>";
+			displayRegistrationErr("passwordErrText", "Please enter a password<br/>");
 		} else {
 			document.getElementById("passwordErrText").innerHTML = "<br/>";
 		}
 		if (!phoneRegex.test(newUserPhone)) {
-			document.getElementById("phoneErrText").innerHTML = "Please enter a valid phone number (XXX-XXX-XXXX)<br/>";
+			//document.getElementById("phoneErrText").innerHTML = "Please enter a valid phone number (XXX-XXX-XXXX)<br/>";
+			displayRegistrationErr("phoneErrText", "Please enter a valid phone number (XXX-XXX-XXXX)<br/>");
 		} else {
 			document.getElementById("phoneErrText").innerHTML = "<br/>";
 		}
 		if (!emailRegex.test(newUserEmail)) {
-			document.getElementById("emailErrText").innerHTML = "Please enter a valid email (name@host.domain)<br/>";
+			//document.getElementById("emailErrText").innerHTML = "Please enter a valid email (name@host.domain)<br/>";
+			displayRegistrationErr("emailErrText", "Please enter a valid email (name@host.domain)<br/>");
 		} else {
 			document.getElementById("emailErrText").innerHTML = "<br/>";
 		}
 		msg.textContent = "Please correct the indicated fields";
 		msg.style.color = "#be070d";
+		msg.style.display = "block";
 		return;
 	}
 
@@ -351,7 +359,7 @@ function deleteContact(element) {
 
 	sendPostRequest("DeleteContact", request, function (response) {
 		contactTable.deleteRow(currRow);
-		document.getElementById("tableMsg").style.color = "white";
+		document.getElementById("tableMsg").style.color = "black";
 		document.getElementById("tableMsg").innerHTML = "Successfully deleted contact";
 	}, function (err) {
 		document.getElementById("tableMsg").style.color = "#be070d";
@@ -404,13 +412,15 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 	if (document.getElementById("addContactButton") !== null) {
 		// Edit the "tableMsg" span's ID to reflect that it now indicates the result of EDITING the contact.
 		var contactEditResult = document.getElementById("tableMsg");
-		contactEditResult.id = "contactEditResult";
 
 		// Edit the "addContactButton" button's ID and inner text to reflect that it now 
 		// is used to submit the user's edits to their existing contact.
 		var editContactButton = document.getElementById("addContactButton");
 		editContactButton.innerHTML = " Submit Edits ";
 		editContactButton.id = "editContactButton";
+
+		// set edit mode to active
+		editModeActive = true;
 
 		// Edit the functionality of the "addContactButton" button to be that of editing the contact, 
 		// then revert its functionality back to that of adding the contact.
@@ -429,6 +439,7 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 
 			sendPostRequest("UpdateContact", request, function(response) {
 				//Indicate success!
+				contactEditResult.style.color = "black";
 				contactEditResult.innerHTML = "Success! Contact edited.";
 
 				//Update the table row cell values in the table.
@@ -441,8 +452,7 @@ function altAddEditButtonFunctionality(row, contactId, name, phone, email) {
 
 			//Reset to the default "add contact" values.
 			// First, reset the result span.
-			document.getElementById("contactEditResult").innerHTML = "";
-			document.getElementById("contactEditResult").id = "tableMsg";
+			document.getElementById("tableMsg").innerHTML = "";
 
 			// Second, reset the default values in the edit/add contact fields.
 			document.getElementById("contactNameText").value = "";
@@ -491,7 +501,16 @@ function searchContact(button) {
 	let nameSearch = "";
 	let numberSearch = "";
 	let emailSearch = "";
-	//check if button is "View All"
+
+	// make sure edit mode isn't active
+	if (editModeActive) {
+		const tableMsg = document.getElementById("tableMsg");
+		tableMsg.style.color = "#be070d";
+		tableMsg.innerHTML = "Search disabled while in editing mode.";
+		return;
+	}
+
+	// check if button is "View All"
 	if (button !== "searchAllButton") {
 		if (advancedSearchActive) {
 			nameSearch = document.getElementById("nameSearch").value;
