@@ -13,14 +13,6 @@ var USER_INFO = {
 var advancedSearchActive = false;
 var editModeActive = false;
 
-function buttonSearchPage() {
-	USER_INFO.userId = 1;
-	USER_INFO.firstName = "Joey";
-	USER_INFO.lastName = "Crown";
-	saveCookie();
-	goToSearchPage();
-}
-
 function sendPostRequest(endPoint, request, onSuccess, onError) {
 	let url = urlBase + endPoint + '.php';
 	let xhr = new XMLHttpRequest();
