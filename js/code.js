@@ -462,6 +462,9 @@ function altAddEditButtonFunctionality(row, contactId) {
 
 			// Fourth and finally, reset the onclick function of the edit/add contact button.
 			editContactButton.setAttribute("onclick", "javascript: addContact();");
+			
+			// set edit mode to false
+			editModeActive = false;
 		}
 	}
 
